@@ -3,630 +3,598 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Bangla App Store</title>
-
-  <meta name="description"
-        content="Bangla App Store - Discover, download and share Android apps.">
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: Arial, sans-serif;
     }
 
     body {
-      font-family: Arial, sans-serif;
       background: #f5f7fb;
-      color: #172033;
+      color: #222;
     }
 
-    /* Header */
     header {
-      background: #ffffff;
-      border-bottom: 1px solid #e5e7eb;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .navbar {
-      max-width: 1100px;
-      margin: auto;
-      padding: 14px 18px;
+      background: #2563eb;
+      color: white;
+      padding: 15px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 15px;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .logo {
-      font-size: 21px;
+      font-size: 20px;
       font-weight: bold;
-      color: #1769ff;
-      white-space: nowrap;
     }
 
-    .nav-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .nav-btn {
+    button {
       border: none;
-      background: #eef4ff;
-      color: #1769ff;
-      padding: 9px 13px;
-      border-radius: 9px;
+      border-radius: 8px;
+      padding: 10px 15px;
       cursor: pointer;
       font-weight: bold;
     }
 
-    .nav-btn:hover {
-      background: #dce9ff;
+    .login-btn {
+      background: white;
+      color: #2563eb;
     }
 
-    /* Hero */
+    .upload-btn {
+      background: #16a34a;
+      color: white;
+    }
+
+    .logout-btn {
+      background: #dc2626;
+      color: white;
+    }
+
     .hero {
-      max-width: 1100px;
-      margin: 25px auto 0;
-      padding: 35px 20px;
       text-align: center;
+      padding: 45px 20px;
+      background: white;
     }
 
     .hero h1 {
-      font-size: 34px;
+      font-size: 30px;
       margin-bottom: 10px;
     }
 
-    .hero h1 span {
-      color: #1769ff;
-    }
-
     .hero p {
-      color: #667085;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .search {
+      width: 90%;
+      max-width: 500px;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
       font-size: 16px;
-      margin-bottom: 22px;
     }
 
-    .search-box {
-      max-width: 650px;
+    .container {
+      max-width: 1000px;
       margin: auto;
-      display: flex;
-      background: white;
-      border: 1px solid #d9dee8;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .search-box input {
-      width: 100%;
-      border: none;
-      outline: none;
-      padding: 15px;
-      font-size: 15px;
-    }
-
-    .search-box button {
-      border: none;
-      background: #1769ff;
-      color: white;
-      padding: 0 20px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    /* Main */
-    main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 10px 18px 50px;
+      padding: 25px 15px;
     }
 
     .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 20px 0 15px;
+      margin-bottom: 18px;
     }
 
-    .section-title h2 {
-      font-size: 22px;
-    }
-
-    .section-title span {
-      color: #667085;
-      font-size: 14px;
-    }
-
-    /* Categories */
-    .categories {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-    }
-
-    .category {
-      background: white;
-      border: 1px solid #e2e6ed;
-      border-radius: 20px;
-      padding: 9px 15px;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-
-    .category:hover {
-      background: #eef4ff;
-      color: #1769ff;
-    }
-
-    /* App Grid */
-    .app-grid {
+    .apps {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
     }
 
     .app-card {
       background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 15px;
-      padding: 15px;
-      transition: 0.2s;
-    }
-
-    .app-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      padding: 18px;
+      border-radius: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
     }
 
     .app-icon {
-      width: 70px;
-      height: 70px;
-      border-radius: 17px;
+      width: 65px;
+      height: 65px;
+      border-radius: 15px;
+      background: #dbeafe;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
-      background: #eaf1ff;
+      font-size: 30px;
       margin-bottom: 12px;
     }
 
-    .app-card h3 {
-      font-size: 17px;
-      margin-bottom: 5px;
-    }
-
-    .developer {
-      font-size: 13px;
-      color: #667085;
-      margin-bottom: 8px;
-    }
-
     .rating {
-      color: #f5a623;
-      font-size: 14px;
-      margin-bottom: 10px;
+      color: #f59e0b;
+      margin: 8px 0;
     }
 
-    .download-btn {
+    .view-btn {
+      background: #2563eb;
+      color: white;
       width: 100%;
-      border: none;
-      background: #1769ff;
-      color: white;
-      padding: 10px;
-      border-radius: 9px;
-      cursor: pointer;
-      font-weight: bold;
     }
 
-    .download-btn:hover {
-      background: #0d55d9;
-    }
-
-    /* Upload Banner */
     .upload-banner {
-      margin-top: 35px;
-      background: #172033;
+      margin-top: 30px;
+      background: #111827;
       color: white;
-      border-radius: 16px;
-      padding: 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .upload-banner h2 {
-      margin-bottom: 6px;
-    }
-
-    .upload-banner p {
-      color: #cbd2df;
-      font-size: 14px;
-    }
-
-    .upload-btn {
-      border: none;
-      background: white;
-      color: #172033;
-      padding: 12px 18px;
-      border-radius: 9px;
-      font-weight: bold;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    /* Footer */
-    footer {
-      background: white;
-      border-top: 1px solid #e5e7eb;
+      padding: 30px 20px;
       text-align: center;
-      padding: 25px 15px;
-      color: #667085;
+      border-radius: 14px;
+    }
+
+    .upload-banner button {
+      margin-top: 15px;
+      background: #16a34a;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+    }
+
+    /* Login Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .modal-box {
+      background: white;
+      width: 100%;
+      max-width: 400px;
+      padding: 25px;
+      border-radius: 15px;
+    }
+
+    .modal-box h2 {
+      margin-bottom: 18px;
+    }
+
+    .modal-box input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .modal-box button {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .signup-btn {
+      background: #16a34a;
+      color: white;
+    }
+
+    .close-btn {
+      background: #eee;
+      color: #333;
+    }
+
+    #userInfo {
+      display: none;
+      background: #eff6ff;
+      padding: 12px;
+      text-align: center;
+      color: #1d4ed8;
+    }
+
+    #message {
+      margin-top: 12px;
+      text-align: center;
       font-size: 14px;
-    }
-
-    /* Mobile */
-    @media (max-width: 800px) {
-      .app-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero h1 {
-        font-size: 28px;
-      }
-
-      .upload-banner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .navbar {
-        padding: 12px;
-      }
-
-      .logo {
-        font-size: 18px;
-      }
-
-      .nav-btn {
-        padding: 8px 9px;
-        font-size: 12px;
-      }
-
-      .app-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
-
-      .app-card {
-        padding: 12px;
-      }
-
-      .app-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 27px;
-      }
-
-      .app-card h3 {
-        font-size: 15px;
-      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="navbar">
+<header>
+  <div class="logo">📱 Bangla App Store</div>
 
-      <div class="logo">
-        📱 Bangla App Store
-      </div>
+  <div>
+    <button class="login-btn" id="loginButton" onclick="openLogin()">
+      Login / Signup
+    </button>
 
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="login()">
-          Login
-        </button>
+    <button class="logout-btn" id="logoutButton" onclick="logout()" style="display:none;">
+      Logout
+    </button>
 
-        <button class="nav-btn" onclick="uploadApp()">
-          + Upload
-        </button>
-      </div>
+    <button class="upload-btn" onclick="uploadApp()">
+      + Upload App
+    </button>
+  </div>
+</header>
 
-    </div>
-  </header>
+<div id="userInfo"></div>
 
+<section class="hero">
+  <h1>বাংলা অ্যাপ খুঁজুন</h1>
+  <p>Discover useful Android apps from Bangla App Store</p>
 
-  <!-- Hero -->
-  <section class="hero">
+  <input
+    class="search"
+    type="text"
+    placeholder="Search apps..."
+    onkeyup="searchApps(this.value)"
+  >
+</section>
 
-    <h1>
-      আপনার পছন্দের App খুঁজুন
-      <span>সহজেই</span>
-    </h1>
+<section class="container">
 
-    <p>
-      Bangla App Store-এ Android app খুঁজুন, download করুন এবং নিজের app share করুন।
-    </p>
+  <h2 class="section-title">⭐ Featured Apps</h2>
 
-    <div class="search-box">
+  <div class="apps" id="appList">
 
-      <input
-        id="searchInput"
-        type="text"
-        placeholder="App search করুন..."
-        onkeyup="searchApps()"
-      >
-
-      <button onclick="searchApps()">
-        Search
+    <div class="app-card">
+      <div class="app-icon">🧮</div>
+      <h3>Bangla Calculator</h3>
+      <p>সহজ বাংলা ক্যালকুলেটর অ্যাপ।</p>
+      <div class="rating">★★★★★</div>
+      <button class="view-btn" onclick="viewApp('Bangla Calculator')">
+        View App
       </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- Main -->
-  <main>
-
-    <!-- Categories -->
-    <div class="section-title">
-      <h2>Categories</h2>
     </div>
 
-    <div class="categories">
-
-      <button class="category">
-        📱 All Apps
+    <div class="app-card">
+      <div class="app-icon">📝</div>
+      <h3>Bangla Notes</h3>
+      <p>বাংলায় সহজে নোট লিখুন।</p>
+      <div class="rating">★★★★☆</div>
+      <button class="view-btn" onclick="viewApp('Bangla Notes')">
+        View App
       </button>
-
-      <button class="category">
-        🎮 Games
-      </button>
-
-      <button class="category">
-        🎓 Education
-      </button>
-
-      <button class="category">
-        🛠️ Tools
-      </button>
-
-      <button class="category">
-        🎵 Music
-      </button>
-
-      <button class="category">
-        📷 Photography
-      </button>
-
     </div>
 
-
-    <!-- Apps -->
-    <div class="section-title">
-      <h2>Popular Apps</h2>
-      <span>Approved Apps</span>
-    </div>
-
-
-    <div class="app-grid" id="appGrid">
-
-
-      <!-- App 1 -->
-      <div class="app-card" data-name="Bangla Calculator">
-
-        <div class="app-icon">
-          🧮
-        </div>
-
-        <h3>Bangla Calculator</h3>
-
-        <p class="developer">
-          By Bangla Developer
-        </p>
-
-        <div class="rating">
-          ⭐⭐⭐⭐⭐ 5.0
-        </div>
-
-        <button
-          class="download-btn"
-          onclick="viewApp('Bangla Calculator')">
-          View App
-        </button>
-
-      </div>
-
-
-      <!-- App 2 -->
-      <div class="app-card" data-name="Bangla Notes">
-
-        <div class="app-icon">
-          📝
-        </div>
-
-        <h3>Bangla Notes</h3>
-
-        <p class="developer">
-          By App Creator
-        </p>
-
-        <div class="rating">
-          ⭐⭐⭐⭐☆ 4.5
-        </div>
-
-        <button
-          class="download-btn"
-          onclick="viewApp('Bangla Notes')">
-          View App
-        </button>
-
-      </div>
-
-
-      <!-- App 3 -->
-      <div class="app-card" data-name="Study Helper">
-
-        <div class="app-icon">
-          📚
-        </div>
-
-        <h3>Study Helper</h3>
-
-        <p class="developer">
-          By Education Team
-        </p>
-
-        <div class="rating">
-          ⭐⭐⭐⭐⭐ 4.9
-        </div>
-
-        <button
-          class="download-btn"
-          onclick="viewApp('Study Helper')">
-          View App
-        </button>
-
-      </div>
-
-
-      <!-- App 4 -->
-      <div class="app-card" data-name="Bangla Music">
-
-        <div class="app-icon">
-          🎵
-        </div>
-
-        <h3>Bangla Music</h3>
-
-        <p class="developer">
-          By Music Studio
-        </p>
-
-        <div class="rating">
-          ⭐⭐⭐⭐☆ 4.6
-        </div>
-
-        <button
-          class="download-btn"
-          onclick="viewApp('Bangla Music')">
-          View App
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <!-- Upload -->
-    <div class="upload-banner">
-
-      <div>
-        <h2>নিজের App publish করুন 🚀</h2>
-
-        <p>
-          আপনার তৈরি Android app Bangla App Store-এ submit করুন।
-          Admin review করার পর app প্রকাশ করা হবে।
-        </p>
-      </div>
-
-      <button
-        class="upload-btn"
-        onclick="uploadApp()">
-        Upload Your App
+    <div class="app-card">
+      <div class="app-icon">📚</div>
+      <h3>Study Helper</h3>
+      <p>Students-এর জন্য useful study app.</p>
+      <div class="rating">★★★★★</div>
+      <button class="view-btn" onclick="viewApp('Study Helper')">
+        View App
       </button>
-
     </div>
 
-  </main>
+    <div class="app-card">
+      <div class="app-icon">🎵</div>
+      <h3>Bangla Music</h3>
+      <p>বাংলা music collection.</p>
+      <div class="rating">★★★★☆</div>
+      <button class="view-btn" onclick="viewApp('Bangla Music')">
+        View App
+      </button>
+    </div>
+
+  </div>
+
+  <div class="upload-banner">
+    <h2>আপনার অ্যাপ প্রকাশ করুন 🚀</h2>
+    <p>নিজের Android app Bangla App Store-এ submit করুন।</p>
+
+    <button onclick="uploadApp()">
+      + Submit Your App
+    </button>
+  </div>
+
+</section>
+
+<footer>
+  © 2026 Bangla App Store — Free Android App Platform
+</footer>
 
 
-  <!-- Footer -->
-  <footer>
+<!-- Login / Signup Modal -->
 
-    <p>
-      © 2026 Bangla App Store
-    </p>
+<div class="modal" id="loginModal">
 
-    <p style="margin-top: 6px;">
-      Made with ❤️ for App Developers
-    </p>
+  <div class="modal-box">
 
-  </footer>
+    <h2>🔐 Bangla App Store</h2>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Email address"
+    >
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+    >
+
+    <button class="login-btn" onclick="login()">
+      Login
+    </button>
+
+    <button class="signup-btn" onclick="signup()">
+      Create Account
+    </button>
+
+    <button class="close-btn" onclick="closeLogin()">
+      Close
+    </button>
+
+    <div id="message"></div>
+
+  </div>
+
+</div>
 
 
-  <script>
+<!-- Firebase -->
 
-    function login() {
+<script type="module">
 
-      alert(
-        "Login system খুব শীঘ্রই Firebase-এর সাথে connect করা হবে।"
+  import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+  } from
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+  const firebaseConfig = {
+
+    apiKey: "AIzaSyB-9kRZjLXLdrf2CsnOnytJklx7KxKKikk",
+
+    authDomain: "bangla-app-store-510522.firebaseapp.com",
+
+    projectId: "bangla-app-store-510522",
+
+    storageBucket: "bangla-app-store-510522.firebasestorage.app",
+
+    messagingSenderId: "599550128804",
+
+    appId: "1:599550128804:web:de054b345d7f68c49dec31",
+
+    measurementId: "G-1HP4G49SJE"
+
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+
+
+  // Login
+
+  window.login = async function() {
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    const message =
+      document.getElementById("message");
+
+
+    if (!email || !password) {
+
+      message.innerText =
+        "Email এবং password দিন।";
+
+      return;
+    }
+
+
+    try {
+
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
 
+      message.innerText =
+        "✅ Login successful!";
+
+    } catch (error) {
+
+      message.innerText =
+        "❌ Login failed: " + error.message;
+
+    }
+
+  };
+
+
+  // Signup
+
+  window.signup = async function() {
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    const message =
+      document.getElementById("message");
+
+
+    if (!email || !password) {
+
+      message.innerText =
+        "Email এবং password দিন।";
+
+      return;
     }
 
 
-    function uploadApp() {
+    if (password.length < 6) {
 
-      alert(
-        "App Upload system পরের ধাপে তৈরি করা হবে।"
+      message.innerText =
+        "Password কমপক্ষে 6 characters হতে হবে।";
+
+      return;
+    }
+
+
+    try {
+
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
 
-    }
+      message.innerText =
+        "✅ Account created successfully!";
 
+    } catch (error) {
 
-    function viewApp(appName) {
-
-      alert(
-        appName + " এর App Details page পরের ধাপে তৈরি করা হবে।"
-      );
-
-    }
-
-
-    function searchApps() {
-
-      const input =
-        document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase();
-
-      const apps =
-        document.querySelectorAll(".app-card");
-
-      apps.forEach(function(app) {
-
-        const name =
-          app
-          .getAttribute("data-name")
-          .toLowerCase();
-
-        if (name.includes(input)) {
-
-          app.style.display = "block";
-
-        } else {
-
-          app.style.display = "none";
-
-        }
-
-      });
+      message.innerText =
+        "❌ Signup failed: " + error.message;
 
     }
 
-  </script>
+  };
+
+
+  // Logout
+
+  window.logout = async function() {
+
+    await signOut(auth);
+
+  };
+
+
+  // Authentication status
+
+  onAuthStateChanged(auth, (user) => {
+
+    const loginButton =
+      document.getElementById("loginButton");
+
+    const logoutButton =
+      document.getElementById("logoutButton");
+
+    const userInfo =
+      document.getElementById("userInfo");
+
+
+    if (user) {
+
+      loginButton.style.display = "none";
+
+      logoutButton.style.display = "inline-block";
+
+      userInfo.style.display = "block";
+
+      userInfo.innerText =
+        "👋 Welcome, " + user.email;
+
+    } else {
+
+      loginButton.style.display = "inline-block";
+
+      logoutButton.style.display = "none";
+
+      userInfo.style.display = "none";
+
+    }
+
+  });
+
+</script>
+
+
+<script>
+
+  function openLogin() {
+
+    document.getElementById("loginModal").style.display =
+      "flex";
+
+  }
+
+
+  function closeLogin() {
+
+    document.getElementById("loginModal").style.display =
+      "none";
+
+  }
+
+
+  function uploadApp() {
+
+    alert(
+      "অ্যাপ Upload করতে আগে Login / Signup করুন।"
+    );
+
+    openLogin();
+
+  }
+
+
+  function viewApp(name) {
+
+    alert(
+      name + " — App details খুব শীঘ্রই আসছে!"
+    );
+
+  }
+
+
+  function searchApps(value) {
+
+    const cards =
+      document.querySelectorAll(".app-card");
+
+    const search =
+      value.toLowerCase();
+
+    cards.forEach(card => {
+
+      const text =
+        card.innerText.toLowerCase();
+
+      card.style.display =
+        text.includes(search) ? "block" : "none";
+
+    });
+
+  }
+
+</script>
 
 </body>
 </html>
