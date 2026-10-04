@@ -1,580 +1,1451 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Bangla App Store</title>
+<title>Bangla App Store</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #222;
-    }
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    header {
-      background: #ffffff;
-      border-bottom: 1px solid #ddd;
-      padding: 14px 18px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
+:root{
+  --bg:#f5f7ff;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#64748b;
+  --primary:#5b5cf0;
+  --primary2:#7c3aed;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --border:#e5e7eb;
+  --dark:#0f172a;
+}
 
-    .nav {
-      max-width: 1100px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
+body{
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
 
-    .logo {
-      font-size: 22px;
-      font-weight: bold;
-      color: #1769ff;
-    }
+  background:
+    radial-gradient(
+      circle at top left,
+      #eef2ff 0,
+      transparent 35%
+    ),
+    var(--bg);
 
-    .nav-buttons {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
+  color:var(--text);
+  min-height:100vh;
+}
 
-    button {
-      border: none;
-      border-radius: 8px;
-      padding: 10px 14px;
-      cursor: pointer;
-      font-weight: bold;
-    }
 
-    .primary {
-      background: #1769ff;
-      color: white;
-    }
+/* =========================
+   HEADER
+========================= */
 
-    .success {
-      background: #16a34a;
-      color: white;
-    }
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
 
-    .danger {
-      background: #dc2626;
-      color: white;
-    }
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(18px);
 
-    .dark {
-      background: #222;
-      color: white;
-    }
+  border-bottom:1px solid rgba(226,232,240,.8);
+}
 
-    .gray {
-      background: #e5e7eb;
-      color: #222;
-    }
+.nav{
+  max-width:1180px;
+  margin:auto;
 
-    .hero {
-      max-width: 1100px;
-      margin: 25px auto;
-      padding: 35px 20px;
-      background: linear-gradient(135deg, #1769ff, #5b21b6);
-      color: white;
-      border-radius: 18px;
-      text-align: center;
-    }
+  padding:15px 18px;
 
-    .hero h1 {
-      margin-top: 0;
-      font-size: 34px;
-    }
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 
-    .hero p {
-      font-size: 16px;
-      opacity: 0.95;
-    }
+  gap:20px;
+}
 
-    .container {
-      max-width: 1100px;
-      margin: 20px auto;
-      padding: 0 15px;
-    }
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
 
-    .section-title {
-      margin-top: 30px;
-      margin-bottom: 15px;
-    }
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:-.5px;
+}
 
-    .apps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 15px;
-    }
+.logo-icon{
+  width:40px;
+  height:40px;
 
-    .app-card {
-      background: white;
-      border-radius: 14px;
-      padding: 18px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
-    }
+  border-radius:12px;
 
-    .app-icon {
-      width: 70px;
-      height: 70px;
-      border-radius: 15px;
-      background: #e5e7eb;
-      object-fit: cover;
-      display: block;
-      margin-bottom: 12px;
-    }
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    .app-card h3 {
-      margin: 5px 0;
-    }
+  color:white;
 
-    .rating {
-      color: #f59e0b;
-      margin: 7px 0;
-    }
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--primary2)
+    );
 
-    .upload-banner {
-      margin: 30px 0;
-      padding: 25px;
-      background: white;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-    }
+  box-shadow:
+    0 8px 20px rgba(91,92,240,.25);
+}
 
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      z-index: 100;
-      padding: 20px;
-      overflow-y: auto;
-    }
+.nav-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
 
-    .modal-box {
-      background: white;
-      max-width: 550px;
-      margin: 30px auto;
-      padding: 22px;
-      border-radius: 15px;
-    }
 
-    .modal-box h2 {
-      margin-top: 0;
-    }
+/* =========================
+   BUTTONS
+========================= */
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 12px;
-      margin: 7px 0 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-    }
+button{
+  border:0;
+  cursor:pointer;
 
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
+  font-size:14px;
+  font-weight:700;
 
-    .close {
-      float: right;
-      font-size: 24px;
-      cursor: pointer;
-    }
+  border-radius:10px;
 
-    .user-info {
-      text-align: center;
-      margin: 10px 0;
-      color: #555;
-    }
+  padding:10px 15px;
 
-    .admin-section {
-      display: none;
-      margin-top: 30px;
-    }
+  transition:
+    transform .2s,
+    box-shadow .2s,
+    opacity .2s;
+}
 
-    .admin-header {
-      background: #111827;
-      color: white;
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-    }
+button:hover{
+  transform:translateY(-1px);
+}
 
-    .admin-card {
-      background: white;
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 15px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    }
+.primary{
+  color:white;
 
-    .admin-card h3 {
-      margin-top: 0;
-    }
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--primary2)
+    );
 
-    .pending {
-      color: #d97706;
-      font-weight: bold;
-    }
+  box-shadow:
+    0 7px 18px rgba(91,92,240,.2);
+}
 
-    .approved {
-      color: #16a34a;
-      font-weight: bold;
-    }
+.success{
+  color:white;
+  background:var(--success);
+}
 
-    .rejected {
-      color: #dc2626;
-      font-weight: bold;
-    }
+.danger{
+  color:white;
+  background:var(--danger);
+}
 
-    .admin-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
+.dark{
+  color:white;
+  background:#111827;
+}
 
-    .message {
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 8px;
-      background: #f1f5f9;
-    }
+.gray{
+  color:#334155;
+  background:#e2e8f0;
+}
 
-    footer {
-      text-align: center;
-      padding: 30px 15px;
-      margin-top: 40px;
-      background: #111827;
-      color: white;
-    }
 
-    @media (max-width: 600px) {
-      .nav {
-        align-items: flex-start;
-        flex-direction: column;
-      }
+/* =========================
+   HERO
+========================= */
 
-      .nav-buttons {
-        width: 100%;
-        justify-content: flex-start;
-      }
+.hero-wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:35px 18px 10px;
+}
 
-      .hero h1 {
-        font-size: 27px;
-      }
-    }
-  </style>
+.hero{
+  position:relative;
+  overflow:hidden;
+
+  border-radius:28px;
+
+  padding:55px 30px;
+
+  color:white;
+
+  background:
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(255,255,255,.2),
+      transparent 25%
+    ),
+    linear-gradient(
+      135deg,
+      #111c55,
+      #312e81 55%,
+      #6d28d9
+    );
+
+  box-shadow:
+    0 25px 60px rgba(49,46,129,.22);
+}
+
+.hero:after{
+  content:"";
+
+  position:absolute;
+
+  width:220px;
+  height:220px;
+
+  right:-70px;
+  bottom:-100px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.08);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+
+  max-width:700px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+
+  padding:7px 12px;
+
+  border-radius:100px;
+
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);
+
+  font-size:12px;
+  font-weight:700;
+
+  margin-bottom:18px;
+}
+
+.hero h1{
+  font-size:clamp(34px,7vw,62px);
+
+  line-height:1.02;
+
+  letter-spacing:-2.5px;
+
+  margin-bottom:18px;
+}
+
+.hero p{
+  font-size:17px;
+  line-height:1.7;
+
+  color:#dbeafe;
+
+  max-width:620px;
+}
+
+.hero-actions{
+  margin-top:25px;
+
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.hero-actions button{
+  padding:13px 20px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-wrap{
+  max-width:1180px;
+  margin:20px auto 0;
+  padding:0 18px;
+}
+
+.search-box{
+  position:relative;
+}
+
+.search-box input{
+  width:100%;
+
+  border:1px solid var(--border);
+
+  background:white;
+
+  border-radius:15px;
+
+  padding:16px 18px 16px 48px;
+
+  outline:none;
+
+  font-size:15px;
+
+  box-shadow:
+    0 5px 25px rgba(15,23,42,.04);
+}
+
+.search-icon{
+  position:absolute;
+  left:17px;
+  top:15px;
+
+  font-size:18px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+  max-width:1180px;
+
+  margin:auto;
+
+  padding:30px 18px 60px;
+}
+
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+
+  gap:15px;
+
+  margin:25px 0 18px;
+}
+
+.section-head h2{
+  font-size:24px;
+  letter-spacing:-.7px;
+}
+
+.section-head p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:5px;
+}
+
+
+/* =========================
+   APP GRID
+========================= */
+
+.apps-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(245px,1fr)
+    );
+
+  gap:18px;
+}
+
+.app-card{
+  background:var(--card);
+
+  border:1px solid rgba(226,232,240,.8);
+
+  border-radius:18px;
+
+  padding:19px;
+
+  box-shadow:
+    0 8px 30px rgba(15,23,42,.045);
+
+  transition:
+    transform .2s,
+    box-shadow .2s;
+
+  overflow:hidden;
+}
+
+.app-card:hover{
+  transform:translateY(-4px);
+
+  box-shadow:
+    0 18px 40px rgba(15,23,42,.09);
+}
+
+.app-top{
+  display:flex;
+  align-items:center;
+
+  gap:13px;
+
+  margin-bottom:14px;
+}
+
+.app-icon{
+  width:65px;
+  height:65px;
+
+  border-radius:17px;
+
+  object-fit:cover;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e0e7ff,
+      #ede9fe
+    );
+
+  flex-shrink:0;
+}
+
+.placeholder-icon{
+  width:65px;
+  height:65px;
+
+  border-radius:17px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:27px;
+
+  color:#4f46e5;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eef2ff,
+      #f5f3ff
+    );
+
+  flex-shrink:0;
+}
+
+.app-name{
+  font-size:17px;
+  font-weight:800;
+
+  line-height:1.25;
+}
+
+.country{
+  font-size:12px;
+  color:var(--muted);
+
+  margin-top:4px;
+}
+
+.rating{
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  margin:10px 0;
+
+  font-size:13px;
+}
+
+.stars{
+  color:#f59e0b;
+  letter-spacing:1px;
+}
+
+.app-description{
+  color:#64748b;
+
+  font-size:13px;
+
+  line-height:1.6;
+
+  min-height:42px;
+
+  margin-bottom:15px;
+}
+
+.download-btn{
+  width:100%;
+}
+
+
+/* =========================
+   UPLOAD BANNER
+========================= */
+
+.upload-banner{
+  margin:40px 0;
+
+  padding:28px;
+
+  border-radius:22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eef2ff,
+      #f5f3ff
+    );
+
+  border:1px solid #ddd6fe;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:20px;
+}
+
+.upload-banner h2{
+  font-size:23px;
+  margin-bottom:7px;
+}
+
+.upload-banner p{
+  color:#64748b;
+  font-size:14px;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  display:none;
+
+  position:fixed;
+  inset:0;
+
+  z-index:1000;
+
+  background:rgba(2,6,23,.68);
+
+  backdrop-filter:blur(5px);
+
+  padding:18px;
+
+  overflow-y:auto;
+}
+
+.modal-box{
+  max-width:560px;
+
+  margin:30px auto;
+
+  background:white;
+
+  border-radius:22px;
+
+  padding:25px;
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.25);
+}
+
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:18px;
+}
+
+.modal-head h2{
+  font-size:22px;
+}
+
+.close{
+  width:36px;
+  height:36px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#f1f5f9;
+
+  cursor:pointer;
+
+  font-size:22px;
+}
+
+label{
+  display:block;
+
+  font-size:13px;
+  font-weight:700;
+
+  margin:13px 0 6px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+
+  padding:13px 14px;
+
+  border:1px solid #dbe1ea;
+
+  border-radius:11px;
+
+  font-size:14px;
+
+  outline:none;
+
+  background:#fff;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:#818cf8;
+
+  box-shadow:
+    0 0 0 3px rgba(99,102,241,.1);
+}
+
+textarea{
+  min-height:105px;
+
+  resize:vertical;
+}
+
+.modal-submit{
+  width:100%;
+
+  margin-top:18px;
+
+  padding:13px;
+}
+
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin-section{
+  display:none;
+
+  margin-top:40px;
+}
+
+.admin-header{
+  border-radius:22px;
+
+  padding:25px;
+
+  color:white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0f172a,
+      #1e293b
+    );
+
+  margin-bottom:18px;
+}
+
+.admin-header h2{
+  font-size:25px;
+}
+
+.admin-header p{
+  color:#cbd5e1;
+  margin:7px 0 18px;
+}
+
+.stats{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:12px;
+
+  margin-bottom:20px;
+}
+
+.stat{
+  background:white;
+
+  border:1px solid var(--border);
+
+  border-radius:16px;
+
+  padding:17px;
+
+  box-shadow:
+    0 5px 20px rgba(15,23,42,.04);
+}
+
+.stat-number{
+  font-size:28px;
+  font-weight:900;
+}
+
+.stat-label{
+  font-size:12px;
+  color:var(--muted);
+
+  margin-top:4px;
+}
+
+.admin-card{
+  background:white;
+
+  border:1px solid var(--border);
+
+  border-radius:18px;
+
+  padding:20px;
+
+  margin-bottom:14px;
+
+  box-shadow:
+    0 7px 25px rgba(15,23,42,.05);
+}
+
+.admin-card-header{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+
+  margin-bottom:13px;
+}
+
+.admin-card h3{
+  font-size:18px;
+}
+
+.pending{
+  color:#b45309;
+
+  background:#fef3c7;
+
+  padding:5px 9px;
+
+  border-radius:100px;
+
+  font-size:11px;
+
+  font-weight:800;
+
+  white-space:nowrap;
+}
+
+.admin-info{
+  color:#64748b;
+
+  font-size:13px;
+
+  line-height:1.7;
+}
+
+.admin-actions{
+  display:flex;
+  gap:8px;
+
+  margin-top:16px;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+  margin-top:12px;
+
+  padding:11px 13px;
+
+  border-radius:10px;
+
+  background:#f1f5f9;
+
+  color:#475569;
+
+  font-size:13px;
+}
+
+
+/* =========================
+   EMPTY / ERROR
+========================= */
+
+.empty{
+  grid-column:1/-1;
+
+  text-align:center;
+
+  background:white;
+
+  border:1px dashed #cbd5e1;
+
+  border-radius:18px;
+
+  padding:45px 20px;
+
+  color:#64748b;
+}
+
+.empty-icon{
+  font-size:40px;
+  margin-bottom:10px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  background:#0f172a;
+
+  color:#cbd5e1;
+
+  padding:35px 18px;
+
+  text-align:center;
+}
+
+.footer-logo{
+  color:white;
+
+  font-size:19px;
+
+  font-weight:800;
+
+  margin-bottom:8px;
+}
+
+footer p{
+  font-size:12px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  .nav{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .nav-buttons{
+    width:100%;
+  }
+
+  .nav-buttons button{
+    flex:1;
+  }
+
+  .hero{
+    padding:40px 22px;
+    border-radius:22px;
+  }
+
+  .hero h1{
+    letter-spacing:-1.5px;
+  }
+
+  .upload-banner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .upload-banner button{
+    width:100%;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .admin-card-header{
+    flex-direction:column;
+  }
+
+  .admin-actions button{
+    flex:1;
+  }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
-  <div class="nav">
 
-    <div class="logo">
-      📱 Bangla App Store
+<div class="nav">
+
+  <div class="logo">
+
+    <div class="logo-icon">
+      📱
     </div>
 
-    <div class="nav-buttons">
-
-      <button
-        id="loginBtn"
-        class="primary"
-        onclick="openLogin()">
-        Login / Signup
-      </button>
-
-      <button
-        id="logoutBtn"
-        class="dark"
-        onclick="logout()"
-        style="display:none;">
-        Logout
-      </button>
-
-      <button
-        id="uploadBtn"
-        class="success"
-        onclick="openUpload()"
-        style="display:none;">
-        + Upload App
-      </button>
-
-      <button
-        id="adminBtn"
-        class="danger"
-        onclick="openAdmin()"
-        style="display:none;">
-        👑 Admin Panel
-      </button>
-
-    </div>
+    <span>
+      Bangla App Store
+    </span>
 
   </div>
+
+
+  <div class="nav-buttons">
+
+    <button
+      id="loginBtn"
+      class="primary"
+      onclick="openLogin()">
+      Login / Signup
+    </button>
+
+
+    <button
+      id="uploadBtn"
+      class="primary"
+      onclick="openUpload()"
+      style="display:none;">
+      + Upload App
+    </button>
+
+
+    <button
+      id="adminBtn"
+      class="danger"
+      onclick="openAdmin()"
+      style="display:none;">
+      👑 Admin
+    </button>
+
+
+    <button
+      id="logoutBtn"
+      class="dark"
+      onclick="logout()"
+      style="display:none;">
+      Logout
+    </button>
+
+  </div>
+
+</div>
+
 </header>
 
 
-<section class="hero">
 
-  <h1>🇧🇩 Bangla App Store</h1>
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero-wrap">
+
+<div class="hero">
+
+<div class="hero-content">
+
+  <div class="badge">
+    🇧🇩 Bangladesh's Community App Store
+  </div>
+
+
+  <h1>
+    Discover apps.<br>
+    Share your creation.
+  </h1>
+
 
   <p>
-    Discover, upload and share apps with everyone.
+    Bangla App Store is a community-driven platform
+    where developers can submit their apps and users
+    can discover useful applications.
   </p>
 
-  <p id="welcomeText">
+
+  <div class="hero-actions">
+
+    <button
+      class="primary"
+      onclick="scrollToApps()">
+      🔎 Explore Apps
+    </button>
+
+
+    <button
+      class="gray"
+      onclick="openUpload()">
+      🚀 Publish Your App
+    </button>
+
+  </div>
+
+
+  <p
+    id="welcomeText"
+    style="margin-top:18px;font-size:13px;">
     Welcome to Bangla App Store
   </p>
+
+</div>
+
+</div>
 
 </section>
 
 
-<div class="container">
 
-  <h2 class="section-title">
-    📱 Available Apps
+<!-- =========================
+     SEARCH
+========================= -->
+
+<div class="search-wrap">
+
+  <div class="search-box">
+
+    <span class="search-icon">
+      🔎
+    </span>
+
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search apps..."
+      oninput="filterApps()">
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+
+<div
+  id="appsSection"
+  class="section-head">
+
+  <div>
+
+    <h2>
+      Featured Apps
+    </h2>
+
+    <p>
+      Discover apps published by our community.
+    </p>
+
+  </div>
+
+</div>
+
+
+<div
+  id="appsGrid"
+  class="apps-grid">
+
+  <div class="empty">
+
+    <div class="empty-icon">
+      ⏳
+    </div>
+
+    Loading apps...
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================
+     UPLOAD BANNER
+========================= -->
+
+<div class="upload-banner">
+
+  <div>
+
+    <h2>
+      🚀 Have an app to share?
+    </h2>
+
+    <p>
+      Submit your app and let the community discover it.
+      Every submission is reviewed by our admin team.
+    </p>
+
+  </div>
+
+
+  <button
+    class="primary"
+    onclick="openUpload()">
+
+    Submit Your App
+
+  </button>
+
+</div>
+
+
+
+<!-- =========================
+     ADMIN PANEL
+========================= -->
+
+<section
+  id="adminSection"
+  class="admin-section">
+
+
+<div class="admin-header">
+
+  <h2>
+    👑 Admin Dashboard
   </h2>
 
-  <div id="appsGrid" class="apps-grid">
-
-    <div class="app-card">
-      <h3>Loading apps...</h3>
-      <p>Please wait...</p>
-    </div>
-
-  </div>
+  <p>
+    Review and manage community app submissions.
+  </p>
 
 
-  <div class="upload-banner">
+  <button
+    class="primary"
+    onclick="loadAdminApps()">
 
-    <h2>🚀 Publish Your App</h2>
+    🔄 Refresh
 
-    <p>
-      Have your own app? Submit it to Bangla App Store.
-    </p>
-
-    <button
-      class="primary"
-      onclick="openUpload()">
-      Upload Your App
-    </button>
-
-  </div>
-
-
-  <!-- ADMIN PANEL -->
-
-  <section id="adminSection" class="admin-section">
-
-    <div class="admin-header">
-
-      <h2>👑 Admin Panel</h2>
-
-      <p>
-        Manage submitted apps from here.
-      </p>
-
-      <button
-        class="primary"
-        onclick="loadAdminApps()">
-        🔄 Refresh
-      </button>
-
-    </div>
-
-    <div id="adminApps">
-      Loading...
-    </div>
-
-  </section>
+  </button>
 
 </div>
 
 
-<!-- LOGIN MODAL -->
 
-<div id="loginModal" class="modal">
+<div
+  id="adminStats"
+  class="stats">
 
-  <div class="modal-box">
+</div>
 
-    <span
-      class="close"
-      onclick="closeLogin()">
-      ×
-    </span>
 
-    <h2>🔐 Login / Signup</h2>
+<div
+  id="adminApps">
 
-    <input
-      type="email"
-      id="email"
-      placeholder="Email">
+  Loading...
 
-    <input
-      type="password"
-      id="password"
-      placeholder="Password">
+</div>
 
-    <button
-      class="primary"
-      onclick="loginUser()">
-      Login
-    </button>
 
-    <button
-      class="success"
-      onclick="signupUser()">
-      Create Account
-    </button>
+</section>
 
-    <div
-      id="loginMessage"
-      class="message">
-    </div>
 
+</main>
+
+
+
+<!-- =========================
+     LOGIN MODAL
+========================= -->
+
+<div
+  id="loginModal"
+  class="modal">
+
+
+<div class="modal-box">
+
+
+<div class="modal-head">
+
+  <h2>
+    🔐 Welcome Back
+  </h2>
+
+  <div
+    class="close"
+    onclick="closeLogin()">
+    ×
   </div>
 
 </div>
 
 
-<!-- UPLOAD MODAL -->
+<label>
+  Email
+</label>
 
-<div id="uploadModal" class="modal">
-
-  <div class="modal-box">
-
-    <span
-      class="close"
-      onclick="closeUpload()">
-      ×
-    </span>
-
-    <h2>📤 Submit Your App</h2>
-
-    <p>
-      Your app will be reviewed by admin before publishing.
-    </p>
-
-    <label>App Name</label>
-
-    <input
-      id="appName"
-      placeholder="Example: My Calculator">
+<input
+  type="email"
+  id="email"
+  placeholder="you@example.com">
 
 
-    <label>Country / Region</label>
+<label>
+  Password
+</label>
 
-    <select id="country">
-
-      <option value="">
-        Select Country
-      </option>
-
-      <option value="Bangladesh">
-        Bangladesh
-      </option>
-
-      <option value="India">
-        India
-      </option>
-
-      <option value="Pakistan">
-        Pakistan
-      </option>
-
-      <option value="Nepal">
-        Nepal
-      </option>
-
-      <option value="Other">
-        Other
-      </option>
-
-    </select>
+<input
+  type="password"
+  id="password"
+  placeholder="••••••••">
 
 
-    <label>Description</label>
+<button
+  class="primary modal-submit"
+  onclick="loginUser()">
 
-    <textarea
-      id="appDescription"
-      placeholder="Describe your app...">
-    </textarea>
+  Login
 
-
-    <label>App Icon URL</label>
-
-    <input
-      id="iconUrl"
-      placeholder="https://example.com/icon.png">
+</button>
 
 
-    <label>Screenshot URL</label>
+<button
+  class="gray modal-submit"
+  onclick="signupUser()">
 
-    <input
-      id="screenshotUrl"
-      placeholder="https://example.com/screenshot.png">
+  Create New Account
 
-
-    <label>APK Download URL</label>
-
-    <input
-      id="apkUrl"
-      placeholder="https://example.com/app.apk">
+</button>
 
 
-    <button
-      class="success"
-      onclick="submitApp()">
-      🚀 Submit App
-    </button>
+<div
+  id="loginMessage"
+  class="message">
+
+</div>
 
 
-    <div
-      id="uploadMessage"
-      class="message">
-    </div>
+</div>
 
+</div>
+
+
+
+<!-- =========================
+     UPLOAD MODAL
+========================= -->
+
+<div
+  id="uploadModal"
+  class="modal">
+
+
+<div class="modal-box">
+
+
+<div class="modal-head">
+
+  <h2>
+    📤 Submit Your App
+  </h2>
+
+  <div
+    class="close"
+    onclick="closeUpload()">
+    ×
   </div>
 
 </div>
 
+
+<p style="color:#64748b;font-size:13px;line-height:1.6;">
+
+  Submit your app for review.
+  Once approved by the admin, it will appear
+  publicly in the App Store.
+
+</p>
+
+
+<label>
+  App Name *
+</label>
+
+<input
+  id="appName"
+  placeholder="Example: My Calculator">
+
+
+<label>
+  Country / Region *
+</label>
+
+<select id="country">
+
+  <option value="">
+    Select Country
+  </option>
+
+  <option value="Bangladesh">
+    🇧🇩 Bangladesh
+  </option>
+
+  <option value="India">
+    🇮🇳 India
+  </option>
+
+  <option value="Pakistan">
+    🇵🇰 Pakistan
+  </option>
+
+  <option value="Nepal">
+    🇳🇵 Nepal
+  </option>
+
+  <option value="Other">
+    🌍 Other
+  </option>
+
+</select>
+
+
+<label>
+  App Description *
+</label>
+
+<textarea
+  id="appDescription"
+  placeholder="Tell users what your app does..."></textarea>
+
+
+<label>
+  App Icon URL
+</label>
+
+<input
+  id="iconUrl"
+  placeholder="https://example.com/icon.png">
+
+
+<label>
+  Screenshot URL
+</label>
+
+<input
+  id="screenshotUrl"
+  placeholder="https://example.com/screenshot.png">
+
+
+<label>
+  APK Download URL
+</label>
+
+<input
+  id="apkUrl"
+  placeholder="https://example.com/app.apk">
+
+
+<button
+  class="primary modal-submit"
+  onclick="submitApp()">
+
+  🚀 Submit For Review
+
+</button>
+
+
+<div
+  id="uploadMessage"
+  class="message">
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
-  <p>
-    © 2026 Bangla App Store
-  </p>
+<div class="footer-logo">
+  📱 Bangla App Store
+</div>
 
-  <p>
-    Built with Firebase + GitHub Pages
-  </p>
+<p>
+  A community-powered home for useful apps.
+</p>
+
+<p style="margin-top:10px;">
+  © 2026 Bangla App Store
+</p>
 
 </footer>
 
 
+
 <script type="module">
+
+
+/* =========================
+   FIREBASE
+========================= */
 
 import {
   initializeApp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
 import {
@@ -583,7 +1454,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 import {
@@ -593,8 +1466,12 @@ import {
   getDocs,
   updateDoc,
   doc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  serverTimestamp,
+  query,
+  where
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -619,105 +1496,135 @@ const firebaseConfig = {
 
   measurementId:
     "G-1HP4G49SJE"
+
 };
 
 
-const app = initializeApp(firebaseConfig);
+const firebaseApp =
+  initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
 
-const db = getFirestore(app);
+const auth =
+  getAuth(firebaseApp);
+
+
+const db =
+  getFirestore(firebaseApp);
 
 
 const ADMIN_EMAIL =
   "arishakotha34@gmail.com";
 
 
-/* -------------------------
-   LOGIN MODAL
-------------------------- */
-
-window.openLogin = function() {
-
-  document.getElementById("loginModal").style.display =
-    "block";
-
-};
+let allApprovedApps = [];
 
 
-window.closeLogin = function() {
 
-  document.getElementById("loginModal").style.display =
-    "none";
+/* =========================
+   MODALS
+========================= */
+
+window.openLogin = function(){
+
+  document
+    .getElementById("loginModal")
+    .style.display = "block";
 
 };
 
 
-/* -------------------------
-   UPLOAD MODAL
-------------------------- */
+window.closeLogin = function(){
 
-window.openUpload = function() {
+  document
+    .getElementById("loginModal")
+    .style.display = "none";
 
-  if (!auth.currentUser) {
+};
 
-    alert("Please login first.");
+
+window.openUpload = function(){
+
+  if(!auth.currentUser){
+
+    alert(
+      "Please login or create an account first."
+    );
 
     openLogin();
 
     return;
   }
 
-  document.getElementById("uploadModal").style.display =
-    "block";
+
+  document
+    .getElementById("uploadModal")
+    .style.display = "block";
 
 };
 
 
-window.closeUpload = function() {
+window.closeUpload = function(){
 
-  document.getElementById("uploadModal").style.display =
-    "none";
+  document
+    .getElementById("uploadModal")
+    .style.display = "none";
 
 };
 
 
-/* -------------------------
+
+/* =========================
    SIGNUP
-------------------------- */
+========================= */
 
-window.signupUser = async function() {
+window.signupUser =
+async function(){
 
   const email =
-    document.getElementById("email").value.trim();
+    document
+      .getElementById("email")
+      .value
+      .trim();
+
 
   const password =
-    document.getElementById("password").value;
+    document
+      .getElementById("password")
+      .value;
 
 
-  if (!email || !password) {
+  if(!email || !password){
 
-    document.getElementById("loginMessage").innerText =
+    document
+      .getElementById("loginMessage")
+      .innerText =
       "Please enter email and password.";
 
     return;
   }
 
 
-  try {
+  try{
 
-    await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    await
+      createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-    document.getElementById("loginMessage").innerText =
+
+    document
+      .getElementById("loginMessage")
+      .innerText =
       "✅ Account created successfully!";
 
-  } catch (error) {
 
-    document.getElementById("loginMessage").innerText =
+  }catch(error){
+
+    document
+      .getElementById("loginMessage")
+      .innerText =
       "❌ " + error.message;
 
   }
@@ -725,41 +1632,56 @@ window.signupUser = async function() {
 };
 
 
-/* -------------------------
-   LOGIN
-------------------------- */
 
-window.loginUser = async function() {
+/* =========================
+   LOGIN
+========================= */
+
+window.loginUser =
+async function(){
 
   const email =
-    document.getElementById("email").value.trim();
+    document
+      .getElementById("email")
+      .value
+      .trim();
+
 
   const password =
-    document.getElementById("password").value;
+    document
+      .getElementById("password")
+      .value;
 
 
-  if (!email || !password) {
+  if(!email || !password){
 
-    document.getElementById("loginMessage").innerText =
+    document
+      .getElementById("loginMessage")
+      .innerText =
       "Please enter email and password.";
 
     return;
   }
 
 
-  try {
+  try{
 
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    await
+      signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
 
     closeLogin();
 
-  } catch (error) {
 
-    document.getElementById("loginMessage").innerText =
+  }catch(error){
+
+    document
+      .getElementById("loginMessage")
+      .innerText =
       "❌ " + error.message;
 
   }
@@ -767,105 +1689,122 @@ window.loginUser = async function() {
 };
 
 
-/* -------------------------
-   LOGOUT
-------------------------- */
 
-window.logout = async function() {
+/* =========================
+   LOGOUT
+========================= */
+
+window.logout =
+async function(){
 
   await signOut(auth);
 
 };
 
 
-/* -------------------------
+
+/* =========================
    AUTH STATE
-------------------------- */
+========================= */
 
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(
+  auth,
+  async(user)=>{
 
-  const loginBtn =
-    document.getElementById("loginBtn");
+    const loginBtn =
+      document.getElementById("loginBtn");
 
-  const logoutBtn =
-    document.getElementById("logoutBtn");
+    const logoutBtn =
+      document.getElementById("logoutBtn");
 
-  const uploadBtn =
-    document.getElementById("uploadBtn");
+    const uploadBtn =
+      document.getElementById("uploadBtn");
 
-  const adminBtn =
-    document.getElementById("adminBtn");
+    const adminBtn =
+      document.getElementById("adminBtn");
 
-  const welcomeText =
-    document.getElementById("welcomeText");
-
-
-  if (user) {
-
-    loginBtn.style.display = "none";
-
-    logoutBtn.style.display = "inline-block";
-
-    uploadBtn.style.display = "inline-block";
+    const welcome =
+      document.getElementById("welcomeText");
 
 
-    welcomeText.innerText =
-      "👋 Welcome, " + user.email;
+    if(user){
 
+      loginBtn.style.display =
+        "none";
 
-    if (
-      user.email.toLowerCase() ===
-      ADMIN_EMAIL.toLowerCase()
-    ) {
-
-      adminBtn.style.display =
+      logoutBtn.style.display =
         "inline-block";
 
-    } else {
+      uploadBtn.style.display =
+        "inline-block";
+
+
+      welcome.innerText =
+        "👋 Welcome, " + user.email;
+
+
+      if(
+        user.email.toLowerCase() ===
+        ADMIN_EMAIL.toLowerCase()
+      ){
+
+        adminBtn.style.display =
+          "inline-block";
+
+      }else{
+
+        adminBtn.style.display =
+          "none";
+
+      }
+
+
+    }else{
+
+      loginBtn.style.display =
+        "inline-block";
+
+      logoutBtn.style.display =
+        "none";
+
+      uploadBtn.style.display =
+        "none";
 
       adminBtn.style.display =
         "none";
 
+
+      welcome.innerText =
+        "Welcome to Bangla App Store";
+
+
+      document
+        .getElementById("adminSection")
+        .style.display =
+        "none";
+
     }
 
-  } else {
 
-    loginBtn.style.display =
-      "inline-block";
-
-    logoutBtn.style.display =
-      "none";
-
-    uploadBtn.style.display =
-      "none";
-
-    adminBtn.style.display =
-      "none";
-
-    welcomeText.innerText =
-      "Welcome to Bangla App Store";
-
-    document.getElementById("adminSection").style.display =
-      "none";
+    await loadApprovedApps();
 
   }
+);
 
 
-  await loadApprovedApps();
 
-});
-
-
-/* -------------------------
+/* =========================
    SUBMIT APP
-------------------------- */
+========================= */
 
-window.submitApp = async function() {
+window.submitApp =
+async function(){
 
-  const user = auth.currentUser;
+  const user =
+    auth.currentUser;
 
 
-  if (!user) {
+  if(!user){
 
     alert("Please login first.");
 
@@ -874,224 +1813,193 @@ window.submitApp = async function() {
 
 
   const name =
-    document.getElementById("appName").value.trim();
+    document
+      .getElementById("appName")
+      .value
+      .trim();
+
 
   const country =
-    document.getElementById("country").value;
+    document
+      .getElementById("country")
+      .value;
+
 
   const description =
     document
       .getElementById("appDescription")
-      .value.trim();
+      .value
+      .trim();
+
 
   const iconUrl =
     document
       .getElementById("iconUrl")
-      .value.trim();
+      .value
+      .trim();
+
 
   const screenshotUrl =
     document
       .getElementById("screenshotUrl")
-      .value.trim();
+      .value
+      .trim();
+
 
   const apkUrl =
     document
       .getElementById("apkUrl")
-      .value.trim();
+      .value
+      .trim();
 
 
-  if (!name || !country || !description) {
+  if(
+    !name ||
+    !country ||
+    !description
+  ){
 
-    document.getElementById("uploadMessage").innerText =
+    document
+      .getElementById("uploadMessage")
+      .innerText =
       "❌ App name, country and description are required.";
 
     return;
   }
 
 
-  try {
+  try{
 
     await addDoc(
-      collection(db, "apps"),
+      collection(db,"apps"),
       {
 
-        name: name,
+        name:name,
 
-        country: country,
+        country:country,
 
-        description: description,
+        description:description,
 
-        iconUrl: iconUrl,
+        iconUrl:iconUrl,
 
-        screenshotUrl: screenshotUrl,
+        screenshotUrl:screenshotUrl,
 
-        apkUrl: apkUrl,
+        apkUrl:apkUrl,
 
-        developerId: user.uid,
+        developerId:user.uid,
 
-        developerEmail: user.email,
+        developerEmail:user.email,
 
-        status: "pending",
+        status:"pending",
 
-        ratingAvg: 0,
+        ratingAvg:0,
 
-        ratingCount: 0,
+        ratingCount:0,
 
-        createdAt: serverTimestamp()
+        createdAt:
+          serverTimestamp()
 
       }
     );
 
 
-    document.getElementById("uploadMessage").innerText =
-      "✅ App submitted successfully! Status: Under Review";
+    document
+      .getElementById("uploadMessage")
+      .innerText =
+      "✅ Submitted successfully! Your app is now Under Review.";
 
 
-    document.getElementById("appName").value = "";
-
-    document.getElementById("country").value = "";
-
-    document.getElementById("appDescription").value = "";
-
-    document.getElementById("iconUrl").value = "";
-
-    document.getElementById("screenshotUrl").value = "";
-
-    document.getElementById("apkUrl").value = "";
+    document.getElementById("appName").value="";
+    document.getElementById("country").value="";
+    document.getElementById("appDescription").value="";
+    document.getElementById("iconUrl").value="";
+    document.getElementById("screenshotUrl").value="";
+    document.getElementById("apkUrl").value="";
 
 
-  } catch (error) {
+  }catch(error){
 
-    document.getElementById("uploadMessage").innerText =
-      "❌ Submission failed: " + error.message;
+    document
+      .getElementById("uploadMessage")
+      .innerText =
+      "❌ Submission failed: " +
+      error.message;
 
   }
 
 };
 
 
-/* -------------------------
-   LOAD APPROVED APPS
-------------------------- */
 
-async function loadApprovedApps() {
+/* =========================
+   LOAD APPROVED APPS
+   IMPORTANT:
+   Query only approved docs
+========================= */
+
+async function loadApprovedApps(){
 
   const grid =
     document.getElementById("appsGrid");
 
 
-  try {
+  try{
+
+    const approvedQuery =
+      query(
+        collection(db,"apps"),
+        where(
+          "status",
+          "==",
+          "approved"
+        )
+      );
+
 
     const snapshot =
-      await getDocs(collection(db, "apps"));
+      await getDocs(
+        approvedQuery
+      );
 
 
-    grid.innerHTML = "";
+    allApprovedApps = [];
 
 
-    let found = false;
+    snapshot.forEach(
+      item=>{
 
+        allApprovedApps.push({
 
-    snapshot.forEach((item) => {
+          id:item.id,
 
-      const data = item.data();
+          ...item.data()
 
+        });
 
-      if (data.status !== "approved") {
-        return;
       }
+    );
 
 
-      found = true;
+    renderApps(
+      allApprovedApps
+    );
 
 
-      const card =
-        document.createElement("div");
-
-      card.className =
-        "app-card";
-
-
-      const icon =
-        data.iconUrl
-          ? `<img class="app-icon" src="${data.iconUrl}" alt="App Icon">`
-          : `<div class="app-icon"></div>`;
-
-
-      const rating =
-        data.ratingAvg
-          ? Number(data.ratingAvg).toFixed(1)
-          : "0.0";
-
-
-      card.innerHTML = `
-
-        ${icon}
-
-        <h3>${escapeHtml(data.name || "Unnamed App")}</h3>
-
-        <div class="rating">
-          ⭐ ${rating}
-        </div>
-
-        <p>
-          ${escapeHtml(data.description || "")}
-        </p>
-
-        <p>
-          🌍 ${escapeHtml(data.country || "")}
-        </p>
-
-        ${
-          data.apkUrl
-            ? `<a href="${data.apkUrl}" target="_blank">
-                 <button class="success">
-                   ⬇️ Download
-                 </button>
-               </a>`
-            : `<button class="gray" disabled>
-                 APK not available
-               </button>`
-        }
-
-      `;
-
-
-      grid.appendChild(card);
-
-    });
-
-
-    if (!found) {
-
-      grid.innerHTML = `
-
-        <div class="app-card">
-
-          <h3>No approved apps yet</h3>
-
-          <p>
-            Approved apps will appear here.
-          </p>
-
-        </div>
-
-      `;
-
-    }
-
-
-  } catch (error) {
+  }catch(error){
 
     grid.innerHTML = `
 
-      <div class="app-card">
+      <div class="empty">
 
-        ❌ Failed to load apps.
+        <div class="empty-icon">
+          ⚠️
+        </div>
 
-        <br><br>
+        <b>Unable to load apps</b>
 
-        ${escapeHtml(error.message)}
+        <p style="margin-top:7px;">
+          ${escapeHtml(error.message)}
+        </p>
 
       </div>
 
@@ -1102,16 +2010,284 @@ async function loadApprovedApps() {
 }
 
 
-/* -------------------------
-   OPEN ADMIN PANEL
-------------------------- */
 
-window.openAdmin = async function() {
+/* =========================
+   RENDER APPS
+========================= */
 
-  const user = auth.currentUser;
+function renderApps(apps){
+
+  const grid =
+    document.getElementById("appsGrid");
 
 
-  if (!user) {
+  grid.innerHTML = "";
+
+
+  if(apps.length === 0){
+
+    grid.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          📱
+        </div>
+
+        <b>No approved apps yet</b>
+
+        <p style="margin-top:7px;">
+          Be the first developer to publish an app.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  apps.forEach(
+    data=>{
+
+      const card =
+        document.createElement("div");
+
+
+      card.className =
+        "app-card";
+
+
+      let iconHTML;
+
+
+      if(
+        data.iconUrl &&
+        isSafeUrl(data.iconUrl)
+      ){
+
+        iconHTML = `
+
+          <img
+            class="app-icon"
+            src="${escapeAttribute(data.iconUrl)}"
+            alt="App icon">
+
+        `;
+
+      }else{
+
+        iconHTML = `
+
+          <div class="placeholder-icon">
+            📱
+          </div>
+
+        `;
+
+      }
+
+
+      const rating =
+        Number(data.ratingAvg || 0)
+          .toFixed(1);
+
+
+      const stars =
+        makeStars(
+          Number(data.ratingAvg || 0)
+        );
+
+
+      let downloadHTML;
+
+
+      if(
+        data.apkUrl &&
+        isSafeUrl(data.apkUrl)
+      ){
+
+        downloadHTML = `
+
+          <a
+            href="${escapeAttribute(data.apkUrl)}"
+            target="_blank"
+            rel="noopener">
+
+            <button
+              class="primary download-btn">
+
+              ⬇️ Download App
+
+            </button>
+
+          </a>
+
+        `;
+
+      }else{
+
+        downloadHTML = `
+
+          <button
+            class="gray download-btn"
+            disabled>
+
+            APK Coming Soon
+
+          </button>
+
+        `;
+
+      }
+
+
+      card.innerHTML = `
+
+        <div class="app-top">
+
+          ${iconHTML}
+
+          <div>
+
+            <div class="app-name">
+
+              ${escapeHtml(
+                data.name ||
+                "Unnamed App"
+              )}
+
+            </div>
+
+            <div class="country">
+
+              🌍 ${escapeHtml(
+                data.country ||
+                "Global"
+              )}
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="rating">
+
+          <span class="stars">
+            ${stars}
+          </span>
+
+          <b>${rating}</b>
+
+          <span style="color:#94a3b8;">
+            (${data.ratingCount || 0})
+          </span>
+
+        </div>
+
+
+        <div class="app-description">
+
+          ${escapeHtml(
+            data.description ||
+            "No description available."
+          )}
+
+        </div>
+
+
+        ${downloadHTML}
+
+      `;
+
+
+      grid.appendChild(card);
+
+    }
+  );
+
+}
+
+
+
+/* =========================
+   SEARCH
+========================= */
+
+window.filterApps =
+function(){
+
+  const value =
+    document
+      .getElementById("searchInput")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  if(!value){
+
+    renderApps(
+      allApprovedApps
+    );
+
+    return;
+  }
+
+
+  const filtered =
+    allApprovedApps.filter(
+      app=>{
+
+        const name =
+          String(
+            app.name || ""
+          ).toLowerCase();
+
+
+        const country =
+          String(
+            app.country || ""
+          ).toLowerCase();
+
+
+        const description =
+          String(
+            app.description || ""
+          ).toLowerCase();
+
+
+        return (
+          name.includes(value) ||
+          country.includes(value) ||
+          description.includes(value)
+        );
+
+      }
+    );
+
+
+  renderApps(filtered);
+
+};
+
+
+
+/* =========================
+   ADMIN PANEL
+========================= */
+
+window.openAdmin =
+async function(){
+
+  const user =
+    auth.currentUser;
+
+
+  if(!user){
 
     alert("Please login first.");
 
@@ -1119,19 +2295,21 @@ window.openAdmin = async function() {
   }
 
 
-  if (
+  if(
     user.email.toLowerCase() !==
     ADMIN_EMAIL.toLowerCase()
-  ) {
+  ){
 
-    alert("Access denied.");
+    alert("Admin access denied.");
 
     return;
   }
 
 
   const section =
-    document.getElementById("adminSection");
+    document.getElementById(
+      "adminSection"
+    );
 
 
   section.style.display =
@@ -1139,7 +2317,7 @@ window.openAdmin = async function() {
 
 
   section.scrollIntoView({
-    behavior: "smooth"
+    behavior:"smooth"
   });
 
 
@@ -1148,144 +2326,257 @@ window.openAdmin = async function() {
 };
 
 
-/* -------------------------
-   LOAD ADMIN APPS
-------------------------- */
 
-window.loadAdminApps = async function() {
+/* =========================
+   ADMIN APPS
+   Query only pending docs
+========================= */
 
-  const user = auth.currentUser;
+window.loadAdminApps =
+async function(){
+
+  const user =
+    auth.currentUser;
 
 
-  if (
+  if(
     !user ||
     user.email.toLowerCase() !==
     ADMIN_EMAIL.toLowerCase()
-  ) {
+  ){
 
     return;
   }
 
 
   const container =
-    document.getElementById("adminApps");
+    document.getElementById(
+      "adminApps"
+    );
+
+
+  const stats =
+    document.getElementById(
+      "adminStats"
+    );
 
 
   container.innerHTML =
-    "Loading apps...";
+    "Loading...";
 
 
-  try {
+  try{
+
+    const pendingQuery =
+      query(
+        collection(db,"apps"),
+        where(
+          "status",
+          "==",
+          "pending"
+        )
+      );
+
 
     const snapshot =
-      await getDocs(collection(db, "apps"));
+      await getDocs(
+        pendingQuery
+      );
+
+
+    let pendingCount = 0;
+
+
+    snapshot.forEach(
+      ()=>{
+
+        pendingCount++;
+
+      }
+    );
+
+
+    stats.innerHTML = `
+
+      <div class="stat">
+
+        <div class="stat-number">
+          ${pendingCount}
+        </div>
+
+        <div class="stat-label">
+          Pending Reviews
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-number">
+          🟡
+        </div>
+
+        <div class="stat-label">
+          Awaiting Approval
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-number">
+          👑
+        </div>
+
+        <div class="stat-label">
+          Admin Control
+        </div>
+
+      </div>
+
+    `;
 
 
     container.innerHTML = "";
 
 
-    let found = false;
-
-
-    snapshot.forEach((item) => {
-
-      const data = item.data();
-
-
-      if (data.status !== "pending") {
-        return;
-      }
-
-
-      found = true;
-
-
-      const card =
-        document.createElement("div");
-
-      card.className =
-        "admin-card";
-
-
-      card.innerHTML = `
-
-        <h3>
-          📱 ${escapeHtml(data.name || "Unnamed App")}
-        </h3>
-
-        <p>
-          <b>Developer:</b>
-          ${escapeHtml(data.developerEmail || "Unknown")}
-        </p>
-
-        <p>
-          <b>Country:</b>
-          ${escapeHtml(data.country || "")}
-        </p>
-
-        <p>
-          <b>Description:</b><br>
-          ${escapeHtml(data.description || "")}
-        </p>
-
-        <p class="pending">
-          Status: PENDING
-        </p>
-
-        <div class="admin-actions">
-
-          <button
-            class="success"
-            onclick="approveApp('${item.id}')">
-            ✅ Approve
-          </button>
-
-          <button
-            class="danger"
-            onclick="rejectApp('${item.id}')">
-            ❌ Reject
-          </button>
-
-        </div>
-
-      `;
-
-
-      container.appendChild(card);
-
-    });
-
-
-    if (!found) {
+    if(pendingCount === 0){
 
       container.innerHTML = `
 
-        <div class="admin-card">
+        <div class="empty">
 
-          <h3>🎉 No pending apps</h3>
+          <div class="empty-icon">
+            🎉
+          </div>
 
-          <p>
-            There are currently no apps waiting for approval.
+          <b>No pending apps</b>
+
+          <p style="margin-top:7px;">
+            Everything is reviewed.
           </p>
 
         </div>
 
       `;
 
+      return;
     }
 
 
-  } catch (error) {
+    snapshot.forEach(
+      item=>{
+
+        const data =
+          item.data();
+
+
+        const card =
+          document.createElement(
+            "div"
+          );
+
+
+        card.className =
+          "admin-card";
+
+
+        card.innerHTML = `
+
+          <div class="admin-card-header">
+
+            <div>
+
+              <h3>
+                📱 ${escapeHtml(
+                  data.name ||
+                  "Unnamed App"
+                )}
+              </h3>
+
+            </div>
+
+            <div class="pending">
+              PENDING
+            </div>
+
+          </div>
+
+
+          <div class="admin-info">
+
+            <b>Developer:</b>
+            ${escapeHtml(
+              data.developerEmail ||
+              "Unknown"
+            )}
+
+            <br>
+
+            <b>Country:</b>
+            ${escapeHtml(
+              data.country ||
+              "Unknown"
+            )}
+
+            <br>
+
+            <b>Description:</b>
+            ${escapeHtml(
+              data.description ||
+              ""
+            )}
+
+          </div>
+
+
+          <div class="admin-actions">
+
+            <button
+              class="success"
+              onclick="approveApp('${item.id}')">
+
+              ✅ Approve
+
+            </button>
+
+
+            <button
+              class="danger"
+              onclick="rejectApp('${item.id}')">
+
+              ❌ Reject
+
+            </button>
+
+          </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+      }
+    );
+
+
+  }catch(error){
 
     container.innerHTML = `
 
-      <div class="admin-card">
+      <div class="empty">
 
-        ❌ Failed to load admin apps.
+        <div class="empty-icon">
+          ⚠️
+        </div>
 
-        <br><br>
+        <b>Admin panel error</b>
 
-        ${escapeHtml(error.message)}
+        <p style="margin-top:7px;">
+          ${escapeHtml(error.message)}
+        </p>
 
       </div>
 
@@ -1296,49 +2587,56 @@ window.loadAdminApps = async function() {
 };
 
 
-/* -------------------------
-   APPROVE APP
-------------------------- */
 
-window.approveApp = async function(appId) {
+/* =========================
+   APPROVE
+========================= */
 
-  const user = auth.currentUser;
+window.approveApp =
+async function(appId){
+
+  const user =
+    auth.currentUser;
 
 
-  if (
+  if(
     !user ||
     user.email.toLowerCase() !==
     ADMIN_EMAIL.toLowerCase()
-  ) {
+  ){
 
-    alert("Admin access required.");
+    alert(
+      "Admin access required."
+    );
 
     return;
   }
 
 
-  const confirmApprove =
+  const yes =
     confirm(
       "Approve this app and publish it?"
     );
 
 
-  if (!confirmApprove) {
+  if(!yes){
     return;
   }
 
 
-  try {
+  try{
 
     await updateDoc(
-      doc(db, "apps", appId),
+      doc(db,"apps",appId),
       {
 
-        status: "approved",
+        status:"approved",
 
-        approvedAt: serverTimestamp(),
+        approvedAt:
+          serverTimestamp(),
 
-        approvedBy: user.email
+        approvedBy:
+          user.email
 
       }
     );
@@ -1354,7 +2652,7 @@ window.approveApp = async function(appId) {
     await loadApprovedApps();
 
 
-  } catch (error) {
+  }catch(error){
 
     alert(
       "❌ Approval failed: " +
@@ -1366,49 +2664,56 @@ window.approveApp = async function(appId) {
 };
 
 
-/* -------------------------
-   REJECT APP
-------------------------- */
 
-window.rejectApp = async function(appId) {
+/* =========================
+   REJECT
+========================= */
 
-  const user = auth.currentUser;
+window.rejectApp =
+async function(appId){
+
+  const user =
+    auth.currentUser;
 
 
-  if (
+  if(
     !user ||
     user.email.toLowerCase() !==
     ADMIN_EMAIL.toLowerCase()
-  ) {
+  ){
 
-    alert("Admin access required.");
+    alert(
+      "Admin access required."
+    );
 
     return;
   }
 
 
-  const confirmReject =
+  const yes =
     confirm(
       "Reject this app?"
     );
 
 
-  if (!confirmReject) {
+  if(!yes){
     return;
   }
 
 
-  try {
+  try{
 
     await updateDoc(
-      doc(db, "apps", appId),
+      doc(db,"apps",appId),
       {
 
-        status: "rejected",
+        status:"rejected",
 
-        rejectedAt: serverTimestamp(),
+        rejectedAt:
+          serverTimestamp(),
 
-        rejectedBy: user.email
+        rejectedBy:
+          user.email
 
       }
     );
@@ -1422,7 +2727,7 @@ window.rejectApp = async function(appId) {
     await loadAdminApps();
 
 
-  } catch (error) {
+  }catch(error){
 
     alert(
       "❌ Rejection failed: " +
@@ -1434,25 +2739,128 @@ window.rejectApp = async function(appId) {
 };
 
 
-/* -------------------------
-   HTML SAFETY
-------------------------- */
 
-function escapeHtml(value) {
+/* =========================
+   SCROLL
+========================= */
+
+window.scrollToApps =
+function(){
+
+  document
+    .getElementById("appsSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+};
+
+
+
+/* =========================
+   STAR RATING
+========================= */
+
+function makeStars(rating){
+
+  const rounded =
+    Math.round(
+      Number(rating || 0)
+    );
+
+
+  let result = "";
+
+
+  for(
+    let i=1;
+    i<=5;
+    i++
+  ){
+
+    result +=
+      i <= rounded
+        ? "★"
+        : "☆";
+
+  }
+
+
+  return result;
+
+}
+
+
+
+/* =========================
+   SAFE URL
+========================= */
+
+function isSafeUrl(url){
+
+  try{
+
+    const parsed =
+      new URL(url);
+
+
+    return (
+      parsed.protocol === "http:" ||
+      parsed.protocol === "https:"
+    );
+
+  }catch{
+
+    return false;
+
+  }
+
+}
+
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHtml(value){
 
   return String(value)
 
-    .replaceAll("&", "&amp;")
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
 
-    .replaceAll("<", "&lt;")
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
 
-    .replaceAll(">", "&gt;")
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
 
-    .replaceAll('"', "&quot;")
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
 
-    .replaceAll("'", "&#039;");
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 
 }
+
+
+function escapeAttribute(value){
+
+  return escapeHtml(value);
+
+}
+
 
 </script>
 
