@@ -3,821 +3,722 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Bangla App Store</title>
 
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    }
-
+    *{box-sizing:border-box}
     body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
       background:#f5f7fb;
       color:#172033;
     }
 
-    button,input,textarea{
-      font:inherit;
-    }
-
-    button{
-      cursor:pointer;
-    }
-
-    .header{
+    header{
       position:sticky;
       top:0;
-      z-index:100;
-      background:rgba(255,255,255,.88);
-      backdrop-filter:blur(15px);
+      z-index:50;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(14px);
       border-bottom:1px solid #e8ebf2;
     }
 
     .nav{
-      max-width:1180px;
+      max-width:1150px;
       margin:auto;
-      padding:15px 20px;
+      height:70px;
+      padding:0 18px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:15px;
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
+    .logo{
+      font-size:22px;
       font-weight:800;
-      font-size:20px;
+      color:#5b3df5;
+      cursor:pointer;
     }
 
-    .brand-icon{
-      width:42px;
-      height:42px;
-      border-radius:13px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:white;
-      background:linear-gradient(135deg,#6c4cff,#00b8ff);
-      box-shadow:0 8px 25px rgba(91,76,255,.25);
-    }
+    .menu-wrap{position:relative}
 
-    .nav-actions{
-      display:flex;
-      gap:8px;
-      align-items:center;
-    }
-
-    .btn{
+    .menu-btn{
+      width:44px;
+      height:44px;
       border:0;
+      border-radius:13px;
+      background:#f0edff;
+      color:#5b3df5;
+      font-size:27px;
+      cursor:pointer;
+    }
+
+    .dropdown{
+      position:absolute;
+      right:0;
+      top:52px;
+      width:210px;
+      background:#fff;
+      border:1px solid #e5e8f0;
+      border-radius:16px;
+      padding:8px;
+      box-shadow:0 18px 45px rgba(20,25,50,.15);
+      display:none;
+    }
+
+    .dropdown.show{display:block}
+
+    .dropdown button{
+      width:100%;
+      border:0;
+      background:none;
+      text-align:left;
+      padding:13px 14px;
       border-radius:11px;
-      padding:10px 15px;
-      font-weight:700;
-      transition:.2s;
+      font-size:15px;
+      cursor:pointer;
+      color:#252b3b;
     }
 
-    .btn:hover{
-      transform:translateY(-1px);
-    }
-
-    .btn-primary{
-      background:#604cff;
-      color:white;
-    }
-
-    .btn-dark{
-      background:#172033;
-      color:white;
-    }
-
-    .btn-light{
-      background:#eef1f7;
-      color:#172033;
-    }
-
-    .btn-danger{
-      background:#ffe9ed;
-      color:#c62843;
+    .dropdown button:hover{
+      background:#f3f1ff;
+      color:#5b3df5;
     }
 
     .hero{
-      background:
-        radial-gradient(circle at 80% 20%,rgba(0,200,255,.25),transparent 30%),
-        radial-gradient(circle at 20% 20%,rgba(125,80,255,.28),transparent 35%),
-        #10172d;
-      color:white;
-      padding:65px 20px 75px;
+      max-width:1150px;
+      margin:30px auto 20px;
+      padding:0 18px;
     }
 
-    .hero-inner{
-      max-width:1180px;
-      margin:auto;
-      text-align:center;
+    .hero-box{
+      border-radius:26px;
+      padding:38px 25px;
+      background:linear-gradient(135deg,#5b3df5,#8b5cf6);
+      color:white;
+      box-shadow:0 20px 45px rgba(91,61,245,.22);
     }
 
     .hero h1{
-      font-size:clamp(35px,7vw,65px);
-      line-height:1.05;
-      margin-bottom:18px;
-      font-weight:900;
-    }
-
-    .hero h1 span{
-      background:linear-gradient(90deg,#8d7aff,#54d8ff);
-      -webkit-background-clip:text;
-      color:transparent;
+      margin:0 0 10px;
+      font-size:34px;
     }
 
     .hero p{
-      max-width:650px;
-      margin:0 auto 28px;
-      color:#c7cee0;
-      font-size:17px;
+      margin:0 0 22px;
+      opacity:.9;
     }
 
-    .search-box{
-      max-width:650px;
-      margin:auto;
-      position:relative;
-    }
-
-    .search-box input{
+    .search{
       width:100%;
-      padding:16px 20px;
       border:0;
-      border-radius:16px;
       outline:0;
-      font-size:16px;
-      box-shadow:0 15px 45px rgba(0,0,0,.2);
+      padding:15px 17px;
+      border-radius:14px;
+      font-size:15px;
     }
 
     .container{
-      max-width:1180px;
+      max-width:1150px;
       margin:auto;
-      padding:45px 20px;
+      padding:0 18px 50px;
     }
 
     .section-title{
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:15px;
-      margin-bottom:22px;
+      margin:28px 0 16px;
     }
 
     .section-title h2{
-      font-size:28px;
+      margin:0;
+      font-size:22px;
     }
 
-    .section-title p{
-      color:#6e778b;
-      margin-top:5px;
+    .count{
+      color:#697386;
+      font-size:14px;
     }
 
     .apps-grid{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:20px;
+      grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+      gap:18px;
     }
 
     .app-card{
-      background:white;
-      border:1px solid #e8ebf2;
+      background:#fff;
+      border:1px solid #e8eaf0;
       border-radius:20px;
-      padding:20px;
-      box-shadow:0 8px 25px rgba(30,40,70,.06);
-      transition:.25s;
-      cursor:pointer;
+      padding:18px;
+      box-shadow:0 8px 24px rgba(25,35,60,.06);
+      transition:.2s;
     }
 
     .app-card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 18px 40px rgba(30,40,70,.12);
+      transform:translateY(-3px);
+      box-shadow:0 14px 30px rgba(25,35,60,.10);
     }
 
     .app-top{
       display:flex;
-      gap:14px;
+      gap:13px;
       align-items:center;
     }
 
     .app-icon{
-      width:68px;
-      height:68px;
-      border-radius:17px;
-      object-fit:cover;
-      background:#edf0f7;
-      flex-shrink:0;
-    }
-
-    .app-name{
-      font-size:19px;
-      font-weight:800;
-      margin-bottom:5px;
-    }
-
-    .app-country{
-      font-size:13px;
-      color:#778096;
-    }
-
-    .stars{
-      color:#ffb400;
-      letter-spacing:1px;
-      font-size:14px;
-    }
-
-    .app-description{
-      color:#687286;
-      margin:17px 0;
-      line-height:1.55;
-      min-height:48px;
-    }
-
-    .card-bottom{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-    }
-
-    .view-btn{
-      border:0;
-      background:#f0edff;
-      color:#5d48e8;
-      padding:9px 13px;
-      border-radius:10px;
-      font-weight:700;
-    }
-
-    .upload-banner{
-      margin-top:45px;
-      border-radius:25px;
-      padding:30px;
-      color:white;
-      background:linear-gradient(135deg,#5e4aff,#008dcc);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:20px;
-    }
-
-    .upload-banner h3{
-      font-size:25px;
-      margin-bottom:8px;
-    }
-
-    .upload-banner p{
-      color:#e8edff;
-    }
-
-    .admin{
-      margin-top:50px;
-      background:#fff;
-      border:1px solid #e8ebf2;
-      border-radius:22px;
-      padding:25px;
-    }
-
-    .admin h2{
-      margin-bottom:20px;
-    }
-
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:15px;
-      margin-bottom:25px;
-    }
-
-    .stat{
-      padding:20px;
-      background:#f6f7fb;
+      width:64px;
+      height:64px;
       border-radius:16px;
-    }
-
-    .stat strong{
-      display:block;
-      font-size:28px;
-      margin-top:5px;
-    }
-
-    .admin-app{
-      border:1px solid #e7eaf1;
-      border-radius:15px;
-      padding:15px;
-      margin-bottom:12px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:15px;
-    }
-
-    .admin-info{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      min-width:0;
-    }
-
-    .admin-info img{
-      width:52px;
-      height:52px;
-      border-radius:13px;
       object-fit:cover;
       background:#eee;
     }
 
-    .admin-actions{
-      display:flex;
-      gap:7px;
-      flex-shrink:0;
+    .app-name{
+      font-weight:800;
+      font-size:17px;
+      margin-bottom:5px;
     }
 
-    .modal-bg{
+    .country{
+      font-size:13px;
+      color:#737b8c;
+    }
+
+    .rating-line{
+      margin-top:13px;
+      color:#f5a623;
+      font-size:15px;
+    }
+
+    .rating-number{
+      color:#667085;
+      font-size:12px;
+      margin-left:5px;
+    }
+
+    .stats{
+      display:flex;
+      gap:12px;
+      color:#687386;
+      font-size:12px;
+      margin-top:9px;
+    }
+
+    .description{
+      margin:14px 0;
+      color:#626b7d;
+      font-size:14px;
+      line-height:1.5;
+      min-height:42px;
+    }
+
+    .btn{
+      border:0;
+      border-radius:11px;
+      padding:11px 15px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .btn-primary{
+      background:#5b3df5;
+      color:white;
+    }
+
+    .btn-light{
+      background:#f0edff;
+      color:#5b3df5;
+    }
+
+    .btn-danger{
+      background:#ffe8e8;
+      color:#d93636;
+    }
+
+    .card-buttons{
+      display:flex;
+      gap:8px;
+    }
+
+    .card-buttons .btn{
+      flex:1;
+    }
+
+    .banner{
+      margin-top:28px;
+      background:#fff;
+      border:1px solid #e7e9ef;
+      border-radius:20px;
+      padding:22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+    }
+
+    .banner h3{margin:0 0 5px}
+    .banner p{margin:0;color:#697386;font-size:14px}
+
+    .modal{
       position:fixed;
       inset:0;
-      z-index:1000;
-      background:rgba(7,12,27,.65);
-      backdrop-filter:blur(7px);
+      background:rgba(10,15,30,.55);
+      z-index:100;
       display:none;
       align-items:center;
       justify-content:center;
-      padding:18px;
+      padding:15px;
     }
 
-    .modal-bg.show{
-      display:flex;
-    }
+    .modal.show{display:flex}
 
-    .modal{
+    .modal-box{
       width:100%;
-      max-width:720px;
-      max-height:92vh;
+      max-width:620px;
+      max-height:90vh;
       overflow:auto;
       background:white;
-      border-radius:25px;
-      padding:25px;
+      border-radius:24px;
+      padding:24px;
       position:relative;
-      box-shadow:0 25px 80px rgba(0,0,0,.25);
+    }
+
+    .modal-box h2{
+      margin-top:0;
     }
 
     .close{
       position:absolute;
       right:18px;
-      top:18px;
-      width:38px;
-      height:38px;
+      top:15px;
       border:0;
+      background:#f0f1f5;
+      width:35px;
+      height:35px;
       border-radius:50%;
-      background:#eef1f6;
-      font-size:20px;
+      cursor:pointer;
+      font-size:18px;
     }
 
-    .detail-header{
-      display:flex;
-      align-items:center;
-      gap:18px;
-      padding-right:45px;
-    }
-
-    .detail-icon{
-      width:90px;
-      height:90px;
-      border-radius:22px;
-      object-fit:cover;
-      background:#eef1f6;
-    }
-
-    .detail-header h2{
-      font-size:28px;
-      margin-bottom:7px;
-    }
-
-    .detail-meta{
-      color:#727b8f;
+    input,textarea,select{
+      width:100%;
+      border:1px solid #dfe3eb;
+      border-radius:12px;
+      padding:12px 13px;
+      margin:7px 0 12px;
+      outline:none;
       font-size:14px;
     }
 
-    .detail-description{
-      margin:25px 0;
-      line-height:1.7;
-      color:#505a6d;
-      white-space:pre-wrap;
+    textarea{min-height:100px;resize:vertical}
+
+    label{
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .form-note{
+      font-size:12px;
+      color:#7a8292;
+      margin-top:-5px;
+      margin-bottom:10px;
+    }
+
+    .auth-buttons{
+      display:flex;
+      gap:8px;
+    }
+
+    .auth-buttons .btn{flex:1}
+
+    .auth-status{
+      margin:10px 0;
+      font-size:13px;
+      color:#596275;
+    }
+
+    .admin-panel{
+      margin-top:35px;
+      display:none;
+    }
+
+    .admin-card{
+      background:white;
+      border:1px solid #e7e9ef;
+      border-radius:18px;
+      padding:17px;
+      margin-bottom:12px;
+    }
+
+    .admin-row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+    }
+
+    .admin-actions{
+      display:flex;
+      gap:7px;
+    }
+
+    .status-item{
+      border:1px solid #e5e8ef;
+      border-radius:16px;
+      padding:15px;
+      margin-bottom:10px;
+    }
+
+    .status-row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+    }
+
+    .badge{
+      padding:6px 10px;
+      border-radius:20px;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .pending{
+      background:#fff4d8;
+      color:#9a6900;
+    }
+
+    .approved{
+      background:#def8e8;
+      color:#168344;
+    }
+
+    .rejected{
+      background:#ffe1e1;
+      color:#c22f2f;
     }
 
     .screenshots{
       display:flex;
-      gap:12px;
+      gap:10px;
       overflow-x:auto;
-      padding-bottom:10px;
+      margin-top:14px;
     }
 
     .screenshots img{
       width:190px;
-      height:330px;
+      height:120px;
       object-fit:cover;
-      border-radius:15px;
-      background:#edf0f5;
-      flex-shrink:0;
+      border-radius:13px;
+      border:1px solid #eee;
     }
 
-    .detail-download{
-      margin-top:22px;
-      width:100%;
-      padding:15px;
-      border:0;
-      border-radius:14px;
-      background:#604cff;
-      color:white;
-      font-weight:800;
-      font-size:16px;
+    .details-icon{
+      width:85px;
+      height:85px;
+      object-fit:cover;
+      border-radius:22px;
     }
 
-    .form-group{
+    .details-head{
+      display:flex;
+      gap:15px;
+      align-items:center;
       margin-bottom:15px;
     }
 
-    .form-group label{
-      display:block;
-      font-weight:700;
-      margin-bottom:7px;
-    }
-
-    .form-group input,
-    .form-group textarea{
-      width:100%;
+    .download-box{
+      background:#f6f4ff;
+      border-radius:15px;
       padding:13px;
-      border:1px solid #dfe3eb;
-      border-radius:11px;
-      outline:none;
+      margin:15px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
     }
 
-    .form-group textarea{
-      min-height:100px;
-      resize:vertical;
+    .star-input{
+      display:flex;
+      gap:4px;
+      margin:7px 0 12px;
+    }
+
+    .star-btn{
+      border:0;
+      background:none;
+      font-size:28px;
+      color:#cfd3dc;
+      cursor:pointer;
+      padding:0;
+    }
+
+    .star-btn.active{color:#f5a623}
+
+    .review{
+      border-top:1px solid #edf0f4;
+      padding:13px 0;
+    }
+
+    .review-stars{
+      color:#f5a623;
+      letter-spacing:1px;
+    }
+
+    .review-date{
+      color:#8991a0;
+      font-size:11px;
     }
 
     .empty{
-      text-align:center;
-      padding:50px 20px;
+      padding:25px;
       background:white;
-      border:1px dashed #d8dce5;
-      border-radius:20px;
-      color:#7a8395;
-    }
-
-    .status{
-      padding:5px 9px;
-      border-radius:20px;
-      font-size:12px;
-      font-weight:700;
-      background:#fff3cd;
-      color:#8a6500;
+      border-radius:16px;
+      color:#737b8c;
+      text-align:center;
+      border:1px solid #e7e9ef;
     }
 
     footer{
       text-align:center;
-      padding:30px 20px;
-      color:#7c8494;
+      color:#8991a0;
+      padding:30px 15px;
+      font-size:13px;
     }
 
-    @media(max-width:850px){
-      .apps-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .upload-banner{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-    }
-
-    @media(max-width:600px){
-      .nav{
-        padding:12px 14px;
-      }
-
-      .brand{
-        font-size:16px;
-      }
-
-      .brand-icon{
-        width:36px;
-        height:36px;
-      }
-
-      .nav-actions .btn{
-        padding:8px 10px;
-        font-size:12px;
-      }
-
-      .hero{
-        padding:45px 15px 55px;
-      }
-
-      .container{
-        padding:35px 14px;
-      }
-
-      .apps-grid{
-        grid-template-columns:1fr;
-      }
-
-      .stats{
-        grid-template-columns:1fr;
-      }
-
-      .admin-app{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-
-      .admin-actions{
-        width:100%;
-      }
-
-      .admin-actions button{
-        flex:1;
-      }
-
-      .detail-header h2{
-        font-size:22px;
-      }
+    @media(max-width:650px){
+      .hero h1{font-size:27px}
+      .banner{flex-direction:column;align-items:flex-start}
+      .admin-row{flex-direction:column;align-items:flex-start}
+      .admin-actions{width:100%}
+      .admin-actions .btn{flex:1}
     }
   </style>
 </head>
 
 <body>
 
-<header class="header">
+<header>
   <div class="nav">
+    <div class="logo" onclick="goHome()">Bangla App Store</div>
 
-    <div class="brand">
-      <div class="brand-icon">BA</div>
-      <span>Bangla App Store</span>
+    <div class="menu-wrap">
+      <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+
+      <div class="dropdown" id="dropdownMenu">
+        <button onclick="goHome()">🏠 Home</button>
+        <button onclick="openUpload()">📤 Upload Your App</button>
+        <button onclick="openStatus()">📊 Status Your App</button>
+        <button onclick="openSupport()">💬 Support</button>
+      </div>
     </div>
-
-    <div class="nav-actions">
-      <span id="userName"></span>
-      <button id="loginBtn" class="btn btn-light">Login</button>
-      <button id="signupBtn" class="btn btn-primary">Sign Up</button>
-      <button id="logoutBtn" class="btn btn-dark" style="display:none;">Logout</button>
-    </div>
-
   </div>
 </header>
 
-<section class="hero">
-
-  <div class="hero-inner">
-
-    <h1>Discover <span>Great Apps</span></h1>
-
-    <p>
-      Bangla App Store-এ নতুন নতুন apps খুঁজুন, নিজের app submit করুন
-      এবং সহজেই download করুন।
-    </p>
-
-    <div class="search-box">
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search apps..."
-      />
-    </div>
-
+<section class="hero" id="home">
+  <div class="hero-box">
+    <h1>Discover Amazing Apps 🚀</h1>
+    <p>Bangla App Store-এ তোমার পছন্দের apps খুঁজে নাও।</p>
+    <input
+      class="search"
+      id="searchInput"
+      placeholder="Search apps..."
+      oninput="filterApps()"
+    />
   </div>
-
 </section>
 
 <main class="container">
 
   <div class="section-title">
+    <h2>Featured Apps</h2>
+    <span class="count" id="appCount">Loading...</span>
+  </div>
+
+  <div id="appsGrid" class="apps-grid"></div>
+
+  <div class="banner">
     <div>
-      <h2>Available Apps</h2>
-      <p>Approved apps from our community</p>
+      <h3>তোমার নিজের App আছে? 📱</h3>
+      <p>Bangla App Store-এ তোমার app submit করো। Admin review করে approve করবে।</p>
     </div>
+    <button class="btn btn-primary" onclick="openUpload()">Upload Your App</button>
   </div>
 
-  <div id="appsGrid" class="apps-grid">
-    <div class="empty">Loading apps...</div>
-  </div>
-
-  <div class="upload-banner">
-
-    <div>
-      <h3>আপনার নিজের App আছে?</h3>
-      <p>
-        Bangla App Store-এ আপনার app submit করুন।
-      </p>
+  <section class="admin-panel" id="adminPanel">
+    <div class="section-title">
+      <h2>Admin Dashboard</h2>
+      <span class="count">Pending submissions</span>
     </div>
-
-    <button id="uploadBtn" class="btn btn-light">
-      Submit Your App
-    </button>
-
-  </div>
-
-  <section id="adminSection" class="admin" style="display:none;">
-
-    <h2>Admin Dashboard</h2>
-
-    <div class="stats">
-
-      <div class="stat">
-        Pending Apps
-        <strong id="pendingCount">0</strong>
-      </div>
-
-      <div class="stat">
-        Approved Apps
-        <strong id="approvedCount">0</strong>
-      </div>
-
-      <div class="stat">
-        Total Apps
-        <strong id="totalCount">0</strong>
-      </div>
-
-    </div>
-
-    <h3 style="margin-bottom:15px;">Pending Submissions</h3>
 
     <div id="pendingApps"></div>
 
+    <div class="section-title">
+      <h2>Approved Apps & Downloads</h2>
+    </div>
+
+    <div id="adminApprovedApps"></div>
   </section>
 
 </main>
 
 <footer>
-  © 2026 Bangla App Store · Built for everyone
+  © 2026 Bangla App Store • Free App Marketplace
 </footer>
 
 
-<!-- LOGIN MODAL -->
+<!-- AUTH MODAL -->
+<div class="modal" id="authModal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal('authModal')">×</button>
 
-<div id="loginModal" class="modal-bg">
+    <h2>Login / Signup</h2>
 
-  <div class="modal">
+    <input id="authEmail" type="email" placeholder="Email address">
+    <input id="authPassword" type="password" placeholder="Password">
 
-    <button class="close" onclick="closeModal('loginModal')">×</button>
-
-    <h2 style="margin-bottom:20px;">Login</h2>
-
-    <div class="form-group">
-      <label>Email</label>
-      <input id="loginEmail" type="email" placeholder="you@example.com">
+    <div class="auth-buttons">
+      <button class="btn btn-primary" onclick="login()">Login</button>
+      <button class="btn btn-light" onclick="signup()">Create Account</button>
     </div>
 
-    <div class="form-group">
-      <label>Password</label>
-      <input id="loginPassword" type="password" placeholder="Password">
-    </div>
-
-    <button id="doLogin" class="btn btn-primary" style="width:100%;">
-      Login
-    </button>
-
-    <p id="loginMessage" style="margin-top:12px;"></p>
-
+    <div class="auth-status" id="authStatus"></div>
   </div>
-
 </div>
 
 
-<!-- SIGNUP MODAL -->
-
-<div id="signupModal" class="modal-bg">
-
-  <div class="modal">
-
-    <button class="close" onclick="closeModal('signupModal')">×</button>
-
-    <h2 style="margin-bottom:20px;">Create Account</h2>
-
-    <div class="form-group">
-      <label>Email</label>
-      <input id="signupEmail" type="email" placeholder="you@example.com">
-    </div>
-
-    <div class="form-group">
-      <label>Password</label>
-      <input id="signupPassword" type="password" placeholder="Minimum 6 characters">
-    </div>
-
-    <button id="doSignup" class="btn btn-primary" style="width:100%;">
-      Create Account
-    </button>
-
-    <p id="signupMessage" style="margin-top:12px;"></p>
-
-  </div>
-
-</div>
-
-
-<!-- SUBMIT APP MODAL -->
-
-<div id="uploadModal" class="modal-bg">
-
-  <div class="modal">
-
+<!-- UPLOAD MODAL -->
+<div class="modal" id="uploadModal">
+  <div class="modal-box">
     <button class="close" onclick="closeModal('uploadModal')">×</button>
 
-    <h2 style="margin-bottom:20px;">Submit Your App</h2>
+    <h2>Upload Your App 📤</h2>
 
-    <div class="form-group">
-      <label>App Name</label>
-      <input id="appName" placeholder="My Awesome App">
-    </div>
+    <label>App Name</label>
+    <input id="appName" placeholder="Example: My Calculator">
 
-    <div class="form-group">
-      <label>Country / Region</label>
-      <input id="appCountry" placeholder="Bangladesh">
-    </div>
+    <label>Country / Region</label>
+    <input id="appCountry" placeholder="Example: Bangladesh">
 
-    <div class="form-group">
-      <label>Icon URL</label>
-      <input id="appIcon" placeholder="https://example.com/icon.png">
-    </div>
+    <label>App Icon URL</label>
+    <input id="appIcon" placeholder="https://...">
+    <div class="form-note">Image-এর direct URL দাও।</div>
 
-    <div class="form-group">
-      <label>APK / App Download URL</label>
-      <input id="appApk" placeholder="https://example.com/app.apk">
-    </div>
+    <label>APK / App Download URL</label>
+    <input id="appApk" placeholder="https://...">
+    <div class="form-note">APK বা app download link-এর direct URL দাও।</div>
 
-    <div class="form-group">
-      <label>Description</label>
-      <textarea id="appDescription" placeholder="Describe your app..."></textarea>
-    </div>
+    <label>Description</label>
+    <textarea id="appDescription" placeholder="তোমার app সম্পর্কে লিখো..."></textarea>
 
-    <div class="form-group">
-      <label>Screenshots URLs</label>
-      <textarea
-        id="appScreenshots"
-        placeholder="এক লাইনে একটি URL&#10;https://example.com/shot1.jpg&#10;https://example.com/shot2.jpg"
-      ></textarea>
-    </div>
+    <label>Screenshots URL</label>
+    <input id="appScreenshots" placeholder="URL1, URL2, URL3">
+    <div class="form-note">একাধিক screenshot হলে comma দিয়ে URL আলাদা করো।</div>
 
-    <button id="submitAppBtn" class="btn btn-primary" style="width:100%;">
+    <button class="btn btn-primary" style="width:100%" onclick="submitApp()">
       Submit App
     </button>
 
-    <p id="submitMessage" style="margin-top:12px;"></p>
-
+    <div class="auth-status" id="uploadStatus"></div>
   </div>
-
 </div>
 
 
-<!-- APP DETAILS MODAL -->
+<!-- STATUS MODAL -->
+<div class="modal" id="statusModal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal('statusModal')">×</button>
 
-<div id="detailsModal" class="modal-bg">
+    <h2>📊 Status Your App</h2>
+    <p style="color:#70798a;font-size:13px">
+      তোমার submitted apps-এর current status এখানে দেখতে পারবে।
+    </p>
 
-  <div class="modal">
+    <div id="myStatusList"></div>
+  </div>
+</div>
 
+
+<!-- SUPPORT MODAL -->
+<div class="modal" id="supportModal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal('supportModal')">×</button>
+
+    <h2>💬 Support</h2>
+
+    <p style="line-height:1.7;color:#626b7d">
+      Bangla App Store ব্যবহার করতে কোনো সমস্যা হলে নিচের বিষয়গুলো check করো:
+    </p>
+
+    <div class="status-item">
+      <b>📤 App Pending?</b>
+      <p style="color:#697386;font-size:14px">
+        Admin review করার পর app Approved বা Rejected হবে।
+      </p>
+    </div>
+
+    <div class="status-item">
+      <b>📊 App Status কোথায় দেখবো?</b>
+      <p style="color:#697386;font-size:14px">
+        উপরের ⋮ menu থেকে “Status Your App” নির্বাচন করো।
+      </p>
+    </div>
+
+    <div class="status-item">
+      <b>📥 Download link কাজ করছে না?</b>
+      <p style="color:#697386;font-size:14px">
+        App developer-এর দেওয়া download URL ঠিক আছে কিনা check করতে হবে।
+      </p>
+    </div>
+
+    <p style="font-size:13px;color:#8991a0">
+      আরও support feature পরে যোগ করা যাবে।
+    </p>
+  </div>
+</div>
+
+
+<!-- DETAILS MODAL -->
+<div class="modal" id="detailsModal">
+  <div class="modal-box">
     <button class="close" onclick="closeModal('detailsModal')">×</button>
 
     <div id="detailsContent"></div>
-
   </div>
-
 </div>
 
 
 <script type="module">
 
-  import {
-    initializeApp
-  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
   import {
     getAuth,
-    onAuthStateChanged,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
   import {
     getFirestore,
     collection,
     addDoc,
     getDocs,
-    updateDoc,
-    doc,
     query,
-    where
-  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+    where,
+    doc,
+    updateDoc,
+    setDoc,
+    increment
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
   const firebaseConfig = {
-    apiKey: "AIzaSyB-9kRZjLXLdrf2CsnOnytJklx7KxKKikk",
+    apiKey: "AIzaSyB-9kRZjLXLdrf2CsnOnytJkl7XxKxKKikk",
     authDomain: "bangla-app-store-510522.firebaseapp.com",
     projectId: "bangla-app-store-510522",
     storageBucket: "bangla-app-store-510522.firebasestorage.app",
@@ -828,273 +729,513 @@
 
 
   const app = initializeApp(firebaseConfig);
-
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-
   const ADMIN_EMAIL = "arishakotha34@gmail.com";
 
-
   let currentUser = null;
-  let approvedApps = [];
+  let allApps = [];
+  let selectedApp = null;
+  let selectedRating = 5;
 
 
-  const $ = id => document.getElementById(id);
+  window.toggleMenu = function(){
+    document.getElementById("dropdownMenu").classList.toggle("show");
+  };
+
+
+  window.closeMenu = function(){
+    document.getElementById("dropdownMenu").classList.remove("show");
+  };
 
 
   window.closeModal = function(id){
-    $(id).classList.remove("show");
+    document.getElementById(id).classList.remove("show");
   };
 
 
   function openModal(id){
-    $(id).classList.add("show");
+    document.getElementById(id).classList.add("show");
   }
 
 
-  function escapeHTML(value){
+  window.goHome = function(){
+    closeMenu();
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
 
-    if(value === null || value === undefined){
-      return "";
+
+  window.openUpload = function(){
+    closeMenu();
+
+    if(!currentUser){
+      openModal("authModal");
+      document.getElementById("authStatus").textContent =
+        "App upload করতে আগে Login / Signup করো।";
+      return;
     }
 
-    return String(value)
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
+    openModal("uploadModal");
+  };
 
 
-  function safeUrl(value){
+  window.openSupport = function(){
+    closeMenu();
+    openModal("supportModal");
+  };
+
+
+  window.openStatus = async function(){
+    closeMenu();
+
+    if(!currentUser){
+      openModal("authModal");
+      document.getElementById("authStatus").textContent =
+        "নিজের app status দেখতে আগে Login করো।";
+      return;
+    }
+
+    openModal("statusModal");
+    await loadMyStatus();
+  };
+
+
+  window.signup = async function(){
+    const email = document.getElementById("authEmail").value.trim();
+    const password = document.getElementById("authPassword").value;
+
+    if(!email || !password){
+      document.getElementById("authStatus").textContent =
+        "Email এবং password দাও।";
+      return;
+    }
 
     try{
+      await createUserWithEmailAndPassword(auth,email,password);
 
-      const url = new URL(value);
+      document.getElementById("authStatus").textContent =
+        "Account তৈরি হয়েছে ✅";
 
-      if(
-        url.protocol === "https:" ||
-        url.protocol === "http:"
-      ){
-        return url.href;
-      }
+      setTimeout(()=>{
+        closeModal("authModal");
+      },800);
 
-    }catch(e){}
+    }catch(error){
+      document.getElementById("authStatus").textContent =
+        error.message;
+    }
+  };
 
-    return "";
 
+  window.login = async function(){
+    const email = document.getElementById("authEmail").value.trim();
+    const password = document.getElementById("authPassword").value;
+
+    if(!email || !password){
+      document.getElementById("authStatus").textContent =
+        "Email এবং password দাও।";
+      return;
+    }
+
+    try{
+      await signInWithEmailAndPassword(auth,email,password);
+
+      document.getElementById("authStatus").textContent =
+        "Login successful ✅";
+
+      setTimeout(()=>{
+        closeModal("authModal");
+      },700);
+
+    }catch(error){
+      document.getElementById("authStatus").textContent =
+        error.message;
+    }
+  };
+
+
+  async function logoutUser(){
+    await signOut(auth);
   }
 
 
-  function makeStars(){
+  window.submitApp = async function(){
 
-    return "★★★★★";
-  }
+    if(!currentUser){
+      document.getElementById("uploadStatus").textContent =
+        "আগে Login করো।";
+      return;
+    }
+
+    const name = document.getElementById("appName").value.trim();
+    const country = document.getElementById("appCountry").value.trim();
+    const iconUrl = document.getElementById("appIcon").value.trim();
+    const apkUrl = document.getElementById("appApk").value.trim();
+    const description = document.getElementById("appDescription").value.trim();
+
+    const screenshotsText =
+      document.getElementById("appScreenshots").value.trim();
+
+    const screenshots = screenshotsText
+      ? screenshotsText.split(",").map(x=>x.trim()).filter(Boolean)
+      : [];
 
 
-  function renderApps(apps){
-
-    const grid = $("appsGrid");
-
-    if(!apps.length){
-
-      grid.innerHTML = `
-        <div class="empty">
-          <h3>No apps found</h3>
-          <p style="margin-top:7px;">
-            এখনো কোনো approved app পাওয়া যায়নি।
-          </p>
-        </div>
-      `;
-
+    if(!name || !country || !apkUrl || !description){
+      document.getElementById("uploadStatus").textContent =
+        "Required information পূরণ করো।";
       return;
     }
 
 
-    grid.innerHTML = apps.map(app => {
+    try{
 
-      const icon =
-        safeUrl(app.iconUrl) ||
-        "https://dummyimage.com/200x200/e9edf5/667085&text=APP";
+      await addDoc(
+        collection(db,"apps"),
+        {
+          name:name,
+          country:country,
+          iconUrl:iconUrl,
+          apkUrl:apkUrl,
+          description:description,
+          screenshots:screenshots,
 
+          developerEmail:currentUser.email,
+          developerId:currentUser.uid,
 
-      return `
+          status:"pending",
+          downloads:0,
 
-        <article
-          class="app-card"
-          onclick="showAppDetails('${app.id}')"
-        >
-
-          <div class="app-top">
-
-            <img
-              class="app-icon"
-              src="${icon}"
-              alt=""
-              onerror="this.src='https://dummyimage.com/200x200/e9edf5/667085&text=APP'"
-            >
-
-            <div>
-
-              <div class="app-name">
-                ${escapeHTML(app.name)}
-              </div>
-
-              <div class="app-country">
-                🌍 ${escapeHTML(app.country || "Unknown")}
-              </div>
-
-              <div class="stars">
-                ${makeStars()}
-              </div>
-
-            </div>
-
-          </div>
+          createdAt:new Date().toISOString()
+        }
+      );
 
 
-          <div class="app-description">
-            ${escapeHTML(app.description || "No description available.")}
-          </div>
+      document.getElementById("uploadStatus").textContent =
+        "App submitted successfully! ⏳ Under Review";
+
+      setTimeout(()=>{
+        closeModal("uploadModal");
+        clearUploadForm();
+      },1000);
+
+    }catch(error){
+
+      console.error(error);
+
+      document.getElementById("uploadStatus").textContent =
+        "Submit failed: " + error.message;
+    }
+  };
 
 
-          <div class="card-bottom">
+  function clearUploadForm(){
 
-            <small style="color:#7b8497;">
-              By ${escapeHTML(app.developerEmail || "Developer")}
-            </small>
-
-            <button
-              class="view-btn"
-              onclick="event.stopPropagation();showAppDetails('${app.id}')"
-            >
-              View Details
-            </button>
-
-          </div>
-
-        </article>
-
-      `;
-
-    }).join("");
-
+    document.getElementById("appName").value="";
+    document.getElementById("appCountry").value="";
+    document.getElementById("appIcon").value="";
+    document.getElementById("appApk").value="";
+    document.getElementById("appDescription").value="";
+    document.getElementById("appScreenshots").value="";
+    document.getElementById("uploadStatus").textContent="";
   }
 
 
   async function loadApprovedApps(){
 
-    try{
+    const approvedQuery = query(
+      collection(db,"apps"),
+      where("status","==","approved")
+    );
 
-      const approvedQuery = query(
-        collection(db,"apps"),
-        where("status","==","approved")
-      );
+    const snapshot = await getDocs(approvedQuery);
 
-      const snapshot = await getDocs(approvedQuery);
+    allApps = [];
 
-      approvedApps = [];
-
-      snapshot.forEach(item => {
-
-        approvedApps.push({
-          id:item.id,
-          ...item.data()
-        });
-
+    snapshot.forEach(docSnap=>{
+      allApps.push({
+        id:docSnap.id,
+        ...docSnap.data()
       });
+    });
 
-
-      approvedApps.sort((a,b) =>
-        String(a.name || "").localeCompare(
-          String(b.name || "")
-        )
-      );
-
-
-      renderApps(approvedApps);
-
-      updateAdminStats();
-
-    }catch(error){
-
-      console.error(error);
-
-      $("appsGrid").innerHTML = `
-        <div class="empty">
-          <h3>Failed to load apps</h3>
-          <p style="margin-top:8px;">
-            ${escapeHTML(error.message)}
-          </p>
-        </div>
-      `;
-
-    }
-
+    renderApps(allApps);
   }
 
 
-  window.showAppDetails = function(id){
+  function renderApps(apps){
 
-    const app = approvedApps.find(item => item.id === id);
+    const grid = document.getElementById("appsGrid");
 
-    if(!app) return;
-
-
-    const icon =
-      safeUrl(app.iconUrl) ||
-      "https://dummyimage.com/300x300/e9edf5/667085&text=APP";
+    document.getElementById("appCount").textContent =
+      apps.length + " apps";
 
 
-    const apkUrl = safeUrl(app.apkUrl);
-
-
-    let screenshots = [];
-
-    if(Array.isArray(app.screenshots)){
-
-      screenshots = app.screenshots;
-
-    }else if(typeof app.screenshots === "string"){
-
-      screenshots = app.screenshots
-        .split(/\n|,/)
-        .map(x => x.trim())
-        .filter(Boolean);
-
+    if(apps.length === 0){
+      grid.innerHTML =
+        `<div class="empty">No approved apps found.</div>`;
+      return;
     }
 
 
-    screenshots = screenshots
-      .map(safeUrl)
-      .filter(Boolean);
+    grid.innerHTML = apps.map(app=>{
+
+      const downloads = Number(app.downloads || 0);
+
+      const ratingText =
+        app.ratingCount
+        ? `★ ${Number(app.ratingAverage || 0).toFixed(1)}`
+        : "★★★★★";
+
+      const reviewCount =
+        Number(app.ratingCount || 0);
 
 
-    $("detailsContent").innerHTML = `
+      return `
+        <div class="app-card">
 
-      <div class="detail-header">
+          <div class="app-top">
+
+            <img
+              class="app-icon"
+              src="${safe(app.iconUrl || "")}"
+              onerror="this.src='https://via.placeholder.com/100?text=APP'"
+            >
+
+            <div>
+              <div class="app-name">${safe(app.name)}</div>
+              <div class="country">🌍 ${safe(app.country)}</div>
+            </div>
+
+          </div>
+
+
+          <div class="rating-line">
+            ${ratingText}
+            <span class="rating-number">
+              ${reviewCount} reviews
+            </span>
+          </div>
+
+
+          <div class="stats">
+            <span>📥 ${downloads} downloads</span>
+          </div>
+
+
+          <div class="description">
+            ${safe(app.description)}
+          </div>
+
+
+          <div class="card-buttons">
+
+            <button
+              class="btn btn-light"
+              onclick="openDetails('${app.id}')">
+              Details
+            </button>
+
+            ${
+              app.apkUrl
+              ? `
+                <button
+                  class="btn btn-primary"
+                  onclick="downloadApp('${app.id}')">
+                  Download
+                </button>
+              `
+              : ""
+            }
+
+          </div>
+
+        </div>
+      `;
+    }).join("");
+  }
+
+
+  window.filterApps = function(){
+
+    const text =
+      document.getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const filtered = allApps.filter(app=>
+      String(app.name || "").toLowerCase().includes(text) ||
+      String(app.country || "").toLowerCase().includes(text) ||
+      String(app.description || "").toLowerCase().includes(text)
+    );
+
+
+    renderApps(filtered);
+  };
+
+
+  window.openDetails = async function(id){
+
+    selectedApp =
+      allApps.find(app=>app.id===id);
+
+    if(!selectedApp) return;
+
+    openModal("detailsModal");
+
+    document.getElementById("detailsContent").innerHTML = `
+      <div style="text-align:center;padding:25px">
+        Loading details...
+      </div>
+    `;
+
+    const reviews = await loadReviews(id);
+
+    renderDetails(reviews);
+  };
+
+
+  async function loadReviews(appId){
+
+    try{
+
+      const reviewQuery = query(
+        collection(db,"reviews"),
+        where("appId","==",appId)
+      );
+
+      const snapshot = await getDocs(reviewQuery);
+
+      const reviews = [];
+
+      snapshot.forEach(docSnap=>{
+        reviews.push({
+          id:docSnap.id,
+          ...docSnap.data()
+        });
+      });
+
+      return reviews;
+
+    }catch(error){
+
+      console.error("Review load error:",error);
+
+      return [];
+    }
+  }
+
+
+  function renderDetails(reviews){
+
+    if(!selectedApp) return;
+
+    const app = selectedApp;
+
+    const downloads = Number(app.downloads || 0);
+
+    let average = 0;
+
+    if(reviews.length){
+
+      average =
+        reviews.reduce(
+          (sum,r)=>sum + Number(r.rating || 0),
+          0
+        ) / reviews.length;
+    }
+
+
+    const existingReview =
+      currentUser
+      ? reviews.find(
+          r=>r.userId === currentUser.uid
+        )
+      : null;
+
+
+    selectedRating =
+      existingReview
+      ? Number(existingReview.rating)
+      : 5;
+
+
+    const screenshotHtml =
+      Array.isArray(app.screenshots) &&
+      app.screenshots.length
+      ?
+      `
+        <div class="screenshots">
+          ${
+            app.screenshots.map(url=>`
+              <img
+                src="${safe(url)}"
+                onerror="this.style.display='none'"
+              >
+            `).join("")
+          }
+        </div>
+      `
+      :
+      "";
+
+
+    const reviewsHtml =
+      reviews.length
+      ?
+      reviews
+        .sort(
+          (a,b)=>
+            String(b.createdAt || "")
+            .localeCompare(String(a.createdAt || ""))
+        )
+        .map(r=>`
+
+          <div class="review">
+
+            <div class="review-stars">
+              ${"★".repeat(Number(r.rating || 0))}
+              ${"☆".repeat(5-Number(r.rating || 0))}
+            </div>
+
+            <div style="margin-top:5px;line-height:1.5">
+              ${safe(r.review || "")}
+            </div>
+
+            <div class="review-date">
+              Verified User • ${formatDate(r.createdAt)}
+            </div>
+
+          </div>
+
+        `).join("")
+      :
+      `<div style="color:#8991a0;font-size:13px">
+        No reviews yet. Be the first to review!
+      </div>`;
+
+
+    document.getElementById("detailsContent").innerHTML = `
+
+      <div class="details-head">
 
         <img
-          class="detail-icon"
-          src="${icon}"
-          alt=""
-          onerror="this.src='https://dummyimage.com/300x300/e9edf5/667085&text=APP'"
+          class="details-icon"
+          src="${safe(app.iconUrl || "")}"
+          onerror="this.src='https://via.placeholder.com/100?text=APP'"
         >
 
         <div>
 
-          <h2>${escapeHTML(app.name)}</h2>
+          <h2 style="margin:0 0 5px">
+            ${safe(app.name)}
+          </h2>
 
-          <div class="stars">
-            ${makeStars()}
-          </div>
-
-          <div class="detail-meta">
-            🌍 ${escapeHTML(app.country || "Unknown")}
-            &nbsp; • &nbsp;
-            👨‍💻 ${escapeHTML(app.developerEmail || "Developer")}
+          <div style="color:#737b8c;font-size:13px">
+            🌍 ${safe(app.country)}
           </div>
 
         </div>
@@ -1102,466 +1243,541 @@
       </div>
 
 
-      <div class="detail-description">
-        ${escapeHTML(app.description || "No description available.")}
+      <div class="rating-line" style="font-size:18px">
+
+        ${
+          reviews.length
+          ? `★ ${average.toFixed(1)} / 5`
+          : "★★★★★"
+        }
+
+        <span class="rating-number">
+          ${reviews.length} reviews
+        </span>
+
       </div>
 
 
+      <div class="download-box">
+
+        <span>📥 Downloads</span>
+
+        <b id="detailDownloadCount">
+          ${downloads}
+        </b>
+
+      </div>
+
+
+      <h3>Description</h3>
+
+      <p style="line-height:1.7;color:#626b7d">
+        ${safe(app.description)}
+      </p>
+
+
       ${
-        screenshots.length
+        app.developerEmail
         ?
         `
-          <h3 style="margin-bottom:12px;">
-            Screenshots
-          </h3>
+          <p style="font-size:13px;color:#737b8c">
+            Developer: ${safe(app.developerEmail)}
+          </p>
+        `
+        : ""
+      }
 
-          <div class="screenshots">
 
-            ${screenshots.map(url => `
+      ${screenshotHtml}
 
-              <img
-                src="${url}"
-                alt="Screenshot"
-                onerror="this.style.display='none'"
-              >
 
+      ${
+        app.apkUrl
+        ?
+        `
+          <button
+            class="btn btn-primary"
+            style="width:100%;margin-top:18px"
+            onclick="downloadApp('${app.id}')">
+            📥 Download App
+          </button>
+        `
+        : ""
+      }
+
+
+      <hr style="border:0;border-top:1px solid #edf0f4;margin:25px 0">
+
+
+      <h3>⭐ Rate & Review</h3>
+
+
+      ${
+        currentUser
+        ?
+        `
+
+          <div class="star-input" id="starInput">
+
+            ${[1,2,3,4,5].map(n=>`
+              <button
+                class="star-btn ${n<=selectedRating ? "active":""}"
+                onclick="selectRating(${n})"
+                id="star-${n}">
+                ★
+              </button>
             `).join("")}
 
           </div>
+
+
+          <textarea
+            id="reviewText"
+            placeholder="Write your review..."
+          >${existingReview ? safe(existingReview.review || "") : ""}</textarea>
+
+
+          <button
+            class="btn btn-primary"
+            onclick="submitReview()">
+            ${existingReview ? "Update Review" : "Submit Review"}
+          </button>
+
         `
         :
         `
-          <div style="
-            background:#f5f6fa;
-            padding:18px;
-            border-radius:14px;
-            color:#737c90;
-          ">
-            No screenshots available.
+          <div class="empty" style="margin-bottom:15px">
+            Review দিতে Login করো।
           </div>
+
+          <button
+            class="btn btn-light"
+            onclick="closeModal('detailsModal');openModal('authModal')">
+            Login
+          </button>
         `
       }
 
 
-      ${
-        apkUrl
-        ?
-        `
-          <button
-            class="detail-download"
-            onclick="window.open('${apkUrl}','_blank')"
-          >
-            ⬇️ Download App
-          </button>
-        `
-        :
-        `
-          <button
-            class="detail-download"
-            disabled
-            style="opacity:.5;cursor:not-allowed;"
-          >
-            Download unavailable
-          </button>
-        `
-      }
+      <h3 style="margin-top:28px">
+        Reviews (${reviews.length})
+      </h3>
+
+      <div>
+        ${reviewsHtml}
+      </div>
 
     `;
+  }
 
 
-    openModal("detailsModal");
+  window.selectRating = function(rating){
 
+    selectedRating = rating;
+
+    for(let i=1;i<=5;i++){
+
+      const star =
+        document.getElementById("star-"+i);
+
+      if(star){
+        star.classList.toggle(
+          "active",
+          i<=rating
+        );
+      }
+    }
   };
 
 
-  $("searchInput").addEventListener("input",function(){
-
-    const text = this.value.toLowerCase().trim();
-
-    const filtered = approvedApps.filter(app => {
-
-      const content = `
-        ${app.name || ""}
-        ${app.description || ""}
-        ${app.country || ""}
-        ${app.developerEmail || ""}
-      `.toLowerCase();
-
-      return content.includes(text);
-
-    });
-
-
-    renderApps(filtered);
-
-  });
-
-
-  $("loginBtn").onclick =
-    () => openModal("loginModal");
-
-
-  $("signupBtn").onclick =
-    () => openModal("signupModal");
-
-
-  $("uploadBtn").onclick = () => {
+  window.submitReview = async function(){
 
     if(!currentUser){
 
-      alert("Please login first.");
-
-      openModal("loginModal");
-
+      alert("Review দিতে Login করো।");
       return;
-
     }
 
-    openModal("uploadModal");
-
-  };
+    if(!selectedApp) return;
 
 
-  $("logoutBtn").onclick = async () => {
-
-    try{
-
-      await signOut(auth);
-
-    }catch(error){
-
-      alert(error.message);
-
-    }
-
-  };
+    const reviewText =
+      document.getElementById("reviewText")
+        .value
+        .trim();
 
 
-  $("doLogin").onclick = async () => {
+    if(!reviewText){
 
-    const email = $("loginEmail").value.trim();
-    const password = $("loginPassword").value;
-
-
-    if(!email || !password){
-
-      $("loginMessage").textContent =
-        "Email and password required.";
-
+      alert("Review লিখো।");
       return;
-
     }
 
 
     try{
 
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      closeModal("loginModal");
-
-      $("loginMessage").textContent = "";
-
-    }catch(error){
-
-      $("loginMessage").textContent =
-        error.message;
-
-    }
-
-  };
+      const reviewId =
+        selectedApp.id + "_" + currentUser.uid;
 
 
-  $("doSignup").onclick = async () => {
-
-    const email = $("signupEmail").value.trim();
-    const password = $("signupPassword").value;
-
-
-    if(!email || !password){
-
-      $("signupMessage").textContent =
-        "Email and password required.";
-
-      return;
-
-    }
-
-
-    if(password.length < 6){
-
-      $("signupMessage").textContent =
-        "Password must be at least 6 characters.";
-
-      return;
-
-    }
-
-
-    try{
-
-      await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      closeModal("signupModal");
-
-      $("signupMessage").textContent = "";
-
-    }catch(error){
-
-      $("signupMessage").textContent =
-        error.message;
-
-    }
-
-  };
-
-
-  $("submitAppBtn").onclick = async () => {
-
-    if(!currentUser){
-
-      $("submitMessage").textContent =
-        "Please login first.";
-
-      return;
-
-    }
-
-
-    const name =
-      $("appName").value.trim();
-
-    const country =
-      $("appCountry").value.trim();
-
-    const iconUrl =
-      $("appIcon").value.trim();
-
-    const apkUrl =
-      $("appApk").value.trim();
-
-    const description =
-      $("appDescription").value.trim();
-
-    const screenshotText =
-      $("appScreenshots").value.trim();
-
-
-    if(!name || !country || !description){
-
-      $("submitMessage").textContent =
-        "App name, country and description are required.";
-
-      return;
-
-    }
-
-
-    const screenshots =
-      screenshotText
-        .split(/\n|,/)
-        .map(x => x.trim())
-        .filter(Boolean);
-
-
-    try{
-
-      $("submitAppBtn").disabled = true;
-
-      $("submitAppBtn").textContent =
-        "Submitting...";
-
-
-      await addDoc(
-        collection(db,"apps"),
+      await setDoc(
+        doc(db,"reviews",reviewId),
         {
-
-          name:name,
-
-          country:country,
-
-          iconUrl:iconUrl,
-
-          apkUrl:apkUrl,
-
-          description:description,
-
-          screenshots:screenshots,
-
-          developerEmail:currentUser.email,
-
-          developerId:currentUser.uid,
-
-          status:"pending",
-
+          appId:selectedApp.id,
+          userId:currentUser.uid,
+          rating:selectedRating,
+          review:reviewText,
           createdAt:new Date().toISOString()
-
         }
       );
 
 
-      $("submitMessage").textContent =
-        "✅ App submitted successfully. Under Review.";
-
-      $("appName").value = "";
-      $("appCountry").value = "";
-      $("appIcon").value = "";
-      $("appApk").value = "";
-      $("appDescription").value = "";
-      $("appScreenshots").value = "";
+      const reviews =
+        await loadReviews(selectedApp.id);
 
 
-      await loadAdminApps();
+      await updateRatingSummary(
+        selectedApp.id,
+        reviews
+      );
 
 
-      setTimeout(() => {
+      selectedApp.ratingCount =
+        reviews.length;
 
-        closeModal("uploadModal");
+      selectedApp.ratingAverage =
+        reviews.reduce(
+          (sum,r)=>sum + Number(r.rating || 0),
+          0
+        ) / reviews.length;
 
-        $("submitMessage").textContent = "";
 
-      },1200);
+      renderDetails(reviews);
+
+      await loadApprovedApps();
 
 
     }catch(error){
 
       console.error(error);
 
-      $("submitMessage").textContent =
-        error.message;
-
-    }finally{
-
-      $("submitAppBtn").disabled = false;
-
-      $("submitAppBtn").textContent =
-        "Submit App";
-
+      alert(
+        "Review save failed: " +
+        error.message
+      );
     }
-
   };
 
 
-  async function loadAdminApps(){
+  async function updateRatingSummary(appId,reviews){
 
-    if(!currentUser ||
-       currentUser.email !== ADMIN_EMAIL){
+    if(!reviews.length) return;
 
-      $("adminSection").style.display = "none";
-
-      return;
-
-    }
-
-
-    $("adminSection").style.display = "block";
+    const average =
+      reviews.reduce(
+        (sum,r)=>sum + Number(r.rating || 0),
+        0
+      ) / reviews.length;
 
 
     try{
 
-      const pendingQuery = query(
-        collection(db,"apps"),
-        where("status","==","pending")
+      await updateDoc(
+        doc(db,"apps",appId),
+        {
+          ratingAverage:Number(average.toFixed(1)),
+          ratingCount:reviews.length
+        }
       );
 
+    }catch(error){
+
+      console.error(
+        "Rating summary update failed:",
+        error
+      );
+    }
+  }
+
+
+  window.downloadApp = async function(id){
+
+    const app =
+      allApps.find(a=>a.id===id) ||
+      selectedApp;
+
+
+    if(!app || !app.apkUrl){
+
+      alert("Download link পাওয়া যায়নি।");
+      return;
+    }
+
+
+    try{
+
+      await updateDoc(
+        doc(db,"apps",id),
+        {
+          downloads:increment(1)
+        }
+      );
+
+      app.downloads =
+        Number(app.downloads || 0) + 1;
+
+
+      const countElement =
+        document.getElementById("detailDownloadCount");
+
+      if(countElement){
+        countElement.textContent =
+          app.downloads;
+      }
+
+
+      window.open(
+        app.apkUrl,
+        "_blank"
+      );
+
+
+      await loadApprovedApps();
+
+    }catch(error){
+
+      console.error(
+        "Download count error:",
+        error
+      );
+
+      // Link still opens even if counter update fails.
+      window.open(
+        app.apkUrl,
+        "_blank"
+      );
+    }
+  };
+
+
+  async function loadMyStatus(){
+
+    const container =
+      document.getElementById("myStatusList");
+
+
+    container.innerHTML =
+      `<div class="empty">Loading...</div>`;
+
+
+    try{
+
+      const statusQuery = query(
+        collection(db,"apps"),
+        where(
+          "developerId",
+          "==",
+          currentUser.uid
+        )
+      );
+
+
       const snapshot =
-        await getDocs(pendingQuery);
+        await getDocs(statusQuery);
 
 
-      const pending = [];
+      const apps = [];
 
-      snapshot.forEach(item => {
-
-        pending.push({
-          id:item.id,
-          ...item.data()
+      snapshot.forEach(docSnap=>{
+        apps.push({
+          id:docSnap.id,
+          ...docSnap.data()
         });
-
       });
 
 
-      renderPending(pending);
+      apps.sort(
+        (a,b)=>
+          String(b.createdAt || "")
+          .localeCompare(
+            String(a.createdAt || "")
+          )
+      );
 
-      updateAdminStats(pending);
+
+      if(!apps.length){
+
+        container.innerHTML = `
+          <div class="empty">
+            এখনো কোনো app submit করো নি।
+          </div>
+        `;
+
+        return;
+      }
+
+
+      container.innerHTML =
+        apps.map(app=>{
+
+          const status =
+            app.status || "pending";
+
+
+          let label = "Under Review";
+          let className = "pending";
+
+          if(status==="approved"){
+            label = "Approved";
+            className = "approved";
+          }
+
+          if(status==="rejected"){
+            label = "Rejected";
+            className = "rejected";
+          }
+
+
+          return `
+            <div class="status-item">
+
+              <div class="status-row">
+
+                <div>
+                  <b>${safe(app.name)}</b>
+
+                  <div style="
+                    color:#8991a0;
+                    font-size:12px;
+                    margin-top:5px
+                  ">
+                    Submitted:
+                    ${formatDate(app.createdAt)}
+                  </div>
+                </div>
+
+                <span class="badge ${className}">
+                  ${label}
+                </span>
+
+              </div>
+
+
+              ${
+                status==="approved"
+                ?
+                `
+                  <div style="
+                    color:#168344;
+                    font-size:12px;
+                    margin-top:10px
+                  ">
+                    ✅ Your app is now public.
+                  </div>
+                `
+                : ""
+              }
+
+
+              ${
+                status==="rejected"
+                ?
+                `
+                  <div style="
+                    color:#c22f2f;
+                    font-size:12px;
+                    margin-top:10px
+                  ">
+                    ❌ Your app was rejected by admin.
+                  </div>
+                `
+                : ""
+              }
+
+            </div>
+          `;
+
+        }).join("");
 
 
     }catch(error){
 
       console.error(error);
 
-      $("pendingApps").innerHTML = `
+      container.innerHTML = `
         <div class="empty">
-          ${escapeHTML(error.message)}
+          Status load failed.<br>
+          ${safe(error.message)}
         </div>
       `;
-
     }
-
   }
 
 
-  function renderPending(apps){
+  async function loadPendingApps(){
 
-    if(!apps.length){
-
-      $("pendingApps").innerHTML = `
-        <div class="empty">
-          <h3>No pending submissions</h3>
-          <p style="margin-top:7px;">
-            সব app review করা হয়েছে।
-          </p>
-        </div>
-      `;
+    if(!currentUser ||
+       currentUser.email !== ADMIN_EMAIL){
 
       return;
-
     }
 
 
-    $("pendingApps").innerHTML =
-      apps.map(app => {
+    const pendingQuery =
+      query(
+        collection(db,"apps"),
+        where("status","==","pending")
+      );
 
-        const icon =
-          safeUrl(app.iconUrl) ||
-          "https://dummyimage.com/100x100/e9edf5/667085&text=APP";
+
+    const snapshot =
+      await getDocs(pendingQuery);
 
 
-        return `
+    const container =
+      document.getElementById("pendingApps");
 
-          <div class="admin-app">
 
-            <div class="admin-info">
+    if(snapshot.empty){
 
-              <img
-                src="${icon}"
-                alt=""
-              >
+      container.innerHTML =
+        `<div class="empty">
+          No pending submissions 🎉
+        </div>`;
 
-              <div>
+      return;
+    }
 
-                <strong>
-                  ${escapeHTML(app.name)}
-                </strong>
 
-                <div style="
-                  font-size:13px;
-                  color:#778096;
-                  margin-top:4px;
-                ">
-                  ${escapeHTML(app.developerEmail || "")}
-                </div>
+    const apps = [];
 
-                <div style="margin-top:5px;">
-                  <span class="status">Pending</span>
-                </div>
+    snapshot.forEach(docSnap=>{
+      apps.push({
+        id:docSnap.id,
+        ...docSnap.data()
+      });
+    });
 
+
+    container.innerHTML =
+      apps.map(app=>`
+
+        <div class="admin-card">
+
+          <div class="admin-row">
+
+            <div>
+
+              <b>${safe(app.name)}</b>
+
+              <div style="
+                color:#737b8c;
+                font-size:12px;
+                margin-top:5px
+              ">
+                ${safe(app.country)}
+                •
+                ${safe(app.developerEmail)}
               </div>
 
             </div>
@@ -1571,26 +1787,104 @@
 
               <button
                 class="btn btn-primary"
-                onclick="approveApp('${app.id}')"
-              >
-                ✓ Approve
+                onclick="approveApp('${app.id}')">
+                Approve
               </button>
 
               <button
                 class="btn btn-danger"
-                onclick="rejectApp('${app.id}')"
-              >
-                ✕ Reject
+                onclick="rejectApp('${app.id}')">
+                Reject
               </button>
 
             </div>
 
           </div>
 
-        `;
+        </div>
 
-      }).join("");
+      `).join("");
+  }
 
+
+  async function loadAdminApprovedApps(){
+
+    if(!currentUser ||
+       currentUser.email !== ADMIN_EMAIL){
+
+      return;
+    }
+
+
+    const approvedQuery =
+      query(
+        collection(db,"apps"),
+        where("status","==","approved")
+      );
+
+
+    const snapshot =
+      await getDocs(approvedQuery);
+
+
+    const container =
+      document.getElementById(
+        "adminApprovedApps"
+      );
+
+
+    if(snapshot.empty){
+
+      container.innerHTML =
+        `<div class="empty">
+          No approved apps.
+        </div>`;
+
+      return;
+    }
+
+
+    const apps = [];
+
+    snapshot.forEach(docSnap=>{
+      apps.push({
+        id:docSnap.id,
+        ...docSnap.data()
+      });
+    });
+
+
+    container.innerHTML =
+      apps.map(app=>`
+
+        <div class="admin-card">
+
+          <div class="admin-row">
+
+            <div>
+              <b>${safe(app.name)}</b>
+
+              <div style="
+                color:#737b8c;
+                font-size:12px;
+                margin-top:5px
+              ">
+                📥 ${Number(app.downloads || 0)}
+                downloads
+                •
+                ⭐ ${Number(app.ratingAverage || 0).toFixed(1)}
+              </div>
+            </div>
+
+            <span class="badge approved">
+              Approved
+            </span>
+
+          </div>
+
+        </div>
+
+      `).join("");
   }
 
 
@@ -1600,7 +1894,6 @@
        currentUser.email !== ADMIN_EMAIL){
 
       return;
-
     }
 
 
@@ -1610,22 +1903,26 @@
         doc(db,"apps",id),
         {
           status:"approved",
-          approvedAt:new Date().toISOString()
+          approvedAt:new Date().toISOString(),
+
+          downloads:0
         }
       );
 
 
-      alert("✅ App approved!");
+      alert("App approved ✅");
 
+      await loadPendingApps();
+      await loadAdminApprovedApps();
       await loadApprovedApps();
-      await loadAdminApps();
 
     }catch(error){
 
-      alert(error.message);
-
+      alert(
+        "Approve failed: " +
+        error.message
+      );
     }
-
   };
 
 
@@ -1635,7 +1932,6 @@
        currentUser.email !== ADMIN_EMAIL){
 
       return;
-
     }
 
 
@@ -1650,128 +1946,105 @@
       );
 
 
-      alert("❌ App rejected!");
+      alert("App rejected ❌");
 
-      await loadAdminApps();
+      await loadPendingApps();
 
     }catch(error){
 
-      alert(error.message);
-
+      alert(
+        "Reject failed: " +
+        error.message
+      );
     }
-
   };
 
 
-  async function updateAdminStats(pendingData){
+  onAuthStateChanged(
+    auth,
+    async user=>{
 
-    if(!currentUser ||
-       currentUser.email !== ADMIN_EMAIL){
-
-      return;
-
-    }
+      currentUser = user;
 
 
-    try{
-
-      const snapshot =
-        await getDocs(collection(db,"apps"));
+      const adminPanel =
+        document.getElementById("adminPanel");
 
 
-      let pending = 0;
-      let approved = 0;
-      let total = 0;
+      if(user){
 
+        if(user.email === ADMIN_EMAIL){
 
-      snapshot.forEach(item => {
+          adminPanel.style.display =
+            "block";
 
-        total++;
+          await loadPendingApps();
+          await loadAdminApprovedApps();
 
-        const data = item.data();
+        }else{
 
-        if(data.status === "pending"){
-          pending++;
+          adminPanel.style.display =
+            "none";
         }
-
-        if(data.status === "approved"){
-          approved++;
-        }
-
-      });
-
-
-      $("pendingCount").textContent = pending;
-      $("approvedCount").textContent = approved;
-      $("totalCount").textContent = total;
-
-
-    }catch(error){
-
-      console.error(error);
-
-    }
-
-  }
-
-
-  onAuthStateChanged(auth, async user => {
-
-    currentUser = user;
-
-
-    if(user){
-
-      $("loginBtn").style.display = "none";
-      $("signupBtn").style.display = "none";
-      $("logoutBtn").style.display = "block";
-
-      $("userName").textContent =
-        user.email;
-
-
-      if(user.email === ADMIN_EMAIL){
-
-        $("adminSection").style.display = "block";
 
       }else{
 
-        $("adminSection").style.display = "none";
-
+        adminPanel.style.display =
+          "none";
       }
-
-
-    }else{
-
-      $("loginBtn").style.display = "block";
-      $("signupBtn").style.display = "block";
-      $("logoutBtn").style.display = "none";
-      $("userName").textContent = "";
-
-      $("adminSection").style.display = "none";
 
     }
+  );
 
 
-    await loadApprovedApps();
+  function safe(value){
 
-    await loadAdminApps();
+    return String(value ?? "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+  }
 
-  });
+
+  function formatDate(value){
+
+    if(!value) return "-";
+
+    try{
+
+      return new Date(value)
+        .toLocaleDateString();
+
+    }catch{
+
+      return "-";
+    }
+  }
 
 
-  // Close modal when clicking outside
-  document.querySelectorAll(".modal-bg").forEach(bg => {
+  // Close dropdown if user taps outside.
+  document.addEventListener(
+    "click",
+    function(event){
 
-    bg.addEventListener("click",function(e){
+      const menu =
+        document.querySelector(".menu-wrap");
 
-      if(e.target === bg){
-        bg.classList.remove("show");
+      if(
+        menu &&
+        !menu.contains(event.target)
+      ){
+        closeMenu();
       }
 
-    });
+    }
+  );
 
-  });
+
+  // Initial load
+  loadApprovedApps();
 
 </script>
 
