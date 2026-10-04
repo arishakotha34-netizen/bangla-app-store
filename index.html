@@ -1,2866 +1,1777 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Bangla App Store</title>
-
-<style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-:root{
-  --bg:#f5f7ff;
-  --card:#ffffff;
-  --text:#111827;
-  --muted:#64748b;
-  --primary:#5b5cf0;
-  --primary2:#7c3aed;
-  --success:#16a34a;
-  --danger:#dc2626;
-  --border:#e5e7eb;
-  --dark:#0f172a;
-}
-
-body{
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Arial,
-    sans-serif;
-
-  background:
-    radial-gradient(
-      circle at top left,
-      #eef2ff 0,
-      transparent 35%
-    ),
-    var(--bg);
-
-  color:var(--text);
-  min-height:100vh;
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-header{
-  position:sticky;
-  top:0;
-  z-index:100;
-
-  background:rgba(255,255,255,.88);
-  backdrop-filter:blur(18px);
-
-  border-bottom:1px solid rgba(226,232,240,.8);
-}
-
-.nav{
-  max-width:1180px;
-  margin:auto;
-
-  padding:15px 18px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  gap:20px;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  font-size:21px;
-  font-weight:900;
-  letter-spacing:-.5px;
-}
-
-.logo-icon{
-  width:40px;
-  height:40px;
-
-  border-radius:12px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  color:white;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--primary),
-      var(--primary2)
-    );
-
-  box-shadow:
-    0 8px 20px rgba(91,92,240,.25);
-}
-
-.nav-buttons{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-
-/* =========================
-   BUTTONS
-========================= */
-
-button{
-  border:0;
-  cursor:pointer;
-
-  font-size:14px;
-  font-weight:700;
-
-  border-radius:10px;
-
-  padding:10px 15px;
-
-  transition:
-    transform .2s,
-    box-shadow .2s,
-    opacity .2s;
-}
-
-button:hover{
-  transform:translateY(-1px);
-}
-
-.primary{
-  color:white;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--primary),
-      var(--primary2)
-    );
-
-  box-shadow:
-    0 7px 18px rgba(91,92,240,.2);
-}
-
-.success{
-  color:white;
-  background:var(--success);
-}
-
-.danger{
-  color:white;
-  background:var(--danger);
-}
-
-.dark{
-  color:white;
-  background:#111827;
-}
-
-.gray{
-  color:#334155;
-  background:#e2e8f0;
-}
-
-
-/* =========================
-   HERO
-========================= */
-
-.hero-wrap{
-  max-width:1180px;
-  margin:0 auto;
-  padding:35px 18px 10px;
-}
-
-.hero{
-  position:relative;
-  overflow:hidden;
-
-  border-radius:28px;
-
-  padding:55px 30px;
-
-  color:white;
-
-  background:
-    radial-gradient(
-      circle at 85% 20%,
-      rgba(255,255,255,.2),
-      transparent 25%
-    ),
-    linear-gradient(
-      135deg,
-      #111c55,
-      #312e81 55%,
-      #6d28d9
-    );
-
-  box-shadow:
-    0 25px 60px rgba(49,46,129,.22);
-}
-
-.hero:after{
-  content:"";
-
-  position:absolute;
-
-  width:220px;
-  height:220px;
-
-  right:-70px;
-  bottom:-100px;
-
-  border-radius:50%;
-
-  background:rgba(255,255,255,.08);
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-
-  max-width:700px;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-
-  padding:7px 12px;
-
-  border-radius:100px;
-
-  background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.18);
-
-  font-size:12px;
-  font-weight:700;
-
-  margin-bottom:18px;
-}
-
-.hero h1{
-  font-size:clamp(34px,7vw,62px);
-
-  line-height:1.02;
-
-  letter-spacing:-2.5px;
-
-  margin-bottom:18px;
-}
-
-.hero p{
-  font-size:17px;
-  line-height:1.7;
-
-  color:#dbeafe;
-
-  max-width:620px;
-}
-
-.hero-actions{
-  margin-top:25px;
-
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.hero-actions button{
-  padding:13px 20px;
-}
-
-
-/* =========================
-   SEARCH
-========================= */
-
-.search-wrap{
-  max-width:1180px;
-  margin:20px auto 0;
-  padding:0 18px;
-}
-
-.search-box{
-  position:relative;
-}
-
-.search-box input{
-  width:100%;
-
-  border:1px solid var(--border);
-
-  background:white;
-
-  border-radius:15px;
-
-  padding:16px 18px 16px 48px;
-
-  outline:none;
-
-  font-size:15px;
-
-  box-shadow:
-    0 5px 25px rgba(15,23,42,.04);
-}
-
-.search-icon{
-  position:absolute;
-  left:17px;
-  top:15px;
-
-  font-size:18px;
-}
-
-
-/* =========================
-   MAIN
-========================= */
-
-.container{
-  max-width:1180px;
-
-  margin:auto;
-
-  padding:30px 18px 60px;
-}
-
-.section-head{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-
-  gap:15px;
-
-  margin:25px 0 18px;
-}
-
-.section-head h2{
-  font-size:24px;
-  letter-spacing:-.7px;
-}
-
-.section-head p{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:5px;
-}
-
-
-/* =========================
-   APP GRID
-========================= */
-
-.apps-grid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(
-      auto-fill,
-      minmax(245px,1fr)
-    );
-
-  gap:18px;
-}
-
-.app-card{
-  background:var(--card);
-
-  border:1px solid rgba(226,232,240,.8);
-
-  border-radius:18px;
-
-  padding:19px;
-
-  box-shadow:
-    0 8px 30px rgba(15,23,42,.045);
-
-  transition:
-    transform .2s,
-    box-shadow .2s;
-
-  overflow:hidden;
-}
-
-.app-card:hover{
-  transform:translateY(-4px);
-
-  box-shadow:
-    0 18px 40px rgba(15,23,42,.09);
-}
-
-.app-top{
-  display:flex;
-  align-items:center;
-
-  gap:13px;
-
-  margin-bottom:14px;
-}
-
-.app-icon{
-  width:65px;
-  height:65px;
-
-  border-radius:17px;
-
-  object-fit:cover;
-
-  background:
-    linear-gradient(
-      135deg,
-      #e0e7ff,
-      #ede9fe
-    );
-
-  flex-shrink:0;
-}
-
-.placeholder-icon{
-  width:65px;
-  height:65px;
-
-  border-radius:17px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:27px;
-
-  color:#4f46e5;
-
-  background:
-    linear-gradient(
-      135deg,
-      #eef2ff,
-      #f5f3ff
-    );
-
-  flex-shrink:0;
-}
-
-.app-name{
-  font-size:17px;
-  font-weight:800;
-
-  line-height:1.25;
-}
-
-.country{
-  font-size:12px;
-  color:var(--muted);
-
-  margin-top:4px;
-}
-
-.rating{
-  display:flex;
-  align-items:center;
-  gap:6px;
-
-  margin:10px 0;
-
-  font-size:13px;
-}
-
-.stars{
-  color:#f59e0b;
-  letter-spacing:1px;
-}
-
-.app-description{
-  color:#64748b;
-
-  font-size:13px;
-
-  line-height:1.6;
-
-  min-height:42px;
-
-  margin-bottom:15px;
-}
-
-.download-btn{
-  width:100%;
-}
-
-
-/* =========================
-   UPLOAD BANNER
-========================= */
-
-.upload-banner{
-  margin:40px 0;
-
-  padding:28px;
-
-  border-radius:22px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #eef2ff,
-      #f5f3ff
-    );
-
-  border:1px solid #ddd6fe;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  gap:20px;
-}
-
-.upload-banner h2{
-  font-size:23px;
-  margin-bottom:7px;
-}
-
-.upload-banner p{
-  color:#64748b;
-  font-size:14px;
-}
-
-
-/* =========================
-   MODAL
-========================= */
-
-.modal{
-  display:none;
-
-  position:fixed;
-  inset:0;
-
-  z-index:1000;
-
-  background:rgba(2,6,23,.68);
-
-  backdrop-filter:blur(5px);
-
-  padding:18px;
-
-  overflow-y:auto;
-}
-
-.modal-box{
-  max-width:560px;
-
-  margin:30px auto;
-
-  background:white;
-
-  border-radius:22px;
-
-  padding:25px;
-
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.25);
-}
-
-.modal-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  margin-bottom:18px;
-}
-
-.modal-head h2{
-  font-size:22px;
-}
-
-.close{
-  width:36px;
-  height:36px;
-
-  border-radius:50%;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:#f1f5f9;
-
-  cursor:pointer;
-
-  font-size:22px;
-}
-
-label{
-  display:block;
-
-  font-size:13px;
-  font-weight:700;
-
-  margin:13px 0 6px;
-}
-
-input,
-textarea,
-select{
-  width:100%;
-
-  padding:13px 14px;
-
-  border:1px solid #dbe1ea;
-
-  border-radius:11px;
-
-  font-size:14px;
-
-  outline:none;
-
-  background:#fff;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-  border-color:#818cf8;
-
-  box-shadow:
-    0 0 0 3px rgba(99,102,241,.1);
-}
-
-textarea{
-  min-height:105px;
-
-  resize:vertical;
-}
-
-.modal-submit{
-  width:100%;
-
-  margin-top:18px;
-
-  padding:13px;
-}
-
-
-/* =========================
-   ADMIN
-========================= */
-
-.admin-section{
-  display:none;
-
-  margin-top:40px;
-}
-
-.admin-header{
-  border-radius:22px;
-
-  padding:25px;
-
-  color:white;
-
-  background:
-    linear-gradient(
-      135deg,
-      #0f172a,
-      #1e293b
-    );
-
-  margin-bottom:18px;
-}
-
-.admin-header h2{
-  font-size:25px;
-}
-
-.admin-header p{
-  color:#cbd5e1;
-  margin:7px 0 18px;
-}
-
-.stats{
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:12px;
-
-  margin-bottom:20px;
-}
-
-.stat{
-  background:white;
-
-  border:1px solid var(--border);
-
-  border-radius:16px;
-
-  padding:17px;
-
-  box-shadow:
-    0 5px 20px rgba(15,23,42,.04);
-}
-
-.stat-number{
-  font-size:28px;
-  font-weight:900;
-}
-
-.stat-label{
-  font-size:12px;
-  color:var(--muted);
-
-  margin-top:4px;
-}
-
-.admin-card{
-  background:white;
-
-  border:1px solid var(--border);
-
-  border-radius:18px;
-
-  padding:20px;
-
-  margin-bottom:14px;
-
-  box-shadow:
-    0 7px 25px rgba(15,23,42,.05);
-}
-
-.admin-card-header{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-
-  margin-bottom:13px;
-}
-
-.admin-card h3{
-  font-size:18px;
-}
-
-.pending{
-  color:#b45309;
-
-  background:#fef3c7;
-
-  padding:5px 9px;
-
-  border-radius:100px;
-
-  font-size:11px;
-
-  font-weight:800;
-
-  white-space:nowrap;
-}
-
-.admin-info{
-  color:#64748b;
-
-  font-size:13px;
-
-  line-height:1.7;
-}
-
-.admin-actions{
-  display:flex;
-  gap:8px;
-
-  margin-top:16px;
-}
-
-
-/* =========================
-   MESSAGE
-========================= */
-
-.message{
-  margin-top:12px;
-
-  padding:11px 13px;
-
-  border-radius:10px;
-
-  background:#f1f5f9;
-
-  color:#475569;
-
-  font-size:13px;
-}
-
-
-/* =========================
-   EMPTY / ERROR
-========================= */
-
-.empty{
-  grid-column:1/-1;
-
-  text-align:center;
-
-  background:white;
-
-  border:1px dashed #cbd5e1;
-
-  border-radius:18px;
-
-  padding:45px 20px;
-
-  color:#64748b;
-}
-
-.empty-icon{
-  font-size:40px;
-  margin-bottom:10px;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-  background:#0f172a;
-
-  color:#cbd5e1;
-
-  padding:35px 18px;
-
-  text-align:center;
-}
-
-.footer-logo{
-  color:white;
-
-  font-size:19px;
-
-  font-weight:800;
-
-  margin-bottom:8px;
-}
-
-footer p{
-  font-size:12px;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:700px){
-
-  .nav{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .nav-buttons{
-    width:100%;
-  }
-
-  .nav-buttons button{
-    flex:1;
-  }
-
-  .hero{
-    padding:40px 22px;
-    border-radius:22px;
-  }
-
-  .hero h1{
-    letter-spacing:-1.5px;
-  }
-
-  .upload-banner{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .upload-banner button{
-    width:100%;
-  }
-
-  .stats{
-    grid-template-columns:1fr;
-  }
-
-  .admin-card-header{
-    flex-direction:column;
-  }
-
-  .admin-actions button{
-    flex:1;
-  }
-
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Bangla App Store</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+
+    body{
+      background:#f5f7fb;
+      color:#172033;
+    }
+
+    button,input,textarea{
+      font:inherit;
+    }
+
+    button{
+      cursor:pointer;
+    }
+
+    .header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(15px);
+      border-bottom:1px solid #e8ebf2;
+    }
+
+    .nav{
+      max-width:1180px;
+      margin:auto;
+      padding:15px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      font-size:20px;
+    }
+
+    .brand-icon{
+      width:42px;
+      height:42px;
+      border-radius:13px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      background:linear-gradient(135deg,#6c4cff,#00b8ff);
+      box-shadow:0 8px 25px rgba(91,76,255,.25);
+    }
+
+    .nav-actions{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+
+    .btn{
+      border:0;
+      border-radius:11px;
+      padding:10px 15px;
+      font-weight:700;
+      transition:.2s;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .btn-primary{
+      background:#604cff;
+      color:white;
+    }
+
+    .btn-dark{
+      background:#172033;
+      color:white;
+    }
+
+    .btn-light{
+      background:#eef1f7;
+      color:#172033;
+    }
+
+    .btn-danger{
+      background:#ffe9ed;
+      color:#c62843;
+    }
+
+    .hero{
+      background:
+        radial-gradient(circle at 80% 20%,rgba(0,200,255,.25),transparent 30%),
+        radial-gradient(circle at 20% 20%,rgba(125,80,255,.28),transparent 35%),
+        #10172d;
+      color:white;
+      padding:65px 20px 75px;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:auto;
+      text-align:center;
+    }
+
+    .hero h1{
+      font-size:clamp(35px,7vw,65px);
+      line-height:1.05;
+      margin-bottom:18px;
+      font-weight:900;
+    }
+
+    .hero h1 span{
+      background:linear-gradient(90deg,#8d7aff,#54d8ff);
+      -webkit-background-clip:text;
+      color:transparent;
+    }
+
+    .hero p{
+      max-width:650px;
+      margin:0 auto 28px;
+      color:#c7cee0;
+      font-size:17px;
+    }
+
+    .search-box{
+      max-width:650px;
+      margin:auto;
+      position:relative;
+    }
+
+    .search-box input{
+      width:100%;
+      padding:16px 20px;
+      border:0;
+      border-radius:16px;
+      outline:0;
+      font-size:16px;
+      box-shadow:0 15px 45px rgba(0,0,0,.2);
+    }
+
+    .container{
+      max-width:1180px;
+      margin:auto;
+      padding:45px 20px;
+    }
+
+    .section-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      margin-bottom:22px;
+    }
+
+    .section-title h2{
+      font-size:28px;
+    }
+
+    .section-title p{
+      color:#6e778b;
+      margin-top:5px;
+    }
+
+    .apps-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+
+    .app-card{
+      background:white;
+      border:1px solid #e8ebf2;
+      border-radius:20px;
+      padding:20px;
+      box-shadow:0 8px 25px rgba(30,40,70,.06);
+      transition:.25s;
+      cursor:pointer;
+    }
+
+    .app-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 18px 40px rgba(30,40,70,.12);
+    }
+
+    .app-top{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+
+    .app-icon{
+      width:68px;
+      height:68px;
+      border-radius:17px;
+      object-fit:cover;
+      background:#edf0f7;
+      flex-shrink:0;
+    }
+
+    .app-name{
+      font-size:19px;
+      font-weight:800;
+      margin-bottom:5px;
+    }
+
+    .app-country{
+      font-size:13px;
+      color:#778096;
+    }
+
+    .stars{
+      color:#ffb400;
+      letter-spacing:1px;
+      font-size:14px;
+    }
+
+    .app-description{
+      color:#687286;
+      margin:17px 0;
+      line-height:1.55;
+      min-height:48px;
+    }
+
+    .card-bottom{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+
+    .view-btn{
+      border:0;
+      background:#f0edff;
+      color:#5d48e8;
+      padding:9px 13px;
+      border-radius:10px;
+      font-weight:700;
+    }
+
+    .upload-banner{
+      margin-top:45px;
+      border-radius:25px;
+      padding:30px;
+      color:white;
+      background:linear-gradient(135deg,#5e4aff,#008dcc);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+
+    .upload-banner h3{
+      font-size:25px;
+      margin-bottom:8px;
+    }
+
+    .upload-banner p{
+      color:#e8edff;
+    }
+
+    .admin{
+      margin-top:50px;
+      background:#fff;
+      border:1px solid #e8ebf2;
+      border-radius:22px;
+      padding:25px;
+    }
+
+    .admin h2{
+      margin-bottom:20px;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:15px;
+      margin-bottom:25px;
+    }
+
+    .stat{
+      padding:20px;
+      background:#f6f7fb;
+      border-radius:16px;
+    }
+
+    .stat strong{
+      display:block;
+      font-size:28px;
+      margin-top:5px;
+    }
+
+    .admin-app{
+      border:1px solid #e7eaf1;
+      border-radius:15px;
+      padding:15px;
+      margin-bottom:12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+    }
+
+    .admin-info{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      min-width:0;
+    }
+
+    .admin-info img{
+      width:52px;
+      height:52px;
+      border-radius:13px;
+      object-fit:cover;
+      background:#eee;
+    }
+
+    .admin-actions{
+      display:flex;
+      gap:7px;
+      flex-shrink:0;
+    }
+
+    .modal-bg{
+      position:fixed;
+      inset:0;
+      z-index:1000;
+      background:rgba(7,12,27,.65);
+      backdrop-filter:blur(7px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+
+    .modal-bg.show{
+      display:flex;
+    }
+
+    .modal{
+      width:100%;
+      max-width:720px;
+      max-height:92vh;
+      overflow:auto;
+      background:white;
+      border-radius:25px;
+      padding:25px;
+      position:relative;
+      box-shadow:0 25px 80px rgba(0,0,0,.25);
+    }
+
+    .close{
+      position:absolute;
+      right:18px;
+      top:18px;
+      width:38px;
+      height:38px;
+      border:0;
+      border-radius:50%;
+      background:#eef1f6;
+      font-size:20px;
+    }
+
+    .detail-header{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      padding-right:45px;
+    }
+
+    .detail-icon{
+      width:90px;
+      height:90px;
+      border-radius:22px;
+      object-fit:cover;
+      background:#eef1f6;
+    }
+
+    .detail-header h2{
+      font-size:28px;
+      margin-bottom:7px;
+    }
+
+    .detail-meta{
+      color:#727b8f;
+      font-size:14px;
+    }
+
+    .detail-description{
+      margin:25px 0;
+      line-height:1.7;
+      color:#505a6d;
+      white-space:pre-wrap;
+    }
+
+    .screenshots{
+      display:flex;
+      gap:12px;
+      overflow-x:auto;
+      padding-bottom:10px;
+    }
+
+    .screenshots img{
+      width:190px;
+      height:330px;
+      object-fit:cover;
+      border-radius:15px;
+      background:#edf0f5;
+      flex-shrink:0;
+    }
+
+    .detail-download{
+      margin-top:22px;
+      width:100%;
+      padding:15px;
+      border:0;
+      border-radius:14px;
+      background:#604cff;
+      color:white;
+      font-weight:800;
+      font-size:16px;
+    }
+
+    .form-group{
+      margin-bottom:15px;
+    }
+
+    .form-group label{
+      display:block;
+      font-weight:700;
+      margin-bottom:7px;
+    }
+
+    .form-group input,
+    .form-group textarea{
+      width:100%;
+      padding:13px;
+      border:1px solid #dfe3eb;
+      border-radius:11px;
+      outline:none;
+    }
+
+    .form-group textarea{
+      min-height:100px;
+      resize:vertical;
+    }
+
+    .empty{
+      text-align:center;
+      padding:50px 20px;
+      background:white;
+      border:1px dashed #d8dce5;
+      border-radius:20px;
+      color:#7a8395;
+    }
+
+    .status{
+      padding:5px 9px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:700;
+      background:#fff3cd;
+      color:#8a6500;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px 20px;
+      color:#7c8494;
+    }
+
+    @media(max-width:850px){
+      .apps-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .upload-banner{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+
+    @media(max-width:600px){
+      .nav{
+        padding:12px 14px;
+      }
+
+      .brand{
+        font-size:16px;
+      }
+
+      .brand-icon{
+        width:36px;
+        height:36px;
+      }
+
+      .nav-actions .btn{
+        padding:8px 10px;
+        font-size:12px;
+      }
+
+      .hero{
+        padding:45px 15px 55px;
+      }
+
+      .container{
+        padding:35px 14px;
+      }
+
+      .apps-grid{
+        grid-template-columns:1fr;
+      }
+
+      .stats{
+        grid-template-columns:1fr;
+      }
+
+      .admin-app{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .admin-actions{
+        width:100%;
+      }
+
+      .admin-actions button{
+        flex:1;
+      }
+
+      .detail-header h2{
+        font-size:22px;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
+<header class="header">
+  <div class="nav">
 
-<!-- =========================
-     HEADER
-========================= -->
-
-<header>
-
-<div class="nav">
-
-  <div class="logo">
-
-    <div class="logo-icon">
-      📱
+    <div class="brand">
+      <div class="brand-icon">BA</div>
+      <span>Bangla App Store</span>
     </div>
 
-    <span>
-      Bangla App Store
-    </span>
+    <div class="nav-actions">
+      <span id="userName"></span>
+      <button id="loginBtn" class="btn btn-light">Login</button>
+      <button id="signupBtn" class="btn btn-primary">Sign Up</button>
+      <button id="logoutBtn" class="btn btn-dark" style="display:none;">Logout</button>
+    </div>
 
   </div>
-
-
-  <div class="nav-buttons">
-
-    <button
-      id="loginBtn"
-      class="primary"
-      onclick="openLogin()">
-      Login / Signup
-    </button>
-
-
-    <button
-      id="uploadBtn"
-      class="primary"
-      onclick="openUpload()"
-      style="display:none;">
-      + Upload App
-    </button>
-
-
-    <button
-      id="adminBtn"
-      class="danger"
-      onclick="openAdmin()"
-      style="display:none;">
-      👑 Admin
-    </button>
-
-
-    <button
-      id="logoutBtn"
-      class="dark"
-      onclick="logout()"
-      style="display:none;">
-      Logout
-    </button>
-
-  </div>
-
-</div>
-
 </header>
 
+<section class="hero">
 
+  <div class="hero-inner">
 
-<!-- =========================
-     HERO
-========================= -->
+    <h1>Discover <span>Great Apps</span></h1>
 
-<section class="hero-wrap">
+    <p>
+      Bangla App Store-এ নতুন নতুন apps খুঁজুন, নিজের app submit করুন
+      এবং সহজেই download করুন।
+    </p>
 
-<div class="hero">
-
-<div class="hero-content">
-
-  <div class="badge">
-    🇧🇩 Bangladesh's Community App Store
-  </div>
-
-
-  <h1>
-    Discover apps.<br>
-    Share your creation.
-  </h1>
-
-
-  <p>
-    Bangla App Store is a community-driven platform
-    where developers can submit their apps and users
-    can discover useful applications.
-  </p>
-
-
-  <div class="hero-actions">
-
-    <button
-      class="primary"
-      onclick="scrollToApps()">
-      🔎 Explore Apps
-    </button>
-
-
-    <button
-      class="gray"
-      onclick="openUpload()">
-      🚀 Publish Your App
-    </button>
+    <div class="search-box">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search apps..."
+      />
+    </div>
 
   </div>
-
-
-  <p
-    id="welcomeText"
-    style="margin-top:18px;font-size:13px;">
-    Welcome to Bangla App Store
-  </p>
-
-</div>
-
-</div>
 
 </section>
-
-
-
-<!-- =========================
-     SEARCH
-========================= -->
-
-<div class="search-wrap">
-
-  <div class="search-box">
-
-    <span class="search-icon">
-      🔎
-    </span>
-
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="Search apps..."
-      oninput="filterApps()">
-
-  </div>
-
-</div>
-
-
-
-<!-- =========================
-     MAIN
-========================= -->
 
 <main class="container">
 
-
-<div
-  id="appsSection"
-  class="section-head">
-
-  <div>
-
-    <h2>
-      Featured Apps
-    </h2>
-
-    <p>
-      Discover apps published by our community.
-    </p>
-
+  <div class="section-title">
+    <div>
+      <h2>Available Apps</h2>
+      <p>Approved apps from our community</p>
+    </div>
   </div>
 
-</div>
+  <div id="appsGrid" class="apps-grid">
+    <div class="empty">Loading apps...</div>
+  </div>
 
+  <div class="upload-banner">
 
-<div
-  id="appsGrid"
-  class="apps-grid">
-
-  <div class="empty">
-
-    <div class="empty-icon">
-      ⏳
+    <div>
+      <h3>আপনার নিজের App আছে?</h3>
+      <p>
+        Bangla App Store-এ আপনার app submit করুন।
+      </p>
     </div>
 
-    Loading apps...
+    <button id="uploadBtn" class="btn btn-light">
+      Submit Your App
+    </button>
 
   </div>
 
-</div>
+  <section id="adminSection" class="admin" style="display:none;">
 
+    <h2>Admin Dashboard</h2>
 
+    <div class="stats">
 
-<!-- =========================
-     UPLOAD BANNER
-========================= -->
+      <div class="stat">
+        Pending Apps
+        <strong id="pendingCount">0</strong>
+      </div>
 
-<div class="upload-banner">
+      <div class="stat">
+        Approved Apps
+        <strong id="approvedCount">0</strong>
+      </div>
 
-  <div>
+      <div class="stat">
+        Total Apps
+        <strong id="totalCount">0</strong>
+      </div>
 
-    <h2>
-      🚀 Have an app to share?
-    </h2>
+    </div>
 
-    <p>
-      Submit your app and let the community discover it.
-      Every submission is reviewed by our admin team.
-    </p>
+    <h3 style="margin-bottom:15px;">Pending Submissions</h3>
 
-  </div>
+    <div id="pendingApps"></div>
 
-
-  <button
-    class="primary"
-    onclick="openUpload()">
-
-    Submit Your App
-
-  </button>
-
-</div>
-
-
-
-<!-- =========================
-     ADMIN PANEL
-========================= -->
-
-<section
-  id="adminSection"
-  class="admin-section">
-
-
-<div class="admin-header">
-
-  <h2>
-    👑 Admin Dashboard
-  </h2>
-
-  <p>
-    Review and manage community app submissions.
-  </p>
-
-
-  <button
-    class="primary"
-    onclick="loadAdminApps()">
-
-    🔄 Refresh
-
-  </button>
-
-</div>
-
-
-
-<div
-  id="adminStats"
-  class="stats">
-
-</div>
-
-
-<div
-  id="adminApps">
-
-  Loading...
-
-</div>
-
-
-</section>
-
+  </section>
 
 </main>
 
-
-
-<!-- =========================
-     LOGIN MODAL
-========================= -->
-
-<div
-  id="loginModal"
-  class="modal">
-
-
-<div class="modal-box">
-
-
-<div class="modal-head">
-
-  <h2>
-    🔐 Welcome Back
-  </h2>
-
-  <div
-    class="close"
-    onclick="closeLogin()">
-    ×
-  </div>
-
-</div>
-
-
-<label>
-  Email
-</label>
-
-<input
-  type="email"
-  id="email"
-  placeholder="you@example.com">
-
-
-<label>
-  Password
-</label>
-
-<input
-  type="password"
-  id="password"
-  placeholder="••••••••">
-
-
-<button
-  class="primary modal-submit"
-  onclick="loginUser()">
-
-  Login
-
-</button>
-
-
-<button
-  class="gray modal-submit"
-  onclick="signupUser()">
-
-  Create New Account
-
-</button>
-
-
-<div
-  id="loginMessage"
-  class="message">
-
-</div>
-
-
-</div>
-
-</div>
-
-
-
-<!-- =========================
-     UPLOAD MODAL
-========================= -->
-
-<div
-  id="uploadModal"
-  class="modal">
-
-
-<div class="modal-box">
-
-
-<div class="modal-head">
-
-  <h2>
-    📤 Submit Your App
-  </h2>
-
-  <div
-    class="close"
-    onclick="closeUpload()">
-    ×
-  </div>
-
-</div>
-
-
-<p style="color:#64748b;font-size:13px;line-height:1.6;">
-
-  Submit your app for review.
-  Once approved by the admin, it will appear
-  publicly in the App Store.
-
-</p>
-
-
-<label>
-  App Name *
-</label>
-
-<input
-  id="appName"
-  placeholder="Example: My Calculator">
-
-
-<label>
-  Country / Region *
-</label>
-
-<select id="country">
-
-  <option value="">
-    Select Country
-  </option>
-
-  <option value="Bangladesh">
-    🇧🇩 Bangladesh
-  </option>
-
-  <option value="India">
-    🇮🇳 India
-  </option>
-
-  <option value="Pakistan">
-    🇵🇰 Pakistan
-  </option>
-
-  <option value="Nepal">
-    🇳🇵 Nepal
-  </option>
-
-  <option value="Other">
-    🌍 Other
-  </option>
-
-</select>
-
-
-<label>
-  App Description *
-</label>
-
-<textarea
-  id="appDescription"
-  placeholder="Tell users what your app does..."></textarea>
-
-
-<label>
-  App Icon URL
-</label>
-
-<input
-  id="iconUrl"
-  placeholder="https://example.com/icon.png">
-
-
-<label>
-  Screenshot URL
-</label>
-
-<input
-  id="screenshotUrl"
-  placeholder="https://example.com/screenshot.png">
-
-
-<label>
-  APK Download URL
-</label>
-
-<input
-  id="apkUrl"
-  placeholder="https://example.com/app.apk">
-
-
-<button
-  class="primary modal-submit"
-  onclick="submitApp()">
-
-  🚀 Submit For Review
-
-</button>
-
-
-<div
-  id="uploadMessage"
-  class="message">
-
-</div>
-
-
-</div>
-
-</div>
-
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
 <footer>
-
-<div class="footer-logo">
-  📱 Bangla App Store
-</div>
-
-<p>
-  A community-powered home for useful apps.
-</p>
-
-<p style="margin-top:10px;">
-  © 2026 Bangla App Store
-</p>
-
+  © 2026 Bangla App Store · Built for everyone
 </footer>
 
+
+<!-- LOGIN MODAL -->
+
+<div id="loginModal" class="modal-bg">
+
+  <div class="modal">
+
+    <button class="close" onclick="closeModal('loginModal')">×</button>
+
+    <h2 style="margin-bottom:20px;">Login</h2>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input id="loginEmail" type="email" placeholder="you@example.com">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input id="loginPassword" type="password" placeholder="Password">
+    </div>
+
+    <button id="doLogin" class="btn btn-primary" style="width:100%;">
+      Login
+    </button>
+
+    <p id="loginMessage" style="margin-top:12px;"></p>
+
+  </div>
+
+</div>
+
+
+<!-- SIGNUP MODAL -->
+
+<div id="signupModal" class="modal-bg">
+
+  <div class="modal">
+
+    <button class="close" onclick="closeModal('signupModal')">×</button>
+
+    <h2 style="margin-bottom:20px;">Create Account</h2>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input id="signupEmail" type="email" placeholder="you@example.com">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input id="signupPassword" type="password" placeholder="Minimum 6 characters">
+    </div>
+
+    <button id="doSignup" class="btn btn-primary" style="width:100%;">
+      Create Account
+    </button>
+
+    <p id="signupMessage" style="margin-top:12px;"></p>
+
+  </div>
+
+</div>
+
+
+<!-- SUBMIT APP MODAL -->
+
+<div id="uploadModal" class="modal-bg">
+
+  <div class="modal">
+
+    <button class="close" onclick="closeModal('uploadModal')">×</button>
+
+    <h2 style="margin-bottom:20px;">Submit Your App</h2>
+
+    <div class="form-group">
+      <label>App Name</label>
+      <input id="appName" placeholder="My Awesome App">
+    </div>
+
+    <div class="form-group">
+      <label>Country / Region</label>
+      <input id="appCountry" placeholder="Bangladesh">
+    </div>
+
+    <div class="form-group">
+      <label>Icon URL</label>
+      <input id="appIcon" placeholder="https://example.com/icon.png">
+    </div>
+
+    <div class="form-group">
+      <label>APK / App Download URL</label>
+      <input id="appApk" placeholder="https://example.com/app.apk">
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="appDescription" placeholder="Describe your app..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Screenshots URLs</label>
+      <textarea
+        id="appScreenshots"
+        placeholder="এক লাইনে একটি URL&#10;https://example.com/shot1.jpg&#10;https://example.com/shot2.jpg"
+      ></textarea>
+    </div>
+
+    <button id="submitAppBtn" class="btn btn-primary" style="width:100%;">
+      Submit App
+    </button>
+
+    <p id="submitMessage" style="margin-top:12px;"></p>
+
+  </div>
+
+</div>
+
+
+<!-- APP DETAILS MODAL -->
+
+<div id="detailsModal" class="modal-bg">
+
+  <div class="modal">
+
+    <button class="close" onclick="closeModal('detailsModal')">×</button>
+
+    <div id="detailsContent"></div>
+
+  </div>
+
+</div>
 
 
 <script type="module">
 
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 
-/* =========================
-   FIREBASE
-========================= */
+  import {
+    getAuth,
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
-import {
-  initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  updateDoc,
-  doc,
-  serverTimestamp,
-  query,
-  where
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    updateDoc,
+    doc,
+    query,
+    where
+  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 
-const firebaseConfig = {
-
-  apiKey:
-    "AIzaSyB-9kRZjLXLdrf2CsnOnytJklx7KxKKikk",
-
-  authDomain:
-    "bangla-app-store-510522.firebaseapp.com",
-
-  projectId:
-    "bangla-app-store-510522",
-
-  storageBucket:
-    "bangla-app-store-510522.firebasestorage.app",
-
-  messagingSenderId:
-    "599550128804",
-
-  appId:
-    "1:599550128804:web:de054b345d7f68c49dec31",
-
-  measurementId:
-    "G-1HP4G49SJE"
-
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyB-9kRZjLXLdrf2CsnOnytJklx7KxKKikk",
+    authDomain: "bangla-app-store-510522.firebaseapp.com",
+    projectId: "bangla-app-store-510522",
+    storageBucket: "bangla-app-store-510522.firebasestorage.app",
+    messagingSenderId: "599550128804",
+    appId: "1:599550128804:web:de054b345d7f68c49dec31",
+    measurementId: "G-1HP4G49SJE"
+  };
 
 
-const firebaseApp =
-  initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
 
-const auth =
-  getAuth(firebaseApp);
+  const ADMIN_EMAIL = "arishakotha34@gmail.com";
 
 
-const db =
-  getFirestore(firebaseApp);
+  let currentUser = null;
+  let approvedApps = [];
 
 
-const ADMIN_EMAIL =
-  "arishakotha34@gmail.com";
+  const $ = id => document.getElementById(id);
 
 
-let allApprovedApps = [];
+  window.closeModal = function(id){
+    $(id).classList.remove("show");
+  };
 
 
-
-/* =========================
-   MODALS
-========================= */
-
-window.openLogin = function(){
-
-  document
-    .getElementById("loginModal")
-    .style.display = "block";
-
-};
-
-
-window.closeLogin = function(){
-
-  document
-    .getElementById("loginModal")
-    .style.display = "none";
-
-};
-
-
-window.openUpload = function(){
-
-  if(!auth.currentUser){
-
-    alert(
-      "Please login or create an account first."
-    );
-
-    openLogin();
-
-    return;
+  function openModal(id){
+    $(id).classList.add("show");
   }
 
 
-  document
-    .getElementById("uploadModal")
-    .style.display = "block";
+  function escapeHTML(value){
 
-};
-
-
-window.closeUpload = function(){
-
-  document
-    .getElementById("uploadModal")
-    .style.display = "none";
-
-};
-
-
-
-/* =========================
-   SIGNUP
-========================= */
-
-window.signupUser =
-async function(){
-
-  const email =
-    document
-      .getElementById("email")
-      .value
-      .trim();
-
-
-  const password =
-    document
-      .getElementById("password")
-      .value;
-
-
-  if(!email || !password){
-
-    document
-      .getElementById("loginMessage")
-      .innerText =
-      "Please enter email and password.";
-
-    return;
-  }
-
-
-  try{
-
-    await
-      createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-
-    document
-      .getElementById("loginMessage")
-      .innerText =
-      "✅ Account created successfully!";
-
-
-  }catch(error){
-
-    document
-      .getElementById("loginMessage")
-      .innerText =
-      "❌ " + error.message;
-
-  }
-
-};
-
-
-
-/* =========================
-   LOGIN
-========================= */
-
-window.loginUser =
-async function(){
-
-  const email =
-    document
-      .getElementById("email")
-      .value
-      .trim();
-
-
-  const password =
-    document
-      .getElementById("password")
-      .value;
-
-
-  if(!email || !password){
-
-    document
-      .getElementById("loginMessage")
-      .innerText =
-      "Please enter email and password.";
-
-    return;
-  }
-
-
-  try{
-
-    await
-      signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-
-    closeLogin();
-
-
-  }catch(error){
-
-    document
-      .getElementById("loginMessage")
-      .innerText =
-      "❌ " + error.message;
-
-  }
-
-};
-
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-window.logout =
-async function(){
-
-  await signOut(auth);
-
-};
-
-
-
-/* =========================
-   AUTH STATE
-========================= */
-
-onAuthStateChanged(
-  auth,
-  async(user)=>{
-
-    const loginBtn =
-      document.getElementById("loginBtn");
-
-    const logoutBtn =
-      document.getElementById("logoutBtn");
-
-    const uploadBtn =
-      document.getElementById("uploadBtn");
-
-    const adminBtn =
-      document.getElementById("adminBtn");
-
-    const welcome =
-      document.getElementById("welcomeText");
-
-
-    if(user){
-
-      loginBtn.style.display =
-        "none";
-
-      logoutBtn.style.display =
-        "inline-block";
-
-      uploadBtn.style.display =
-        "inline-block";
-
-
-      welcome.innerText =
-        "👋 Welcome, " + user.email;
-
-
-      if(
-        user.email.toLowerCase() ===
-        ADMIN_EMAIL.toLowerCase()
-      ){
-
-        adminBtn.style.display =
-          "inline-block";
-
-      }else{
-
-        adminBtn.style.display =
-          "none";
-
-      }
-
-
-    }else{
-
-      loginBtn.style.display =
-        "inline-block";
-
-      logoutBtn.style.display =
-        "none";
-
-      uploadBtn.style.display =
-        "none";
-
-      adminBtn.style.display =
-        "none";
-
-
-      welcome.innerText =
-        "Welcome to Bangla App Store";
-
-
-      document
-        .getElementById("adminSection")
-        .style.display =
-        "none";
-
+    if(value === null || value === undefined){
+      return "";
     }
 
-
-    await loadApprovedApps();
-
-  }
-);
-
-
-
-/* =========================
-   SUBMIT APP
-========================= */
-
-window.submitApp =
-async function(){
-
-  const user =
-    auth.currentUser;
-
-
-  if(!user){
-
-    alert("Please login first.");
-
-    return;
+    return String(value)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
   }
 
 
-  const name =
-    document
-      .getElementById("appName")
-      .value
-      .trim();
+  function safeUrl(value){
 
+    try{
 
-  const country =
-    document
-      .getElementById("country")
-      .value;
-
-
-  const description =
-    document
-      .getElementById("appDescription")
-      .value
-      .trim();
-
-
-  const iconUrl =
-    document
-      .getElementById("iconUrl")
-      .value
-      .trim();
-
-
-  const screenshotUrl =
-    document
-      .getElementById("screenshotUrl")
-      .value
-      .trim();
-
-
-  const apkUrl =
-    document
-      .getElementById("apkUrl")
-      .value
-      .trim();
-
-
-  if(
-    !name ||
-    !country ||
-    !description
-  ){
-
-    document
-      .getElementById("uploadMessage")
-      .innerText =
-      "❌ App name, country and description are required.";
-
-    return;
-  }
-
-
-  try{
-
-    await addDoc(
-      collection(db,"apps"),
-      {
-
-        name:name,
-
-        country:country,
-
-        description:description,
-
-        iconUrl:iconUrl,
-
-        screenshotUrl:screenshotUrl,
-
-        apkUrl:apkUrl,
-
-        developerId:user.uid,
-
-        developerEmail:user.email,
-
-        status:"pending",
-
-        ratingAvg:0,
-
-        ratingCount:0,
-
-        createdAt:
-          serverTimestamp()
-
-      }
-    );
-
-
-    document
-      .getElementById("uploadMessage")
-      .innerText =
-      "✅ Submitted successfully! Your app is now Under Review.";
-
-
-    document.getElementById("appName").value="";
-    document.getElementById("country").value="";
-    document.getElementById("appDescription").value="";
-    document.getElementById("iconUrl").value="";
-    document.getElementById("screenshotUrl").value="";
-    document.getElementById("apkUrl").value="";
-
-
-  }catch(error){
-
-    document
-      .getElementById("uploadMessage")
-      .innerText =
-      "❌ Submission failed: " +
-      error.message;
-
-  }
-
-};
-
-
-
-/* =========================
-   LOAD APPROVED APPS
-   IMPORTANT:
-   Query only approved docs
-========================= */
-
-async function loadApprovedApps(){
-
-  const grid =
-    document.getElementById("appsGrid");
-
-
-  try{
-
-    const approvedQuery =
-      query(
-        collection(db,"apps"),
-        where(
-          "status",
-          "==",
-          "approved"
-        )
-      );
-
-
-    const snapshot =
-      await getDocs(
-        approvedQuery
-      );
-
-
-    allApprovedApps = [];
-
-
-    snapshot.forEach(
-      item=>{
-
-        allApprovedApps.push({
-
-          id:item.id,
-
-          ...item.data()
-
-        });
-
-      }
-    );
-
-
-    renderApps(
-      allApprovedApps
-    );
-
-
-  }catch(error){
-
-    grid.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">
-          ⚠️
-        </div>
-
-        <b>Unable to load apps</b>
-
-        <p style="margin-top:7px;">
-          ${escapeHtml(error.message)}
-        </p>
-
-      </div>
-
-    `;
-
-  }
-
-}
-
-
-
-/* =========================
-   RENDER APPS
-========================= */
-
-function renderApps(apps){
-
-  const grid =
-    document.getElementById("appsGrid");
-
-
-  grid.innerHTML = "";
-
-
-  if(apps.length === 0){
-
-    grid.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">
-          📱
-        </div>
-
-        <b>No approved apps yet</b>
-
-        <p style="margin-top:7px;">
-          Be the first developer to publish an app.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-
-  apps.forEach(
-    data=>{
-
-      const card =
-        document.createElement("div");
-
-
-      card.className =
-        "app-card";
-
-
-      let iconHTML;
-
+      const url = new URL(value);
 
       if(
-        data.iconUrl &&
-        isSafeUrl(data.iconUrl)
+        url.protocol === "https:" ||
+        url.protocol === "http:"
       ){
-
-        iconHTML = `
-
-          <img
-            class="app-icon"
-            src="${escapeAttribute(data.iconUrl)}"
-            alt="App icon">
-
-        `;
-
-      }else{
-
-        iconHTML = `
-
-          <div class="placeholder-icon">
-            📱
-          </div>
-
-        `;
-
+        return url.href;
       }
 
+    }catch(e){}
 
-      const rating =
-        Number(data.ratingAvg || 0)
-          .toFixed(1);
+    return "";
 
-
-      const stars =
-        makeStars(
-          Number(data.ratingAvg || 0)
-        );
-
-
-      let downloadHTML;
-
-
-      if(
-        data.apkUrl &&
-        isSafeUrl(data.apkUrl)
-      ){
-
-        downloadHTML = `
-
-          <a
-            href="${escapeAttribute(data.apkUrl)}"
-            target="_blank"
-            rel="noopener">
-
-            <button
-              class="primary download-btn">
-
-              ⬇️ Download App
-
-            </button>
-
-          </a>
-
-        `;
-
-      }else{
-
-        downloadHTML = `
-
-          <button
-            class="gray download-btn"
-            disabled>
-
-            APK Coming Soon
-
-          </button>
-
-        `;
-
-      }
-
-
-      card.innerHTML = `
-
-        <div class="app-top">
-
-          ${iconHTML}
-
-          <div>
-
-            <div class="app-name">
-
-              ${escapeHtml(
-                data.name ||
-                "Unnamed App"
-              )}
-
-            </div>
-
-            <div class="country">
-
-              🌍 ${escapeHtml(
-                data.country ||
-                "Global"
-              )}
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="rating">
-
-          <span class="stars">
-            ${stars}
-          </span>
-
-          <b>${rating}</b>
-
-          <span style="color:#94a3b8;">
-            (${data.ratingCount || 0})
-          </span>
-
-        </div>
-
-
-        <div class="app-description">
-
-          ${escapeHtml(
-            data.description ||
-            "No description available."
-          )}
-
-        </div>
-
-
-        ${downloadHTML}
-
-      `;
-
-
-      grid.appendChild(card);
-
-    }
-  );
-
-}
-
-
-
-/* =========================
-   SEARCH
-========================= */
-
-window.filterApps =
-function(){
-
-  const value =
-    document
-      .getElementById("searchInput")
-      .value
-      .trim()
-      .toLowerCase();
-
-
-  if(!value){
-
-    renderApps(
-      allApprovedApps
-    );
-
-    return;
   }
 
 
-  const filtered =
-    allApprovedApps.filter(
-      app=>{
+  function makeStars(){
 
-        const name =
-          String(
-            app.name || ""
-          ).toLowerCase();
-
-
-        const country =
-          String(
-            app.country || ""
-          ).toLowerCase();
-
-
-        const description =
-          String(
-            app.description || ""
-          ).toLowerCase();
-
-
-        return (
-          name.includes(value) ||
-          country.includes(value) ||
-          description.includes(value)
-        );
-
-      }
-    );
-
-
-  renderApps(filtered);
-
-};
-
-
-
-/* =========================
-   ADMIN PANEL
-========================= */
-
-window.openAdmin =
-async function(){
-
-  const user =
-    auth.currentUser;
-
-
-  if(!user){
-
-    alert("Please login first.");
-
-    return;
+    return "★★★★★";
   }
 
 
-  if(
-    user.email.toLowerCase() !==
-    ADMIN_EMAIL.toLowerCase()
-  ){
+  function renderApps(apps){
 
-    alert("Admin access denied.");
+    const grid = $("appsGrid");
 
-    return;
-  }
+    if(!apps.length){
 
-
-  const section =
-    document.getElementById(
-      "adminSection"
-    );
-
-
-  section.style.display =
-    "block";
-
-
-  section.scrollIntoView({
-    behavior:"smooth"
-  });
-
-
-  await loadAdminApps();
-
-};
-
-
-
-/* =========================
-   ADMIN APPS
-   Query only pending docs
-========================= */
-
-window.loadAdminApps =
-async function(){
-
-  const user =
-    auth.currentUser;
-
-
-  if(
-    !user ||
-    user.email.toLowerCase() !==
-    ADMIN_EMAIL.toLowerCase()
-  ){
-
-    return;
-  }
-
-
-  const container =
-    document.getElementById(
-      "adminApps"
-    );
-
-
-  const stats =
-    document.getElementById(
-      "adminStats"
-    );
-
-
-  container.innerHTML =
-    "Loading...";
-
-
-  try{
-
-    const pendingQuery =
-      query(
-        collection(db,"apps"),
-        where(
-          "status",
-          "==",
-          "pending"
-        )
-      );
-
-
-    const snapshot =
-      await getDocs(
-        pendingQuery
-      );
-
-
-    let pendingCount = 0;
-
-
-    snapshot.forEach(
-      ()=>{
-
-        pendingCount++;
-
-      }
-    );
-
-
-    stats.innerHTML = `
-
-      <div class="stat">
-
-        <div class="stat-number">
-          ${pendingCount}
-        </div>
-
-        <div class="stat-label">
-          Pending Reviews
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-number">
-          🟡
-        </div>
-
-        <div class="stat-label">
-          Awaiting Approval
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-number">
-          👑
-        </div>
-
-        <div class="stat-label">
-          Admin Control
-        </div>
-
-      </div>
-
-    `;
-
-
-    container.innerHTML = "";
-
-
-    if(pendingCount === 0){
-
-      container.innerHTML = `
-
+      grid.innerHTML = `
         <div class="empty">
-
-          <div class="empty-icon">
-            🎉
-          </div>
-
-          <b>No pending apps</b>
-
+          <h3>No apps found</h3>
           <p style="margin-top:7px;">
-            Everything is reviewed.
+            এখনো কোনো approved app পাওয়া যায়নি।
           </p>
-
         </div>
-
       `;
 
       return;
     }
 
 
-    snapshot.forEach(
-      item=>{
+    grid.innerHTML = apps.map(app => {
 
-        const data =
-          item.data();
-
-
-        const card =
-          document.createElement(
-            "div"
-          );
+      const icon =
+        safeUrl(app.iconUrl) ||
+        "https://dummyimage.com/200x200/e9edf5/667085&text=APP";
 
 
-        card.className =
-          "admin-card";
+      return `
 
+        <article
+          class="app-card"
+          onclick="showAppDetails('${app.id}')"
+        >
 
-        card.innerHTML = `
+          <div class="app-top">
 
-          <div class="admin-card-header">
+            <img
+              class="app-icon"
+              src="${icon}"
+              alt=""
+              onerror="this.src='https://dummyimage.com/200x200/e9edf5/667085&text=APP'"
+            >
 
             <div>
 
-              <h3>
-                📱 ${escapeHtml(
-                  data.name ||
-                  "Unnamed App"
-                )}
-              </h3>
+              <div class="app-name">
+                ${escapeHTML(app.name)}
+              </div>
 
-            </div>
+              <div class="app-country">
+                🌍 ${escapeHTML(app.country || "Unknown")}
+              </div>
 
-            <div class="pending">
-              PENDING
+              <div class="stars">
+                ${makeStars()}
+              </div>
+
             </div>
 
           </div>
 
 
-          <div class="admin-info">
-
-            <b>Developer:</b>
-            ${escapeHtml(
-              data.developerEmail ||
-              "Unknown"
-            )}
-
-            <br>
-
-            <b>Country:</b>
-            ${escapeHtml(
-              data.country ||
-              "Unknown"
-            )}
-
-            <br>
-
-            <b>Description:</b>
-            ${escapeHtml(
-              data.description ||
-              ""
-            )}
-
+          <div class="app-description">
+            ${escapeHTML(app.description || "No description available.")}
           </div>
 
 
-          <div class="admin-actions">
+          <div class="card-bottom">
+
+            <small style="color:#7b8497;">
+              By ${escapeHTML(app.developerEmail || "Developer")}
+            </small>
 
             <button
-              class="success"
-              onclick="approveApp('${item.id}')">
-
-              ✅ Approve
-
+              class="view-btn"
+              onclick="event.stopPropagation();showAppDetails('${app.id}')"
+            >
+              View Details
             </button>
 
+          </div>
 
-            <button
-              class="danger"
-              onclick="rejectApp('${item.id}')">
+        </article>
 
-              ❌ Reject
+      `;
 
-            </button>
+    }).join("");
+
+  }
+
+
+  async function loadApprovedApps(){
+
+    try{
+
+      const approvedQuery = query(
+        collection(db,"apps"),
+        where("status","==","approved")
+      );
+
+      const snapshot = await getDocs(approvedQuery);
+
+      approvedApps = [];
+
+      snapshot.forEach(item => {
+
+        approvedApps.push({
+          id:item.id,
+          ...item.data()
+        });
+
+      });
+
+
+      approvedApps.sort((a,b) =>
+        String(a.name || "").localeCompare(
+          String(b.name || "")
+        )
+      );
+
+
+      renderApps(approvedApps);
+
+      updateAdminStats();
+
+    }catch(error){
+
+      console.error(error);
+
+      $("appsGrid").innerHTML = `
+        <div class="empty">
+          <h3>Failed to load apps</h3>
+          <p style="margin-top:8px;">
+            ${escapeHTML(error.message)}
+          </p>
+        </div>
+      `;
+
+    }
+
+  }
+
+
+  window.showAppDetails = function(id){
+
+    const app = approvedApps.find(item => item.id === id);
+
+    if(!app) return;
+
+
+    const icon =
+      safeUrl(app.iconUrl) ||
+      "https://dummyimage.com/300x300/e9edf5/667085&text=APP";
+
+
+    const apkUrl = safeUrl(app.apkUrl);
+
+
+    let screenshots = [];
+
+    if(Array.isArray(app.screenshots)){
+
+      screenshots = app.screenshots;
+
+    }else if(typeof app.screenshots === "string"){
+
+      screenshots = app.screenshots
+        .split(/\n|,/)
+        .map(x => x.trim())
+        .filter(Boolean);
+
+    }
+
+
+    screenshots = screenshots
+      .map(safeUrl)
+      .filter(Boolean);
+
+
+    $("detailsContent").innerHTML = `
+
+      <div class="detail-header">
+
+        <img
+          class="detail-icon"
+          src="${icon}"
+          alt=""
+          onerror="this.src='https://dummyimage.com/300x300/e9edf5/667085&text=APP'"
+        >
+
+        <div>
+
+          <h2>${escapeHTML(app.name)}</h2>
+
+          <div class="stars">
+            ${makeStars()}
+          </div>
+
+          <div class="detail-meta">
+            🌍 ${escapeHTML(app.country || "Unknown")}
+            &nbsp; • &nbsp;
+            👨‍💻 ${escapeHTML(app.developerEmail || "Developer")}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="detail-description">
+        ${escapeHTML(app.description || "No description available.")}
+      </div>
+
+
+      ${
+        screenshots.length
+        ?
+        `
+          <h3 style="margin-bottom:12px;">
+            Screenshots
+          </h3>
+
+          <div class="screenshots">
+
+            ${screenshots.map(url => `
+
+              <img
+                src="${url}"
+                alt="Screenshot"
+                onerror="this.style.display='none'"
+              >
+
+            `).join("")}
+
+          </div>
+        `
+        :
+        `
+          <div style="
+            background:#f5f6fa;
+            padding:18px;
+            border-radius:14px;
+            color:#737c90;
+          ">
+            No screenshots available.
+          </div>
+        `
+      }
+
+
+      ${
+        apkUrl
+        ?
+        `
+          <button
+            class="detail-download"
+            onclick="window.open('${apkUrl}','_blank')"
+          >
+            ⬇️ Download App
+          </button>
+        `
+        :
+        `
+          <button
+            class="detail-download"
+            disabled
+            style="opacity:.5;cursor:not-allowed;"
+          >
+            Download unavailable
+          </button>
+        `
+      }
+
+    `;
+
+
+    openModal("detailsModal");
+
+  };
+
+
+  $("searchInput").addEventListener("input",function(){
+
+    const text = this.value.toLowerCase().trim();
+
+    const filtered = approvedApps.filter(app => {
+
+      const content = `
+        ${app.name || ""}
+        ${app.description || ""}
+        ${app.country || ""}
+        ${app.developerEmail || ""}
+      `.toLowerCase();
+
+      return content.includes(text);
+
+    });
+
+
+    renderApps(filtered);
+
+  });
+
+
+  $("loginBtn").onclick =
+    () => openModal("loginModal");
+
+
+  $("signupBtn").onclick =
+    () => openModal("signupModal");
+
+
+  $("uploadBtn").onclick = () => {
+
+    if(!currentUser){
+
+      alert("Please login first.");
+
+      openModal("loginModal");
+
+      return;
+
+    }
+
+    openModal("uploadModal");
+
+  };
+
+
+  $("logoutBtn").onclick = async () => {
+
+    try{
+
+      await signOut(auth);
+
+    }catch(error){
+
+      alert(error.message);
+
+    }
+
+  };
+
+
+  $("doLogin").onclick = async () => {
+
+    const email = $("loginEmail").value.trim();
+    const password = $("loginPassword").value;
+
+
+    if(!email || !password){
+
+      $("loginMessage").textContent =
+        "Email and password required.";
+
+      return;
+
+    }
+
+
+    try{
+
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      closeModal("loginModal");
+
+      $("loginMessage").textContent = "";
+
+    }catch(error){
+
+      $("loginMessage").textContent =
+        error.message;
+
+    }
+
+  };
+
+
+  $("doSignup").onclick = async () => {
+
+    const email = $("signupEmail").value.trim();
+    const password = $("signupPassword").value;
+
+
+    if(!email || !password){
+
+      $("signupMessage").textContent =
+        "Email and password required.";
+
+      return;
+
+    }
+
+
+    if(password.length < 6){
+
+      $("signupMessage").textContent =
+        "Password must be at least 6 characters.";
+
+      return;
+
+    }
+
+
+    try{
+
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      closeModal("signupModal");
+
+      $("signupMessage").textContent = "";
+
+    }catch(error){
+
+      $("signupMessage").textContent =
+        error.message;
+
+    }
+
+  };
+
+
+  $("submitAppBtn").onclick = async () => {
+
+    if(!currentUser){
+
+      $("submitMessage").textContent =
+        "Please login first.";
+
+      return;
+
+    }
+
+
+    const name =
+      $("appName").value.trim();
+
+    const country =
+      $("appCountry").value.trim();
+
+    const iconUrl =
+      $("appIcon").value.trim();
+
+    const apkUrl =
+      $("appApk").value.trim();
+
+    const description =
+      $("appDescription").value.trim();
+
+    const screenshotText =
+      $("appScreenshots").value.trim();
+
+
+    if(!name || !country || !description){
+
+      $("submitMessage").textContent =
+        "App name, country and description are required.";
+
+      return;
+
+    }
+
+
+    const screenshots =
+      screenshotText
+        .split(/\n|,/)
+        .map(x => x.trim())
+        .filter(Boolean);
+
+
+    try{
+
+      $("submitAppBtn").disabled = true;
+
+      $("submitAppBtn").textContent =
+        "Submitting...";
+
+
+      await addDoc(
+        collection(db,"apps"),
+        {
+
+          name:name,
+
+          country:country,
+
+          iconUrl:iconUrl,
+
+          apkUrl:apkUrl,
+
+          description:description,
+
+          screenshots:screenshots,
+
+          developerEmail:currentUser.email,
+
+          developerId:currentUser.uid,
+
+          status:"pending",
+
+          createdAt:new Date().toISOString()
+
+        }
+      );
+
+
+      $("submitMessage").textContent =
+        "✅ App submitted successfully. Under Review.";
+
+      $("appName").value = "";
+      $("appCountry").value = "";
+      $("appIcon").value = "";
+      $("appApk").value = "";
+      $("appDescription").value = "";
+      $("appScreenshots").value = "";
+
+
+      await loadAdminApps();
+
+
+      setTimeout(() => {
+
+        closeModal("uploadModal");
+
+        $("submitMessage").textContent = "";
+
+      },1200);
+
+
+    }catch(error){
+
+      console.error(error);
+
+      $("submitMessage").textContent =
+        error.message;
+
+    }finally{
+
+      $("submitAppBtn").disabled = false;
+
+      $("submitAppBtn").textContent =
+        "Submit App";
+
+    }
+
+  };
+
+
+  async function loadAdminApps(){
+
+    if(!currentUser ||
+       currentUser.email !== ADMIN_EMAIL){
+
+      $("adminSection").style.display = "none";
+
+      return;
+
+    }
+
+
+    $("adminSection").style.display = "block";
+
+
+    try{
+
+      const pendingQuery = query(
+        collection(db,"apps"),
+        where("status","==","pending")
+      );
+
+      const snapshot =
+        await getDocs(pendingQuery);
+
+
+      const pending = [];
+
+      snapshot.forEach(item => {
+
+        pending.push({
+          id:item.id,
+          ...item.data()
+        });
+
+      });
+
+
+      renderPending(pending);
+
+      updateAdminStats(pending);
+
+
+    }catch(error){
+
+      console.error(error);
+
+      $("pendingApps").innerHTML = `
+        <div class="empty">
+          ${escapeHTML(error.message)}
+        </div>
+      `;
+
+    }
+
+  }
+
+
+  function renderPending(apps){
+
+    if(!apps.length){
+
+      $("pendingApps").innerHTML = `
+        <div class="empty">
+          <h3>No pending submissions</h3>
+          <p style="margin-top:7px;">
+            সব app review করা হয়েছে।
+          </p>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    $("pendingApps").innerHTML =
+      apps.map(app => {
+
+        const icon =
+          safeUrl(app.iconUrl) ||
+          "https://dummyimage.com/100x100/e9edf5/667085&text=APP";
+
+
+        return `
+
+          <div class="admin-app">
+
+            <div class="admin-info">
+
+              <img
+                src="${icon}"
+                alt=""
+              >
+
+              <div>
+
+                <strong>
+                  ${escapeHTML(app.name)}
+                </strong>
+
+                <div style="
+                  font-size:13px;
+                  color:#778096;
+                  margin-top:4px;
+                ">
+                  ${escapeHTML(app.developerEmail || "")}
+                </div>
+
+                <div style="margin-top:5px;">
+                  <span class="status">Pending</span>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="admin-actions">
+
+              <button
+                class="btn btn-primary"
+                onclick="approveApp('${app.id}')"
+              >
+                ✓ Approve
+              </button>
+
+              <button
+                class="btn btn-danger"
+                onclick="rejectApp('${app.id}')"
+              >
+                ✕ Reject
+              </button>
+
+            </div>
 
           </div>
 
         `;
 
+      }).join("");
 
-        container.appendChild(card);
+  }
+
+
+  window.approveApp = async function(id){
+
+    if(!currentUser ||
+       currentUser.email !== ADMIN_EMAIL){
+
+      return;
+
+    }
+
+
+    try{
+
+      await updateDoc(
+        doc(db,"apps",id),
+        {
+          status:"approved",
+          approvedAt:new Date().toISOString()
+        }
+      );
+
+
+      alert("✅ App approved!");
+
+      await loadApprovedApps();
+      await loadAdminApps();
+
+    }catch(error){
+
+      alert(error.message);
+
+    }
+
+  };
+
+
+  window.rejectApp = async function(id){
+
+    if(!currentUser ||
+       currentUser.email !== ADMIN_EMAIL){
+
+      return;
+
+    }
+
+
+    try{
+
+      await updateDoc(
+        doc(db,"apps",id),
+        {
+          status:"rejected",
+          rejectedAt:new Date().toISOString()
+        }
+      );
+
+
+      alert("❌ App rejected!");
+
+      await loadAdminApps();
+
+    }catch(error){
+
+      alert(error.message);
+
+    }
+
+  };
+
+
+  async function updateAdminStats(pendingData){
+
+    if(!currentUser ||
+       currentUser.email !== ADMIN_EMAIL){
+
+      return;
+
+    }
+
+
+    try{
+
+      const snapshot =
+        await getDocs(collection(db,"apps"));
+
+
+      let pending = 0;
+      let approved = 0;
+      let total = 0;
+
+
+      snapshot.forEach(item => {
+
+        total++;
+
+        const data = item.data();
+
+        if(data.status === "pending"){
+          pending++;
+        }
+
+        if(data.status === "approved"){
+          approved++;
+        }
+
+      });
+
+
+      $("pendingCount").textContent = pending;
+      $("approvedCount").textContent = approved;
+      $("totalCount").textContent = total;
+
+
+    }catch(error){
+
+      console.error(error);
+
+    }
+
+  }
+
+
+  onAuthStateChanged(auth, async user => {
+
+    currentUser = user;
+
+
+    if(user){
+
+      $("loginBtn").style.display = "none";
+      $("signupBtn").style.display = "none";
+      $("logoutBtn").style.display = "block";
+
+      $("userName").textContent =
+        user.email;
+
+
+      if(user.email === ADMIN_EMAIL){
+
+        $("adminSection").style.display = "block";
+
+      }else{
+
+        $("adminSection").style.display = "none";
 
       }
-    );
 
 
-  }catch(error){
+    }else{
 
-    container.innerHTML = `
+      $("loginBtn").style.display = "block";
+      $("signupBtn").style.display = "block";
+      $("logoutBtn").style.display = "none";
+      $("userName").textContent = "";
 
-      <div class="empty">
+      $("adminSection").style.display = "none";
 
-        <div class="empty-icon">
-          ⚠️
-        </div>
+    }
 
-        <b>Admin panel error</b>
-
-        <p style="margin-top:7px;">
-          ${escapeHtml(error.message)}
-        </p>
-
-      </div>
-
-    `;
-
-  }
-
-};
-
-
-
-/* =========================
-   APPROVE
-========================= */
-
-window.approveApp =
-async function(appId){
-
-  const user =
-    auth.currentUser;
-
-
-  if(
-    !user ||
-    user.email.toLowerCase() !==
-    ADMIN_EMAIL.toLowerCase()
-  ){
-
-    alert(
-      "Admin access required."
-    );
-
-    return;
-  }
-
-
-  const yes =
-    confirm(
-      "Approve this app and publish it?"
-    );
-
-
-  if(!yes){
-    return;
-  }
-
-
-  try{
-
-    await updateDoc(
-      doc(db,"apps",appId),
-      {
-
-        status:"approved",
-
-        approvedAt:
-          serverTimestamp(),
-
-        approvedBy:
-          user.email
-
-      }
-    );
-
-
-    alert(
-      "✅ App approved successfully!"
-    );
-
-
-    await loadAdminApps();
 
     await loadApprovedApps();
 
-
-  }catch(error){
-
-    alert(
-      "❌ Approval failed: " +
-      error.message
-    );
-
-  }
-
-};
-
-
-
-/* =========================
-   REJECT
-========================= */
-
-window.rejectApp =
-async function(appId){
-
-  const user =
-    auth.currentUser;
-
-
-  if(
-    !user ||
-    user.email.toLowerCase() !==
-    ADMIN_EMAIL.toLowerCase()
-  ){
-
-    alert(
-      "Admin access required."
-    );
-
-    return;
-  }
-
-
-  const yes =
-    confirm(
-      "Reject this app?"
-    );
-
-
-  if(!yes){
-    return;
-  }
-
-
-  try{
-
-    await updateDoc(
-      doc(db,"apps",appId),
-      {
-
-        status:"rejected",
-
-        rejectedAt:
-          serverTimestamp(),
-
-        rejectedBy:
-          user.email
-
-      }
-    );
-
-
-    alert(
-      "❌ App rejected."
-    );
-
-
     await loadAdminApps();
 
-
-  }catch(error){
-
-    alert(
-      "❌ Rejection failed: " +
-      error.message
-    );
-
-  }
-
-};
+  });
 
 
+  // Close modal when clicking outside
+  document.querySelectorAll(".modal-bg").forEach(bg => {
 
-/* =========================
-   SCROLL
-========================= */
+    bg.addEventListener("click",function(e){
 
-window.scrollToApps =
-function(){
+      if(e.target === bg){
+        bg.classList.remove("show");
+      }
 
-  document
-    .getElementById("appsSection")
-    .scrollIntoView({
-      behavior:"smooth"
     });
 
-};
-
-
-
-/* =========================
-   STAR RATING
-========================= */
-
-function makeStars(rating){
-
-  const rounded =
-    Math.round(
-      Number(rating || 0)
-    );
-
-
-  let result = "";
-
-
-  for(
-    let i=1;
-    i<=5;
-    i++
-  ){
-
-    result +=
-      i <= rounded
-        ? "★"
-        : "☆";
-
-  }
-
-
-  return result;
-
-}
-
-
-
-/* =========================
-   SAFE URL
-========================= */
-
-function isSafeUrl(url){
-
-  try{
-
-    const parsed =
-      new URL(url);
-
-
-    return (
-      parsed.protocol === "http:" ||
-      parsed.protocol === "https:"
-    );
-
-  }catch{
-
-    return false;
-
-  }
-
-}
-
-
-
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function escapeHtml(value){
-
-  return String(value)
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
-
-}
-
-
-function escapeAttribute(value){
-
-  return escapeHtml(value);
-
-}
-
+  });
 
 </script>
 
