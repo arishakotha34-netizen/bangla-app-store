@@ -48,7 +48,7 @@ button{
   width:100%;
   max-width:420px;
   background:#fff;
-  border:1px solid #eeeeee;
+  border:1px solid #eee;
   border-radius:28px;
   padding:34px 26px;
   box-shadow:0 20px 60px rgba(0,0,0,.10);
@@ -354,7 +354,7 @@ header{
   flex:1;
 }
 
-/* ================= PROFESSIONAL ADS ================= */
+/* ================= ADS ================= */
 
 .ad-space{
   width:100%;
@@ -363,8 +363,7 @@ header{
   padding:12px;
   border:1px solid #f0e0d2;
   border-radius:18px;
-  background:
-    linear-gradient(135deg,#fffaf5,#fff);
+  background:linear-gradient(135deg,#fffaf5,#fff);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -379,17 +378,85 @@ header{
   text-transform:uppercase;
 }
 
-.ad-space.top-ad{
+.top-ad{
   min-height:90px;
 }
 
-.ad-space.middle-ad{
+.middle-ad{
   min-height:100px;
 }
 
-.ad-space.details-ad{
+.details-ad{
   min-height:100px;
   margin:22px 0;
+}
+
+/* ================= ENTRY AD POPUP ================= */
+
+.entry-ad-overlay{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:rgba(0,0,0,.58);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.entry-ad-card{
+  width:100%;
+  max-width:420px;
+  min-height:300px;
+  background:#fff;
+  border-radius:25px;
+  padding:18px;
+  position:relative;
+  box-shadow:0 25px 80px rgba(0,0,0,.28);
+}
+
+.entry-ad-close{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid #eee;
+  background:#fff;
+  font-size:22px;
+  z-index:2;
+}
+
+.entry-ad-inner{
+  min-height:250px;
+  border:1px solid #f0e0d2;
+  border-radius:18px;
+  background:linear-gradient(135deg,#fffaf5,#fff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:25px;
+}
+
+.entry-ad-inner strong{
+  display:block;
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+.entry-ad-inner p{
+  color:#777;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.entry-ad-timer{
+  text-align:center;
+  color:#aaa;
+  font-size:11px;
+  margin-top:10px;
 }
 
 /* ================= MODAL ================= */
@@ -531,11 +598,15 @@ header{
 
 <section id="loginPage">
 
-  <div class="login-card">
+<div class="login-card">
 
-    <div class="logo-box">BA</div>
+  <div class="logo-box">BA</div>
 
-    <h1>Bangla App Store</h1>
+  <h1>Bangla App Store</h1>
+
+  <!-- LOGIN -->
+
+  <div id="loginBox">
 
     <div class="sub">
       Login to continue to the App Store
@@ -545,12 +616,14 @@ header{
       id="loginEmail"
       class="input"
       type="email"
-      placeholder="Email address">
+      autocomplete="email"
+      placeholder="Gmail address">
 
     <input
       id="loginPassword"
       class="input"
       type="password"
+      autocomplete="current-password"
       placeholder="Password">
 
     <button
@@ -568,6 +641,60 @@ header{
 
   </div>
 
+
+  <!-- CREATE ACCOUNT -->
+
+  <div id="signupBox" class="hidden">
+
+    <div class="sub">
+      Create your Bangla App Store account
+    </div>
+
+    <input
+      id="signupName"
+      class="input"
+      type="text"
+      autocomplete="name"
+      placeholder="Your name">
+
+    <input
+      id="signupEmail"
+      class="input"
+      type="email"
+      autocomplete="email"
+      placeholder="Gmail address">
+
+    <input
+      id="signupPassword"
+      class="input"
+      type="password"
+      autocomplete="new-password"
+      placeholder="Password (minimum 6 characters)">
+
+    <input
+      id="signupConfirmPassword"
+      class="input"
+      type="password"
+      autocomplete="new-password"
+      placeholder="Confirm password">
+
+    <button
+      class="btn btn-orange btn-full"
+      onclick="createAccount()">
+      Create Account
+    </button>
+
+    <div class="login-switch">
+      Already have an account?
+      <button onclick="showLogin()">
+        Login
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
 </section>
 
 
@@ -577,130 +704,131 @@ header{
 
 <header>
 
-  <div class="nav">
+<div class="nav">
 
-    <div class="brand">
+  <div class="brand">
 
-      <div class="brand-icon">
-        BA
-      </div>
-
-      Bangla App Store
-
+    <div class="brand-icon">
+      BA
     </div>
 
-    <button
-      class="menu-btn"
-      onclick="toggleMenu()">
-      ⋮
-    </button>
-
-    <div id="menu" class="menu hidden">
-
-      <button onclick="closeMenu();scrollHome()">
-        🏠 Home
-      </button>
-
-      <button onclick="closeMenu();openUpload()">
-        📤 Upload Your App
-      </button>
-
-      <button onclick="closeMenu();openStatus()">
-        📋 Status Your App
-      </button>
-
-      <button onclick="closeMenu();openSupport()">
-        💬 Support
-      </button>
-
-      <button onclick="logout()">
-        🚪 Logout
-      </button>
-
-    </div>
+    Bangla App Store
 
   </div>
+
+  <button
+    class="menu-btn"
+    onclick="toggleMenu()">
+    ⋮
+  </button>
+
+  <div id="menu" class="menu hidden">
+
+    <button onclick="closeMenu();scrollHome()">
+      🏠 Home
+    </button>
+
+    <button onclick="closeMenu();openUpload()">
+      📤 Upload Your App
+    </button>
+
+    <button onclick="closeMenu();openStatus()">
+      📋 Status Your App
+    </button>
+
+    <button onclick="closeMenu();openSupport()">
+      💬 Support
+    </button>
+
+    <button onclick="logout()">
+      🚪 Logout
+    </button>
+
+  </div>
+
+</div>
 
 </header>
 
 
 <section class="hero">
 
-  <div class="hero-box">
+<div class="hero-box">
 
-    <h2>
-      Discover <span>Great Apps</span>
-    </h2>
+<h2>
+Discover <span>Great Apps</span>
+</h2>
 
-    <p>
-      Explore apps from developers around the world.
-      Download, rate and share your favourite apps.
-    </p>
+<p>
+Explore apps from developers around the world.
+Download, rate and share your favourite apps.
+</p>
 
-    <div class="search">
+<div class="search">
 
-      <input
-        id="searchInput"
-        oninput="filterApps()"
-        placeholder="Search apps...">
+<input
+id="searchInput"
+oninput="filterApps()"
+placeholder="Search apps...">
 
-      <span class="search-icon">
-        🔎
-      </span>
+<span class="search-icon">
+🔎
+</span>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
 </section>
 
 
 <div class="container">
 
-  <!-- HOME AD #1 -->
+<!-- HOME AD -->
 
-  <div class="ad-space top-ad">
-    <div class="ad-label">
-      Advertisement
-    </div>
+<div class="ad-space top-ad">
+  <div class="ad-label">
+    Advertisement
   </div>
+</div>
 
 
-  <div class="section-title">
+<div class="section-title">
 
-    <h3>
-      Featured Apps
-    </h3>
+<h3>
+Featured Apps
+</h3>
 
+</div>
+
+
+<div id="appsGrid" class="apps-grid"></div>
+
+
+<!-- SECOND HOME AD -->
+
+<div class="ad-space middle-ad">
+  <div class="ad-label">
+    Advertisement
   </div>
+</div>
 
 
-  <div id="appsGrid" class="apps-grid"></div>
+<!-- ADMIN -->
 
+<div id="adminPanel" class="admin-card hidden">
 
-  <!-- HOME AD #2 -->
+<h3>
+🛠 Admin Dashboard
+</h3>
 
-  <div class="ad-space middle-ad">
-    <div class="ad-label">
-      Advertisement
-    </div>
-  </div>
+<div style="margin-top:8px;color:#777;font-size:13px;">
+Manage submitted applications.
+</div>
 
+<div id="pendingApps"></div>
 
-  <div id="adminPanel" class="admin-card hidden">
-
-    <h3>
-      🛠 Admin Dashboard
-    </h3>
-
-    <div
-      style="margin-top:8px;color:#777;font-size:13px;">
-      Manage submitted applications.
-    </div>
-
-    <div id="pendingApps"></div>
-
-  </div>
+</div>
 
 </div>
 
@@ -711,60 +839,60 @@ header{
 
 <div id="uploadModal" class="modal hidden">
 
-  <div class="modal-card">
+<div class="modal-card">
 
-    <div class="modal-head">
+<div class="modal-head">
 
-      <h2>
-        Upload Your App
-      </h2>
+<h2>
+Upload Your App
+</h2>
 
-      <button
-        class="close"
-        onclick="closeModal('uploadModal')">
-        ×
-      </button>
+<button
+class="close"
+onclick="closeModal('uploadModal')">
+×
+</button>
 
-    </div>
+</div>
 
-    <input
-      id="appName"
-      class="input"
-      placeholder="App name">
+<input
+id="appName"
+class="input"
+placeholder="App name">
 
-    <input
-      id="country"
-      class="input"
-      placeholder="Country / Region">
+<input
+id="country"
+class="input"
+placeholder="Country / Region">
 
-    <input
-      id="iconUrl"
-      class="input"
-      placeholder="App icon URL">
+<input
+id="iconUrl"
+class="input"
+placeholder="App icon URL">
 
-    <textarea
-      id="description"
-      class="input"
-      rows="4"
-      placeholder="App description"></textarea>
+<textarea
+id="description"
+class="input"
+rows="4"
+placeholder="App description"></textarea>
 
-    <input
-      id="screenshotUrl"
-      class="input"
-      placeholder="Screenshot URL">
+<input
+id="screenshotUrl"
+class="input"
+placeholder="Screenshot URL">
 
-    <input
-      id="apkUrl"
-      class="input"
-      placeholder="APK / App download URL">
+<input
+id="apkUrl"
+class="input"
+placeholder="APK / App download URL">
 
-    <button
-      class="btn btn-orange btn-full"
-      onclick="submitApp()">
-      Submit App
-    </button>
+<button
+class="btn btn-orange btn-full"
+onclick="submitApp()">
+Submit App
+</button>
 
-  </div>
+</div>
 
 </div>
 
@@ -773,27 +901,27 @@ header{
 
 <div id="statusModal" class="modal hidden">
 
-  <div class="modal-card">
+<div class="modal-card">
 
-    <div class="modal-head">
+<div class="modal-head">
 
-      <h2>
-        My App Status
-      </h2>
+<h2>
+My App Status
+</h2>
 
-      <button
-        class="close"
-        onclick="closeModal('statusModal')">
-        ×
-      </button>
+<button
+class="close"
+onclick="closeModal('statusModal')">
+×
+</button>
 
-    </div>
+</div>
 
-    <div id="myStatus">
-      Loading...
-    </div>
+<div id="myStatus">
+Loading...
+</div>
 
-  </div>
+</div>
 
 </div>
 
@@ -802,34 +930,34 @@ header{
 
 <div id="supportModal" class="modal hidden">
 
-  <div class="modal-card">
+<div class="modal-card">
 
-    <div class="modal-head">
+<div class="modal-head">
 
-      <h2>
-        Support
-      </h2>
+<h2>
+Support
+</h2>
 
-      <button
-        class="close"
-        onclick="closeModal('supportModal')">
-        ×
-      </button>
+<button
+class="close"
+onclick="closeModal('supportModal')">
+×
+</button>
 
-    </div>
+</div>
 
-    <p style="color:#666;line-height:1.6;">
-      Need help with Bangla App Store?
-      Contact the administrator for support.
-    </p>
+<p style="color:#666;line-height:1.6;">
+Need help with Bangla App Store?
+Contact the administrator for support.
+</p>
 
-    <br>
+<br>
 
-    <p>
-      📧 <b>arishakotha34@gmail.com</b>
-    </p>
+<p>
+📧 <b>arishakotha34@gmail.com</b>
+</p>
 
-  </div>
+</div>
 
 </div>
 
@@ -838,25 +966,65 @@ header{
 
 <div id="detailsModal" class="modal hidden">
 
-  <div class="modal-card">
+<div class="modal-card">
 
-    <div class="modal-head">
+<div class="modal-head">
 
-      <h2 id="detailName">
-        App Details
-      </h2>
+<h2 id="detailName">
+App Details
+</h2>
 
-      <button
-        class="close"
-        onclick="closeModal('detailsModal')">
-        ×
-      </button>
+<button
+class="close"
+onclick="closeModal('detailsModal')">
+×
+</button>
 
-    </div>
+</div>
 
-    <div id="detailContent"></div>
+<div id="detailContent"></div>
 
-  </div>
+</div>
+
+</div>
+
+
+<!-- ================= ENTRY AD ================= -->
+
+<div id="entryAdModal" class="entry-ad-overlay hidden">
+
+<div class="entry-ad-card">
+
+<button
+class="entry-ad-close"
+onclick="closeEntryAd()">
+×
+</button>
+
+<div class="ad-label" style="margin:4px 0 10px;">
+Advertisement
+</div>
+
+<div class="entry-ad-inner">
+
+<div>
+
+<strong>Advertisement</strong>
+
+<p>
+Your advertisement will appear here.<br>
+Real ad network code can be added here.
+</p>
+
+</div>
+
+</div>
+
+<div id="entryAdTimer" class="entry-ad-timer">
+Advertisement
+</div>
+
+</div>
 
 </div>
 
@@ -865,17 +1033,22 @@ header{
 
 <script type="module">
 
-import { initializeApp }
+import {
+  initializeApp
+}
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 
 import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  updateProfile,
   signOut
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 
 import {
   getFirestore,
@@ -920,17 +1093,16 @@ const firebaseConfig = {
 
 };
 
-const app =
-  initializeApp(firebaseConfig);
 
-const auth =
-  getAuth(app);
+const app = initializeApp(firebaseConfig);
 
-const db =
-  getFirestore(app);
+const auth = getAuth(app);
+
+const db = getFirestore(app);
 
 const ADMIN_EMAIL =
   "arishakotha34@gmail.com";
+
 
 let currentUser = null;
 
@@ -957,7 +1129,11 @@ onAuthStateChanged(auth, async user => {
 
     await loadApprovedApps();
 
-    if(user.email === ADMIN_EMAIL){
+    if(
+      user.email &&
+      user.email.toLowerCase() ===
+      ADMIN_EMAIL.toLowerCase()
+    ){
 
       document
         .getElementById("adminPanel")
@@ -965,7 +1141,16 @@ onAuthStateChanged(auth, async user => {
 
       await loadPendingApps();
 
+    }else{
+
+      document
+        .getElementById("adminPanel")
+        .classList.add("hidden");
+
     }
+
+    /* Show advertisement after login */
+    openEntryAd();
 
   }else{
 
@@ -982,13 +1167,82 @@ onAuthStateChanged(auth, async user => {
 });
 
 
+/* ================= EMAIL CHECK ================= */
+
+function isValidGmail(email){
+
+  return /^[a-zA-Z0-9._%+-]+@gmail\.com$/i
+    .test(email);
+
+}
+
+
+/* ================= ERROR MESSAGE ================= */
+
+function friendlyAuthError(error){
+
+  const code =
+    error && error.code
+      ? error.code
+      : "";
+
+  if(
+    code === "auth/invalid-credential" ||
+    code === "auth/wrong-password" ||
+    code === "auth/user-not-found"
+  ){
+
+    return "Gmail অথবা password সঠিক নয়। Firebase-এ account আছে কি না এবং password ঠিক আছে কি না দেখুন।";
+
+  }
+
+  if(code === "auth/invalid-email"){
+
+    return "সঠিক Gmail address দিন। যেমন: example@gmail.com";
+
+  }
+
+  if(code === "auth/email-already-in-use"){
+
+    return "এই Gmail দিয়ে account আগে থেকেই আছে। Login করুন।";
+
+  }
+
+  if(code === "auth/weak-password"){
+
+    return "Password কমপক্ষে 6 characters হতে হবে।";
+
+  }
+
+  if(code === "auth/too-many-requests"){
+
+    return "অনেকবার ভুল চেষ্টা হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন।";
+
+  }
+
+  if(code === "auth/network-request-failed"){
+
+    return "Internet connection সমস্যা। আবার চেষ্টা করুন।";
+
+  }
+
+  return error && error.message
+    ? error.message
+    : "Login করা যাচ্ছে না। আবার চেষ্টা করুন.";
+
+}
+
+
+/* ================= LOGIN ================= */
+
 window.login = async function(){
 
   const email =
     document
       .getElementById("loginEmail")
       .value
-      .trim();
+      .trim()
+      .toLowerCase();
 
   const password =
     document
@@ -997,9 +1251,20 @@ window.login = async function(){
 
   if(!email || !password){
 
-    alert("Email and password দিন।");
+    alert("Gmail এবং password দিন.");
 
     return;
+
+  }
+
+  if(!isValidGmail(email)){
+
+    alert(
+      "শুধু valid Gmail address ব্যবহার করুন।\n\nExample: example@gmail.com"
+    );
+
+    return;
+
   }
 
   try{
@@ -1012,47 +1277,275 @@ window.login = async function(){
 
   }catch(error){
 
-    alert(error.message);
+    console.error(error);
+
+    alert(
+      friendlyAuthError(error)
+    );
 
   }
 
 };
 
 
-window.showSignup = async function(){
+/* ================= CREATE ACCOUNT SCREEN ================= */
+
+window.showSignup = function(){
+
+  document
+    .getElementById("loginBox")
+    .classList.add("hidden");
+
+  document
+    .getElementById("signupBox")
+    .classList.remove("hidden");
+
+};
+
+
+window.showLogin = function(){
+
+  document
+    .getElementById("signupBox")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginBox")
+    .classList.remove("hidden");
+
+};
+
+
+/* ================= CREATE ACCOUNT ================= */
+
+window.createAccount = async function(){
+
+  const name =
+    document
+      .getElementById("signupName")
+      .value
+      .trim();
 
   const email =
-    prompt("আপনার Email দিন:");
-
-  if(!email) return;
+    document
+      .getElementById("signupEmail")
+      .value
+      .trim()
+      .toLowerCase();
 
   const password =
-    prompt("Password দিন (কমপক্ষে 6 characters):");
+    document
+      .getElementById("signupPassword")
+      .value;
 
-  if(!password) return;
+  const confirmPassword =
+    document
+      .getElementById("signupConfirmPassword")
+      .value;
+
+
+  if(
+    !name ||
+    !email ||
+    !password ||
+    !confirmPassword
+  ){
+
+    alert(
+      "Name, Gmail, Password এবং Confirm Password সব দিন."
+    );
+
+    return;
+
+  }
+
+
+  if(!isValidGmail(email)){
+
+    alert(
+      "শুধু valid Gmail address ব্যবহার করুন.\n\nExample: example@gmail.com"
+    );
+
+    return;
+
+  }
+
+
+  if(password.length < 6){
+
+    alert(
+      "Password কমপক্ষে 6 characters হতে হবে."
+    );
+
+    return;
+
+  }
+
+
+  if(password !== confirmPassword){
+
+    alert(
+      "Password এবং Confirm Password মিলছে না."
+    );
+
+    return;
+
+  }
+
 
   try{
 
-    await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
+    const credential =
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+
+    try{
+
+      await updateProfile(
+        credential.user,
+        {
+          displayName:name
+        }
+      );
+
+    }catch(profileError){
+
+      console.log(profileError);
+
+    }
+
+
+    alert(
+      "Account তৈরি হয়েছে! এখন Bangla App Store ব্যবহার করতে পারবেন."
     );
 
-    alert("Account তৈরি হয়েছে!");
 
   }catch(error){
 
-    alert(error.message);
+    console.error(error);
+
+    alert(
+      friendlyAuthError(error)
+    );
 
   }
 
 };
 
+
+/* ================= LOGOUT ================= */
 
 window.logout = async function(){
 
   await signOut(auth);
+
+};
+
+
+/* ================= ENTRY AD ================= */
+
+let entryAdTimerHandle = null;
+
+let entryAdCountdownHandle = null;
+
+
+window.openEntryAd = function(){
+
+  const modal =
+    document.getElementById(
+      "entryAdModal"
+    );
+
+  const timer =
+    document.getElementById(
+      "entryAdTimer"
+    );
+
+
+  if(!modal) return;
+
+
+  modal.classList.remove("hidden");
+
+
+  clearTimeout(
+    entryAdTimerHandle
+  );
+
+  clearInterval(
+    entryAdCountdownHandle
+  );
+
+
+  let seconds = 5;
+
+
+  timer.textContent =
+    "Advertisement • Auto close in 5s";
+
+
+  entryAdCountdownHandle =
+    setInterval(() => {
+
+      seconds--;
+
+      if(seconds <= 0){
+
+        clearInterval(
+          entryAdCountdownHandle
+        );
+
+        timer.textContent =
+          "Advertisement closed";
+
+        return;
+
+      }
+
+      timer.textContent =
+        "Advertisement • Auto close in "
+        + seconds
+        + "s";
+
+    },1000);
+
+
+  entryAdTimerHandle =
+    setTimeout(() => {
+
+      closeEntryAd();
+
+    },5000);
+
+};
+
+
+window.closeEntryAd = function(){
+
+  const modal =
+    document.getElementById(
+      "entryAdModal"
+    );
+
+
+  if(modal){
+
+    modal.classList.add("hidden");
+
+  }
+
+
+  clearTimeout(
+    entryAdTimerHandle
+  );
+
+  clearInterval(
+    entryAdCountdownHandle
+  );
 
 };
 
@@ -1102,11 +1595,12 @@ window.submitApp = async function(){
 
   if(!currentUser){
 
-    alert("আগে Login করুন।");
+    alert("আগে Login করুন.");
 
     return;
 
   }
+
 
   const appName =
     document
@@ -1144,15 +1638,21 @@ window.submitApp = async function(){
       .value
       .trim();
 
-  if(!appName || !description || !apkUrl){
+
+  if(
+    !appName ||
+    !description ||
+    !apkUrl
+  ){
 
     alert(
-      "App name, description এবং APK URL দিতে হবে।"
+      "App name, description এবং APK URL দিতে হবে."
     );
 
     return;
 
   }
+
 
   try{
 
@@ -1192,11 +1692,41 @@ window.submitApp = async function(){
       }
     );
 
+
     alert(
-      "App submitted successfully! এখন Under Review থাকবে।"
+      "App submitted successfully!\n\nএখন Under Review থাকবে."
     );
 
-    closeModal("uploadModal");
+
+    closeModal(
+      "uploadModal"
+    );
+
+
+    document
+      .getElementById("appName")
+      .value = "";
+
+    document
+      .getElementById("country")
+      .value = "";
+
+    document
+      .getElementById("iconUrl")
+      .value = "";
+
+    document
+      .getElementById("description")
+      .value = "";
+
+    document
+      .getElementById("screenshotUrl")
+      .value = "";
+
+    document
+      .getElementById("apkUrl")
+      .value = "";
+
 
   }catch(error){
 
@@ -1207,7 +1737,7 @@ window.submitApp = async function(){
 };
 
 
-/* ================= LOAD APPS ================= */
+/* ================= LOAD APPROVED APPS ================= */
 
 async function loadApprovedApps(){
 
@@ -1223,21 +1753,31 @@ async function loadApprovedApps(){
         )
       );
 
+
     const snap =
       await getDocs(q);
 
+
     allApps = [];
+
 
     snap.forEach(d => {
 
       allApps.push({
+
         id:d.id,
+
         ...d.data()
+
       });
 
     });
 
-    renderApps(allApps);
+
+    renderApps(
+      allApps
+    );
+
 
   }catch(error){
 
@@ -1246,17 +1786,22 @@ async function loadApprovedApps(){
     document
       .getElementById("appsGrid")
       .innerHTML =
-      "<p>Apps load করা যাচ্ছে না।</p>";
+      "<p>Apps load করা যাচ্ছে না.</p>";
 
   }
 
 }
 
 
+/* ================= RENDER APPS ================= */
+
 function renderApps(apps){
 
   const grid =
-    document.getElementById("appsGrid");
+    document.getElementById(
+      "appsGrid"
+    );
+
 
   if(!apps.length){
 
@@ -1266,6 +1811,7 @@ function renderApps(apps){
     return;
 
   }
+
 
   grid.innerHTML =
     apps.map(app => `
@@ -1287,26 +1833,37 @@ function renderApps(apps){
           <div>
 
             <div class="app-name">
+
               ${escapeHtml(
-                app.name || "Unnamed App"
+                app.name ||
+                "Unnamed App"
               )}
+
             </div>
 
             <div class="app-country">
-              🌍 ${escapeHtml(
-                app.country || "Unknown"
+
+              🌍
+              ${escapeHtml(
+                app.country ||
+                "Unknown"
               )}
+
             </div>
 
           </div>
 
         </div>
 
+
         <div class="app-desc">
+
           ${escapeHtml(
             app.description || ""
           )}
+
         </div>
+
 
         <div
           style="
@@ -1316,17 +1873,20 @@ function renderApps(apps){
           "
         >
 
-          ⭐ ${Number(
+          ⭐
+          ${Number(
             app.ratingAverage || 0
           ).toFixed(1)}
 
           &nbsp; • &nbsp;
 
-          ⬇️ ${Number(
+          ⬇️
+          ${Number(
             app.downloads || 0
           )}
 
         </div>
+
 
         <div class="card-buttons">
 
@@ -1351,6 +1911,8 @@ function renderApps(apps){
 }
 
 
+/* ================= SEARCH ================= */
+
 window.filterApps = function(){
 
   const text =
@@ -1359,14 +1921,20 @@ window.filterApps = function(){
       .value
       .toLowerCase();
 
+
   const filtered =
     allApps.filter(app =>
+
       (app.name || "")
         .toLowerCase()
         .includes(text)
+
     );
 
-  renderApps(filtered);
+
+  renderApps(
+    filtered
+  );
 
 };
 
@@ -1375,18 +1943,38 @@ window.filterApps = function(){
 
 window.openDetails = async function(id){
 
+  selectedRating = 0;
+
+
   const appRef =
-    doc(db,"apps",id);
+    doc(
+      db,
+      "apps",
+      id
+    );
+
 
   const snap =
     await getDoc(appRef);
 
-  if(!snap.exists()) return;
+
+  if(!snap.exists()){
+
+    alert("App পাওয়া যায়নি.");
+
+    return;
+
+  }
+
 
   const app = {
+
     id:id,
+
     ...snap.data()
+
   };
+
 
   document
     .getElementById("detailName")
@@ -1415,9 +2003,13 @@ window.openDetails = async function(id){
         "
       >
 
+
       <h3>
-        ${escapeHtml(app.name)}
+        ${escapeHtml(
+          app.name || ""
+        )}
       </h3>
+
 
       <p
         style="
@@ -1425,10 +2017,13 @@ window.openDetails = async function(id){
           margin:8px 0;
         "
       >
-        🌍 ${escapeHtml(
-          app.country || "Unknown"
+        🌍
+        ${escapeHtml(
+          app.country ||
+          "Unknown"
         )}
       </p>
+
 
       <p
         style="
@@ -1438,12 +2033,11 @@ window.openDetails = async function(id){
         "
       >
         ${escapeHtml(
-          app.description || ""
+          app.description ||
+          ""
         )}
       </p>
 
-
-      <!-- DETAILS AD -->
 
       <div class="ad-space details-ad">
 
@@ -1461,15 +2055,18 @@ window.openDetails = async function(id){
         "
       >
 
-        ⭐ ${Number(
+        ⭐
+        ${Number(
           app.ratingAverage || 0
         ).toFixed(1)}
 
         &nbsp; • &nbsp;
 
-        ⬇️ ${Number(
+        ⬇️
+        ${Number(
           app.downloads || 0
-        )} downloads
+        )}
+        downloads
 
       </p>
 
@@ -1478,6 +2075,7 @@ window.openDetails = async function(id){
         app.screenshotUrl
         ?
         `
+
         <img
           src="${escapeHtml(
             app.screenshotUrl
@@ -1488,13 +2086,12 @@ window.openDetails = async function(id){
             margin-top:15px;
           "
         >
+
         `
         :
         ""
       }
 
-
-      <!-- SECOND DETAILS AD -->
 
       <div class="ad-space details-ad">
 
@@ -1511,6 +2108,7 @@ window.openDetails = async function(id){
           Rate this app
         </h3>
 
+
         <div class="stars">
 
           ${[1,2,3,4,5].map(n => `
@@ -1526,12 +2124,14 @@ window.openDetails = async function(id){
 
         </div>
 
+
         <textarea
           id="reviewText"
           class="input"
           rows="3"
           placeholder="Write a review..."
         ></textarea>
+
 
         <button
           class="btn btn-orange btn-full"
@@ -1561,21 +2161,30 @@ window.openDetails = async function(id){
     .getElementById("detailsModal")
     .classList.remove("hidden");
 
+
   await loadReviews(id);
 
 };
 
 
+/* ================= RATING ================= */
+
 window.selectRating = function(n){
 
   selectedRating = n;
 
-  for(let i=1;i<=5;i++){
+
+  for(
+    let i=1;
+    i<=5;
+    i++
+  ){
 
     const el =
       document.getElementById(
         "star"+i
       );
+
 
     if(el){
 
@@ -1600,6 +2209,7 @@ async function loadReviews(appId){
       "reviewsBox"
     );
 
+
   try{
 
     const q =
@@ -1612,8 +2222,10 @@ async function loadReviews(appId){
         )
       );
 
+
     const snap =
       await getDocs(q);
+
 
     if(snap.empty){
 
@@ -1624,35 +2236,58 @@ async function loadReviews(appId){
 
     }
 
+
     box.innerHTML = "";
+
 
     snap.forEach(d => {
 
       const r = d.data();
+
 
       box.innerHTML += `
 
         <div class="review">
 
           <div>
+
             ${"★".repeat(
-              Number(r.rating || 0)
+              Number(
+                r.rating || 0
+              )
             )}
+
             ${"☆".repeat(
-              5-Number(r.rating || 0)
+              5 -
+              Number(
+                r.rating || 0
+              )
             )}
+
           </div>
 
+
           <div style="margin-top:5px;">
+
             ${escapeHtml(
               r.review || ""
             )}
+
           </div>
 
+
           <small>
-            ${r.userEmail
-              ? escapeHtml(r.userEmail)
-              : "User"}
+
+            ${
+              r.userEmail
+              ?
+              escapeHtml(
+                r.userEmail
+              )
+              :
+              "User"
+            }
+
           </small>
 
         </div>
@@ -1661,43 +2296,64 @@ async function loadReviews(appId){
 
     });
 
+
   }catch(error){
 
+    console.error(error);
+
     box.innerHTML =
-      "<p>Reviews load করা যাচ্ছে না।</p>";
+      "<p>Reviews load করা যাচ্ছে না.</p>";
 
   }
 
 }
 
 
+/* ================= SUBMIT REVIEW ================= */
+
 window.submitReview = async function(appId){
 
   if(!currentUser){
 
     alert(
-      "Review দিতে Login করুন।"
+      "Review দিতে Login করুন."
     );
 
     return;
 
   }
+
 
   if(selectedRating < 1){
 
     alert(
-      "আগে star rating দিন।"
+      "আগে star rating দিন."
     );
 
     return;
 
   }
 
+
   const review =
     document
-      .getElementById("reviewText")
+      .getElementById(
+        "reviewText"
+      )
       .value
       .trim();
+
+
+  if(!review){
+
+    alert(
+      "Review লিখুন."
+    );
+
+    return;
+
+  }
+
 
   try{
 
@@ -1705,9 +2361,11 @@ window.submitReview = async function(appId){
       collection(db,"reviews"),
       {
 
-        rating:selectedRating,
+        rating:
+          selectedRating,
 
-        review:review,
+        review:
+          review,
 
         userId:
           currentUser.uid,
@@ -1715,7 +2373,8 @@ window.submitReview = async function(appId){
         userEmail:
           currentUser.email,
 
-        appId:appId,
+        appId:
+          appId,
 
         createdAt:
           serverTimestamp()
@@ -1723,15 +2382,25 @@ window.submitReview = async function(appId){
       }
     );
 
-    alert("Review submitted!");
+
+    alert(
+      "Review submitted!"
+    );
+
 
     selectedRating = 0;
 
-    await loadReviews(appId);
+
+    await loadReviews(
+      appId
+    );
+
 
   }catch(error){
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
   }
 
@@ -1743,39 +2412,61 @@ window.submitReview = async function(appId){
 window.downloadApp = async function(id){
 
   const appRef =
-    doc(db,"apps",id);
+    doc(
+      db,
+      "apps",
+      id
+    );
+
 
   const snap =
     await getDoc(appRef);
 
-  if(!snap.exists()) return;
 
-  const app = snap.data();
+  if(!snap.exists()){
+
+    alert("App পাওয়া যায়নি.");
+
+    return;
+
+  }
+
+
+  const app =
+    snap.data();
+
 
   if(!app.apkUrl){
 
     alert(
-      "Download link পাওয়া যায়নি।"
+      "Download link পাওয়া যায়নি."
     );
 
     return;
 
   }
 
+
   try{
 
     await updateDoc(
       appRef,
       {
-        downloads:increment(1)
+        downloads:
+          increment(1)
       }
     );
 
+
   }catch(error){
 
-    console.log(error);
+    console.log(
+      "Download count error:",
+      error
+    );
 
   }
+
 
   window.open(
     app.apkUrl,
@@ -1793,6 +2484,7 @@ window.openStatus = async function(){
     .getElementById("statusModal")
     .classList.remove("hidden");
 
+
   await loadMyStatus();
 
 };
@@ -1805,6 +2497,7 @@ async function loadMyStatus(){
       "myStatus"
     );
 
+
   if(!currentUser){
 
     box.innerHTML =
@@ -1813,6 +2506,7 @@ async function loadMyStatus(){
     return;
 
   }
+
 
   try{
 
@@ -1826,42 +2520,56 @@ async function loadMyStatus(){
         )
       );
 
+
     const snap =
       await getDocs(q);
+
 
     if(snap.empty){
 
       box.innerHTML =
-        "<p style='color:#777'>আপনি এখনো কোনো app submit করেননি।</p>";
+        "<p style='color:#777'>আপনি এখনো কোনো app submit করেননি.</p>";
 
       return;
 
     }
 
+
     box.innerHTML = "";
+
 
     snap.forEach(d => {
 
-      const app = d.data();
+      const app =
+        d.data();
+
 
       box.innerHTML += `
 
         <div class="admin-item">
 
           <b>
-            ${escapeHtml(app.name)}
+            ${escapeHtml(
+              app.name
+            )}
           </b>
+
 
           <div style="margin-top:8px;">
 
             <span
-              class="status ${app.status}">
+              class="status ${escapeHtml(
+                app.status
+              )}">
+
               ${escapeHtml(
                 app.status
               )}
+
             </span>
 
           </div>
+
 
           <div
             style="
@@ -1874,13 +2582,19 @@ async function loadMyStatus(){
             ${
               app.status === "pending"
 
-              ? "Admin review করছে।"
+              ?
+              "Admin review করছে."
 
-              : app.status === "approved"
+              :
 
-              ? "আপনার app approved হয়েছে।"
+              app.status === "approved"
 
-              : "আপনার app rejected হয়েছে।"
+              ?
+              "আপনার app approved হয়েছে."
+
+              :
+
+              "আপনার app rejected হয়েছে."
 
             }
 
@@ -1892,10 +2606,13 @@ async function loadMyStatus(){
 
     });
 
+
   }catch(error){
 
+    console.error(error);
+
     box.innerHTML =
-      "<p>Data load করা যাচ্ছে না।</p>";
+      "<p>Data load করা যাচ্ছে না.</p>";
 
   }
 
@@ -1911,6 +2628,7 @@ async function loadPendingApps(){
       "pendingApps"
     );
 
+
   try{
 
     const q =
@@ -1923,8 +2641,10 @@ async function loadPendingApps(){
         )
       );
 
+
     const snap =
       await getDocs(q);
+
 
     if(snap.empty){
 
@@ -1935,19 +2655,26 @@ async function loadPendingApps(){
 
     }
 
+
     box.innerHTML = "";
+
 
     snap.forEach(d => {
 
-      const app = d.data();
+      const app =
+        d.data();
+
 
       box.innerHTML += `
 
         <div class="admin-item">
 
           <b>
-            ${escapeHtml(app.name)}
+            ${escapeHtml(
+              app.name
+            )}
           </b>
+
 
           <div
             style="
@@ -1956,11 +2683,14 @@ async function loadPendingApps(){
               margin:6px 0;
             "
           >
+
             Developer:
             ${escapeHtml(
               app.developerEmail || ""
             )}
+
           </div>
+
 
           <div
             style="
@@ -1968,10 +2698,13 @@ async function loadPendingApps(){
               color:#777;
             "
           >
+
             ${escapeHtml(
               app.description || ""
             )}
+
           </div>
+
 
           <div
             style="
@@ -1987,6 +2720,7 @@ async function loadPendingApps(){
               Approve
             </button>
 
+
             <button
               class="btn btn-light"
               onclick="rejectApp('${d.id}')">
@@ -2001,7 +2735,10 @@ async function loadPendingApps(){
 
     });
 
+
   }catch(error){
+
+    console.error(error);
 
     box.innerHTML =
       "<p>Admin data load failed.</p>";
@@ -2011,51 +2748,77 @@ async function loadPendingApps(){
 }
 
 
+/* ================= APPROVE ================= */
+
 window.approveApp = async function(id){
 
   try{
 
     await updateDoc(
-      doc(db,"apps",id),
+      doc(
+        db,
+        "apps",
+        id
+      ),
       {
         status:"approved",
         downloads:0
       }
     );
 
-    alert("App approved!");
+
+    alert(
+      "App approved!"
+    );
+
 
     await loadPendingApps();
 
     await loadApprovedApps();
 
+
   }catch(error){
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
   }
 
 };
 
 
+/* ================= REJECT ================= */
+
 window.rejectApp = async function(id){
 
   try{
 
     await updateDoc(
-      doc(db,"apps",id),
+      doc(
+        db,
+        "apps",
+        id
+      ),
       {
         status:"rejected"
       }
     );
 
-    alert("App rejected!");
+
+    alert(
+      "App rejected!"
+    );
+
 
     await loadPendingApps();
 
+
   }catch(error){
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
   }
 
@@ -2082,7 +2845,7 @@ window.openSupport = function(){
 };
 
 
-/* ================= HELPERS ================= */
+/* ================= HELPER ================= */
 
 function escapeHtml(value){
 
